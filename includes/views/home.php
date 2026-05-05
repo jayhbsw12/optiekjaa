@@ -68,7 +68,7 @@
             <img
               class="collection-model-img"
               loading="lazy"
-              src="<?= esc(asset_url('assets/img/Model-homepage.webp')); ?>"
+              src="<?= esc(asset_url('assets/img/Model-homepage.png')); ?>"
               alt="Model met zonnebrillen uit de collectie"
             >
           </div>
