@@ -64,6 +64,15 @@
         </div>
 
         <div class="collection-cards">
+          <div class="collection-model" aria-hidden="true">
+            <img
+              class="collection-model-img"
+              loading="lazy"
+              src="<?= esc(asset_url('assets/img/Model-homepage.webp')); ?>"
+              alt="Model met zonnebrillen uit de collectie"
+            >
+          </div>
+
           <article class="collection-card card-one" data-step="1">
             <div class="collection-card-media">
               <img

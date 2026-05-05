@@ -3,6 +3,7 @@ const heroEl = document.getElementById('s-hero');
 const featEl = document.getElementById('s-feature');
 const featCpy = document.getElementById('feat-copy');
 const collectionScroll = document.getElementById('collection-scroll');
+const collectionModel = document.querySelector('.collection-model');
 const collectionCards = [...document.querySelectorAll('.collection-card')];
 const navShell = document.querySelector('.nav-shell');
 const loaderEl = document.getElementById('loader');
@@ -80,23 +81,28 @@ const updateFeatureCopy = () => {
 };
 
 const updateCollectionShowcase = () => {
-  if (!collectionScroll || !collectionCards.length) {
+  if (!collectionScroll || (!collectionModel && !collectionCards.length)) {
     return;
   }
 
   if (window.innerWidth <= 1100) {
+    collectionModel?.classList.add('is-active');
     collectionCards.forEach((card) => card.classList.add('is-active'));
     return;
   }
 
   const availableScroll = collectionScroll.offsetHeight - window.innerHeight;
   if (availableScroll <= 0) {
+    collectionModel?.classList.add('is-active');
     collectionCards.forEach((card) => card.classList.add('is-active'));
     return;
   }
 
   const progress = Math.min(1, Math.max(0, -collectionScroll.getBoundingClientRect().top / availableScroll));
-  const thresholds = [0.18, 0.46, 0.74];
+  const modelThreshold = 0.14;
+  const thresholds = [0.34, 0.56, 0.78];
+
+  collectionModel?.classList.toggle('is-active', progress >= modelThreshold);
 
   collectionCards.forEach((card, index) => {
     card.classList.toggle('is-active', progress >= thresholds[index]);
