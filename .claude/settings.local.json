@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:optiekjaa.com)",
+      "WebFetch(domain:oddritualgolf.com)",
+      "WebFetch(domain:www.bodeyco.com)",
+      "WebFetch(domain:gatzara.studio)",
+      "WebFetch(domain:www.eathungrytiger.com)",
+      "WebFetch(domain:superpower.com)",
+      "WebFetch(domain:studiobonded.com)"
+    ]
+  }
+}
