@@ -2,7 +2,20 @@
   <nav aria-label="Hoofdnavigatie">
     <div class="nav-shell">
       <div class="nav-brand">
-        <a href="<?= esc(url()); ?>" class="nav-logo"><?= esc($site['name']); ?></a>
+        <a href="<?= esc(url()); ?>" class="nav-logo" aria-label="<?= esc($site['name']); ?>">
+          <img
+            src="<?= esc(asset_url('assets/img/OPTIEK-LOGO-main.svg')); ?>"
+            alt=""
+            aria-hidden="true"
+            class="nav-logo-img nav-logo-img--default"
+          >
+          <img
+            src="<?= esc(asset_url('assets/img/OPTIEK-LOGO-2-sticky.svg')); ?>"
+            alt=""
+            aria-hidden="true"
+            class="nav-logo-img nav-logo-img--hover"
+          >
+        </a>
         <span class="nav-divider" aria-hidden="true"></span>
         <span class="nav-subtitle">Premium optiek, Suriname</span>
       </div>
