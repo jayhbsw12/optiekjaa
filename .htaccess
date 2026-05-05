@@ -1,0 +1,31 @@
+DirectoryIndex index.php
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+RewriteCond %{THE_REQUEST} \s/+[^\s?]*index\.html(?:[\s?]|$) [NC]
+RewriteRule ^index\.html$ ./ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+[^\s?]*index\.php(?:[\s?]|$) [NC]
+RewriteRule ^index\.php$ ./ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+[^\s?]+\.php(?:[\s?]|$) [NC]
+RewriteRule ^(.+)\.php$ $1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]
+
+RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]{1,5}$
+RewriteRule ^ 404.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+<FilesMatch "\.(php|html)$">
+Header set X-Robots-Tag "noindex, nofollow"
+</FilesMatch>
+</IfModule>
