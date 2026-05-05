@@ -280,7 +280,7 @@ const bootThreeScene = async () => {
     const normalizedY = (event.clientY / window.innerHeight - 0.5) * 2;
 
     targetRotateY = normalizedX * 0.44;
-    targetRotateX = -normalizedY * 0.24;
+    targetRotateX = normalizedY * 0.24;
   });
 
   window.addEventListener('mouseleave', () => {

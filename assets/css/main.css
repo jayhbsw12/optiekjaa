@@ -874,8 +874,9 @@ nav{
   box-shadow:0 32px 80px rgba(0,0,0,.2);
   opacity:0;
   pointer-events:none;
-  transform:translate(-50%, -50%) translate(24%, 18%) rotate(8deg) scale(.82);
-  transition:transform .85s cubic-bezier(.22,1,.36,1),opacity .55s ease,box-shadow .55s ease;
+  transform:translate(-50%, -50%) translate(var(--card-x), calc(var(--card-y) + 74vh)) rotate(var(--card-rotate)) scale(.96);
+  transition:transform .98s cubic-bezier(.22,1,.36,1),opacity .38s ease,box-shadow .5s ease;
+  will-change:transform,opacity;
 }
 .collection-card-media{
   display:none;
