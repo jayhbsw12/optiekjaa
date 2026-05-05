@@ -37,7 +37,21 @@ if (!function_exists('url')) {
 if (!function_exists('asset_url')) {
     function asset_url(string $path): string
     {
-        return url($path);
+        $url = url($path);
+        $assetPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, ltrim($path, '/\\'));
+
+        if (!is_file($assetPath)) {
+            return $url;
+        }
+
+        $version = filemtime($assetPath);
+        if ($version === false) {
+            return $url;
+        }
+
+        $separator = strpos($url, '?') === false ? '?' : '&';
+
+        return $url . $separator . 'v=' . rawurlencode((string) $version);
     }
 }
 
