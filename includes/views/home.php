@@ -180,7 +180,7 @@
         >
         <div class="lens-upgrade-card-copy reveal d1">
           <div class="lens-upgrade-card-num">02</div>
-          <h2 class="lens-upgrade-card-title">Superontspiegeling UV</h2>
+          <h2 class="lens-upgrade-card-title">Superontspieg&shy;eling UV</h2>
         </div>
       </article>
 
