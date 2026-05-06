@@ -50,7 +50,6 @@
     <div class="collection-scroll" id="collection-scroll">
       <div class="collection-sticky">
         <div class="collection-copy">
-          <div class="sec-tag collection-tag">01 &mdash; Brillen</div>
           <h2 class="collection-title">Onze <em>collectie</em></h2>
           <p class="collection-text">
             Scroll door drie zorgvuldig geselecteerde briloplossingen en ontdek welke stijl, sterkte en draagervaring het beste bij uw dagelijks leven past.
