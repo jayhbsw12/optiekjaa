@@ -141,6 +141,62 @@
     </div>
   </section>
 
+  <section class="lens-upgrade-strip" aria-label="Premium glasopties">
+    <div class="lens-upgrade-grid">
+      <article class="lens-upgrade-card">
+        <img
+          class="lens-upgrade-card-img"
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&amp;auto=format&amp;q=80"
+          alt="Dummy preview voor kraswerende glazen"
+        >
+        <div class="lens-upgrade-card-copy reveal">
+          <div class="lens-upgrade-card-num">01</div>
+          <h2 class="lens-upgrade-card-title">Kraswerende glazen</h2>
+        </div>
+      </article>
+
+      <article class="lens-upgrade-card">
+        <img
+          class="lens-upgrade-card-img"
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=1200&amp;auto=format&amp;q=80"
+          alt="Dummy preview voor superontspiegeling UV"
+        >
+        <div class="lens-upgrade-card-copy reveal d1">
+          <div class="lens-upgrade-card-num">02</div>
+          <h2 class="lens-upgrade-card-title">Superontspiegeling UV</h2>
+        </div>
+      </article>
+
+      <article class="lens-upgrade-card">
+        <img
+          class="lens-upgrade-card-img"
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1200&amp;auto=format&amp;q=80"
+          alt="Dummy preview voor dunnere glazen"
+        >
+        <div class="lens-upgrade-card-copy reveal d2">
+          <div class="lens-upgrade-card-num">03</div>
+          <h2 class="lens-upgrade-card-title">Dunnere glazen</h2>
+        </div>
+      </article>
+
+      <article class="lens-upgrade-card">
+        <img
+          class="lens-upgrade-card-img"
+          loading="lazy"
+          src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1200&amp;auto=format&amp;q=80"
+          alt="Dummy preview voor vuilafstotende laag"
+        >
+        <div class="lens-upgrade-card-copy reveal d3">
+          <div class="lens-upgrade-card-num">04</div>
+          <h2 class="lens-upgrade-card-title">Vuilafstotende laag</h2>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <div class="marquee-wrap" aria-hidden="true">
     <div class="marquee-track">
       <div class="marquee-item">Dunnere Glazen<span class="m-dot"></span></div>
