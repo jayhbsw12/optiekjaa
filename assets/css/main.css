@@ -1057,6 +1057,37 @@ html.gsap-enhanced .hero-scroll{
   line-height:1.75;
   color:var(--primary-soft);
 }
+.collection-card-list{
+  list-style:none;
+  margin:.9rem 0 0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+.collection-card-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:.55rem;
+  font-size:15px;
+  line-height:1.55;
+  color:var(--primary-soft);
+}
+.collection-card-list li::before{
+  content:"\2713";
+  flex-shrink:0;
+  width:1.25rem;
+  height:1.25rem;
+  border-radius:50%;
+  border:2px solid var(--accent,#f5b800);
+  color:var(--accent,#f5b800);
+  font-size:.75rem;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:.12rem;
+}
 .collection-card-meta{
   display:flex;
   align-items:center;

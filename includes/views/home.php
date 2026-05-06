@@ -88,6 +88,11 @@
               <div class="collection-card-tag">Enkelvoudige sterkte</div>
               <h3 class="collection-card-title">Enkelvoudige Bril</h3>
               <p class="collection-card-desc">Geschikt voor mensen die een bril voor alleen veraf of alleen voor lezen nodig hebben. Alle glasopties beschikbaar voor maximaal comfort en heldere visie.</p>
+              <ul class="collection-card-list">
+                <li>Enkele sterkte</li>
+                <li>Geschikt voor mensen die een bril voor alleen veraf of alleen voor lezen nodig hebben</li>
+                <li>Alle glasopties beschikbaar</li>
+              </ul>
               <div class="collection-card-meta">
                 <div class="collection-card-badge">Alle glasopties beschikbaar</div>
                 <a href="<?= esc(url('contact')); ?>" class="collection-card-link">Meer informatie</a>
@@ -109,6 +114,11 @@
               <div class="collection-card-tag">Nieuwste generatie</div>
               <h3 class="collection-card-title">Bifocale Bril</h3>
               <p class="collection-card-desc">De nieuwste generatie bifocale glazen. Gepersonaliseerd glas met perfect zicht en ingebouwde boostzone &mdash; voor comfortabel zien op iedere afstand.</p>
+              <ul class="collection-card-list">
+                <li>De nieuwste generatie bifocale glazen</li>
+                <li>Gepersonaliseerd glas met perfect zicht en boostzone</li>
+                <li>Alle glasopties beschikbaar</li>
+              </ul>
               <div class="collection-card-meta">
                 <div class="collection-card-badge">Alle glasopties beschikbaar</div>
                 <a href="<?= esc(url('contact')); ?>" class="collection-card-link">Meer informatie</a>
@@ -130,6 +140,11 @@
               <div class="collection-card-tag">Meerdere sterkten</div>
               <h3 class="collection-card-title">Multifocale Bril</h3>
               <p class="collection-card-desc">Glazen met meerdere sterkten. Geschikt voor mensen die een bril voor zowel veraf als dichtbij nodig hebben &mdash; zonder zichtbare overgang.</p>
+              <ul class="collection-card-list">
+                <li>Glazen met meerdere sterkten</li>
+                <li>Geschikt voor mensen die een bril voor zowel veraf als dichtbij nodig hebben</li>
+                <li>Alle glasopties beschikbaar</li>
+              </ul>
               <div class="collection-card-meta">
                 <div class="collection-card-badge">Alle glasopties beschikbaar</div>
                 <a href="<?= esc(url('contact')); ?>" class="collection-card-link">Meer informatie</a>
