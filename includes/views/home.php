@@ -164,15 +164,17 @@
   <div class="editorial-band">
     <img
       class="editorial-band-img"
-      src="https://images.pexels.com/photos/5201901/pexels-photo-5201901.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1800"
-      alt="Optiekjaa brillencollectie"
+      src="<?= esc(asset_url('assets/img/Model-homepage-Quote.png')); ?>"
+      alt="Modellen met brillen uit de collectie van Optiekjaa"
       loading="lazy"
     >
     <div class="editorial-inner">
-      <div class="editorial-eyebrow">Vakmanschap &amp; stijl</div>
-      <p class="editorial-quote">
-        &quot;De bril die u draagt<br>vertelt het verhaal van wie u bent.&quot;
-      </p>
+      <div class="editorial-copy">
+        <div class="editorial-eyebrow">Vakmanschap &amp; stijl</div>
+        <p class="editorial-quote">
+          &quot;De bril die u draagt vertelt het<br class="editorial-quote-break">verhaal van wie u bent.&quot;
+        </p>
+      </div>
     </div>
   </div>
 
