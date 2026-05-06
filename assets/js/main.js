@@ -6,31 +6,562 @@ const collectionScroll = document.getElementById('collection-scroll');
 const collectionModel = document.querySelector('.collection-model');
 const collectionCards = [...document.querySelectorAll('.collection-card')];
 const navShell = document.querySelector('.nav-shell');
+const navLogo = document.querySelector('.nav-logo');
+const navDivider = document.querySelector('.nav-divider');
+const navSubtitle = document.querySelector('.nav-subtitle');
+const navLinks = [...document.querySelectorAll('.nav-links li')];
+const navCta = document.querySelector('.nav-cta');
 const loaderEl = document.getElementById('loader');
+const ldTrack = document.querySelector('.ld-track');
 const ldFill = document.getElementById('ld-fill');
 const ldPct = document.getElementById('ld-pct');
+const ldWordmark = document.querySelector('.ld-wordmark');
+const heroEyebrow = document.querySelector('.hero-eyebrow');
+const heroLines = [...document.querySelectorAll('.hero-line')];
+const clippedHeadingBlocks = [...document.querySelectorAll('.heading-clip')];
+const heroDesc = document.querySelector('.hero-desc');
+const heroActions = document.querySelector('.hero-actions');
+const heroActionItems = heroActions ? [...heroActions.children] : [];
+const heroScrollIndicator = document.querySelector('.hero-scroll');
+const editorialBand = document.querySelector('.editorial-band');
+const editorialImage = document.querySelector('.editorial-band-img');
+const editorialCopy = document.querySelector('.editorial-copy');
 const marqueePlaySections = [...document.querySelectorAll('[data-marquee-play]')];
 const brandRibbon = document.querySelector('.brand-ribbon');
 const brandRibbonTrack = brandRibbon?.querySelector('[data-brand-ribbon-track]');
 const brandRibbonGroups = brandRibbonTrack ? [...brandRibbonTrack.querySelectorAll('.brand-ribbon-group')] : [];
+const footerEl = document.querySelector('.site-footer');
+const footerKicker = footerEl?.querySelector('.footer-kicker');
+const footerCredit = footerEl?.querySelector('.footer-credit');
+const footerCopy = footerEl?.querySelector('.footer-copy');
+const footerNewsForm = footerEl?.querySelector('.footer-news-form');
+const footerLabels = footerEl ? [...footerEl.querySelectorAll('.footer-label')] : [];
+const footerGiantLinks = footerEl ? [...footerEl.querySelectorAll('.footer-giant-link')] : [];
+const footerIconButtons = footerEl ? [...footerEl.querySelectorAll('.footer-icon-btn')] : [];
+const footerContactLines = footerEl ? [...footerEl.querySelectorAll('.footer-contact-lines > *')] : [];
+const footerBarItems = footerEl
+  ? [footerEl.querySelector('.footer-bar-copy'), ...footerEl.querySelectorAll('.footer-bar-links a')].filter(Boolean)
+  : [];
 const modelUrl = new URL('../../glasses_06/scene.gltf', import.meta.url).href;
+const body = document.body;
 const root = document.documentElement;
 const themeAccent = getComputedStyle(root).getPropertyValue('--brand-accent').trim() || '#f7b704';
+const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+const gsapLib = window.gsap;
+const scrollTriggerLib = window.ScrollTrigger;
+const motionEnabled = Boolean(body?.classList.contains('page-home') && gsapLib && !reduceMotionQuery.matches);
+const motionState = {
+  introPlayed: false,
+  loaderEnterPlayed: false,
+  loaderExitPlayed: false,
+  loaderChars: [],
+  navSubtitleWords: [],
+  footerLinkSets: [],
+};
 const markPageLoaded = () => root.classList.add('page-loaded');
 const setModelFallback = () => root.classList.add('model-fallback');
 const clearModelFallback = () => root.classList.remove('model-fallback');
 
-const hideLoader = (message) => {
-  if (ldPct && message) {
-    ldPct.textContent = message;
+const wrapLineMask = (element) => {
+  if (!element) {
+    return null;
   }
 
-  markPageLoaded();
+  if (element.parentElement?.classList.contains('gsap-line-mask')) {
+    return element.parentElement;
+  }
 
-  if (!loaderEl) {
+  const mask = document.createElement('span');
+  mask.className = 'gsap-line-mask';
+  element.parentNode?.insertBefore(mask, element);
+  mask.appendChild(element);
+
+  return mask;
+};
+
+const splitTextUnits = (element, mode = 'chars') => {
+  if (!element) {
+    return [];
+  }
+
+  const selector = mode === 'words' ? '.gsap-word' : '.gsap-char';
+  if (element.dataset.gsapSplit === mode) {
+    return [...element.querySelectorAll(selector)];
+  }
+
+  const text = (element.textContent || '').replace(/\s+/g, ' ').trim();
+  if (!text) {
+    return [];
+  }
+
+  element.dataset.gsapSplit = mode;
+  element.setAttribute('aria-label', text);
+  element.textContent = '';
+
+  const parts = mode === 'words' ? text.split(/(\s+)/) : Array.from(text);
+  const fragment = document.createDocumentFragment();
+
+  parts.forEach((part) => {
+    if (!part) {
+      return;
+    }
+
+    if (/\s+/.test(part)) {
+      fragment.appendChild(document.createTextNode(part));
+      return;
+    }
+
+    const span = document.createElement('span');
+    span.className = mode === 'words' ? 'gsap-word' : 'gsap-char';
+    span.textContent = part;
+    span.setAttribute('aria-hidden', 'true');
+    fragment.appendChild(span);
+  });
+
+  element.appendChild(fragment);
+  return [...element.querySelectorAll(selector)];
+};
+
+const getClippedHeadingLines = (element) => [...(element?.children || [])]
+  .filter((child) => child.classList.contains('heading-clip-line'));
+
+const playHomepageIntro = () => {
+  if (!motionEnabled || motionState.introPlayed) {
     return;
   }
 
+  motionState.introPlayed = true;
+
+  const navSubtitleTargets = motionState.navSubtitleWords.length ? motionState.navSubtitleWords : (navSubtitle ? [navSubtitle] : []);
+  const heroTextTargets = [heroEyebrow, heroDesc].filter(Boolean);
+  const introActionTargets = heroActionItems.length ? heroActionItems : (heroActions ? [heroActions] : []);
+  const timeline = gsapLib.timeline({ defaults: { ease: 'power3.out' } });
+
+  timeline
+    .to(navShell, {
+      y: 0,
+      autoAlpha: 1,
+      scale: 1,
+      duration: 1.1,
+      ease: 'expo.out',
+    })
+    .to(navLogo, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.72,
+    }, 0.16)
+    .to(navDivider, {
+      scaleY: 1,
+      autoAlpha: 1,
+      duration: 0.62,
+    }, 0.24)
+    .to(navSubtitleTargets, {
+      yPercent: 0,
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.72,
+      stagger: 0.05,
+      ease: 'expo.out',
+    }, 0.24)
+    .to(navLinks, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.68,
+      stagger: 0.07,
+    }, 0.34)
+    .to(navCta, {
+      y: 0,
+      autoAlpha: 1,
+      scale: 1,
+      duration: 0.84,
+      ease: 'back.out(1.35)',
+    }, 0.4)
+    .to(heroLines, {
+      yPercent: 0,
+      rotate: 0,
+      duration: 1.2,
+      stagger: 0.14,
+      ease: 'expo.out',
+    }, 0.34)
+    .to(heroTextTargets, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.82,
+      stagger: 0.1,
+    }, 0.58)
+    .to(introActionTargets, {
+      y: 0,
+      autoAlpha: 1,
+      scale: 1,
+      duration: 0.76,
+      stagger: 0.08,
+    }, 0.72)
+    .to(heroScrollIndicator, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.7,
+    }, 1.02);
+};
+
+const playLoaderEntrance = () => {
+  if (!motionEnabled || motionState.loaderEnterPlayed || !loaderEl) {
+    return;
+  }
+
+  motionState.loaderEnterPlayed = true;
+
+  const loaderLabelTargets = [ldTrack, ldPct].filter(Boolean);
+  gsapLib.set(motionState.loaderChars, {
+    yPercent: 112,
+    autoAlpha: 0,
+    rotate: 6,
+    transformOrigin: '50% 100%',
+  });
+  gsapLib.set(loaderLabelTargets, {
+    y: 12,
+    autoAlpha: 0,
+  });
+  gsapLib.set(ldTrack, {
+    scaleX: 0.72,
+    transformOrigin: '50% 50%',
+  });
+
+  gsapLib.timeline({ defaults: { ease: 'expo.out' } })
+    .to(motionState.loaderChars, {
+      yPercent: 0,
+      autoAlpha: 1,
+      rotate: 0,
+      duration: 0.9,
+      stagger: 0.03,
+    })
+    .to(loaderLabelTargets, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.7,
+      stagger: 0.08,
+    }, 0.18)
+    .to(ldTrack, {
+      scaleX: 1,
+      duration: 0.8,
+    }, 0.16);
+};
+
+const setupFooterTimeline = () => {
+  if (!motionEnabled || !scrollTriggerLib || !footerEl) {
+    return;
+  }
+
+  const giantChars = motionState.footerLinkSets.flatMap((item) => item.chars);
+  const footerIntroTargets = [footerKicker, footerCredit, footerCopy, footerNewsForm, ...footerLabels, ...footerContactLines, ...footerBarItems].filter(Boolean);
+
+  gsapLib.set(footerIntroTargets, {
+    y: 34,
+    autoAlpha: 0,
+  });
+  gsapLib.set(footerIconButtons, {
+    y: 22,
+    autoAlpha: 0,
+    scale: 0.9,
+  });
+  gsapLib.set(giantChars, {
+    yPercent: 112,
+    autoAlpha: 0,
+    rotate: 3,
+    transformOrigin: '50% 100%',
+  });
+
+  gsapLib.timeline({
+    defaults: { ease: 'power3.out' },
+    scrollTrigger: {
+      trigger: footerEl,
+      start: 'top 82%',
+      once: true,
+    },
+  })
+    .to(footerKicker, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.68,
+    })
+    .to(giantChars, {
+      yPercent: 0,
+      autoAlpha: 1,
+      rotate: 0,
+      duration: 0.9,
+      stagger: 0.015,
+      ease: 'expo.out',
+    }, 0.06)
+    .to(footerCredit, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.74,
+    }, 0.28)
+    .to([footerCopy, footerNewsForm].filter(Boolean), {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.82,
+      stagger: 0.12,
+    }, 0.4)
+    .to(footerLabels, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.7,
+      stagger: 0.08,
+    }, 0.56)
+    .to(footerIconButtons, {
+      y: 0,
+      autoAlpha: 1,
+      scale: 1,
+      duration: 0.72,
+      stagger: 0.06,
+      ease: 'back.out(1.5)',
+    }, 0.66)
+    .to(footerContactLines, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.72,
+      stagger: 0.05,
+    }, 0.8)
+    .to(footerBarItems, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.7,
+      stagger: 0.08,
+    }, 0.94);
+};
+
+const setupEditorialTimeline = () => {
+  if (!motionEnabled || !scrollTriggerLib || !editorialBand) {
+    return;
+  }
+
+  if (editorialCopy) {
+    gsapLib.fromTo(editorialCopy, {
+      y: 34,
+      autoAlpha: 0,
+    }, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.95,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: editorialBand,
+        start: 'top 82%',
+        once: true,
+      },
+    });
+  }
+
+  if (editorialImage) {
+    gsapLib.fromTo(editorialImage, {
+      scale: 1.08,
+    }, {
+      scale: 1,
+      duration: 1.4,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: editorialBand,
+        start: 'top 86%',
+        once: true,
+      },
+    });
+  }
+};
+
+const setupClippedHeadingTimelines = () => {
+  if (!motionEnabled || !scrollTriggerLib || !clippedHeadingBlocks.length) {
+    return;
+  }
+
+  clippedHeadingBlocks.forEach((heading) => {
+    const lines = getClippedHeadingLines(heading);
+    if (!lines.length) {
+      return;
+    }
+
+    lines.forEach((line) => wrapLineMask(line));
+
+    if (heading.classList.contains('hero-headline')) {
+      return;
+    }
+
+    gsapLib.set(lines, {
+      yPercent: 112,
+      rotate: 1.5,
+      transformOrigin: '50% 100%',
+    });
+
+    gsapLib.timeline({
+      defaults: { ease: 'expo.out' },
+      scrollTrigger: {
+        trigger: heading,
+        start: 'top 86%',
+        once: true,
+      },
+    }).to(lines, {
+      yPercent: 0,
+      rotate: 0,
+      duration: 1.05,
+      stagger: 0.12,
+    });
+  });
+};
+
+const setupGsapRevealAnimations = () => {
+  const revealElements = [...document.querySelectorAll('.reveal')];
+  if (!motionEnabled || !scrollTriggerLib || !revealElements.length) {
+    return false;
+  }
+
+  revealElements.forEach((element) => {
+    gsapLib.fromTo(element, {
+      y: 38,
+      autoAlpha: 0,
+    }, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: element,
+        start: 'top 88%',
+        once: true,
+      },
+      onStart: () => element.classList.add('in'),
+    });
+  });
+
+  return true;
+};
+
+const initGsapMotion = () => {
+  if (!motionEnabled) {
+    return;
+  }
+
+  root.classList.add('gsap-enhanced');
+  scrollTriggerLib && gsapLib.registerPlugin(scrollTriggerLib);
+
+  heroLines.forEach((line) => wrapLineMask(line));
+  setupClippedHeadingTimelines();
+
+  motionState.loaderChars = splitTextUnits(ldWordmark, 'chars');
+  motionState.navSubtitleWords = splitTextUnits(navSubtitle, 'words');
+  motionState.footerLinkSets = footerGiantLinks.map((link) => ({
+    link,
+    chars: splitTextUnits(link, 'chars'),
+  }));
+
+  const navSubtitleTargets = motionState.navSubtitleWords.length ? motionState.navSubtitleWords : (navSubtitle ? [navSubtitle] : []);
+  const heroTextTargets = [heroEyebrow, heroDesc].filter(Boolean);
+  const introActionTargets = heroActionItems.length ? heroActionItems : (heroActions ? [heroActions] : []);
+
+  gsapLib.set(navShell, {
+    y: -26,
+    autoAlpha: 0,
+    scale: 0.985,
+    transformOrigin: '50% 0%',
+  });
+  gsapLib.set(navLogo, {
+    y: 18,
+    autoAlpha: 0,
+  });
+  gsapLib.set(navDivider, {
+    scaleY: 0,
+    autoAlpha: 0,
+    transformOrigin: '50% 50%',
+  });
+  gsapLib.set(navSubtitleTargets, {
+    yPercent: 118,
+    autoAlpha: 0,
+  });
+  gsapLib.set(navLinks, {
+    y: 16,
+    autoAlpha: 0,
+  });
+  gsapLib.set(navCta, {
+    y: 16,
+    autoAlpha: 0,
+    scale: 0.96,
+  });
+  gsapLib.set(heroLines, {
+    yPercent: 112,
+    rotate: 1.5,
+    transformOrigin: '50% 100%',
+  });
+  gsapLib.set(heroTextTargets, {
+    y: 24,
+    autoAlpha: 0,
+  });
+  gsapLib.set(introActionTargets, {
+    y: 18,
+    autoAlpha: 0,
+    scale: 0.96,
+  });
+  gsapLib.set(heroScrollIndicator, {
+    y: 18,
+    autoAlpha: 0,
+  });
+
+  playLoaderEntrance();
+  setupFooterTimeline();
+  setupEditorialTimeline();
+  scrollTriggerLib && window.requestAnimationFrame(() => scrollTriggerLib.refresh());
+};
+
+const hideLoader = (message) => {
+  if (ldFill) {
+    ldFill.style.width = '100%';
+  }
+
+  if (ldPct) {
+    ldPct.textContent = message || '100%';
+  }
+
+  if (!loaderEl) {
+    markPageLoaded();
+    return;
+  }
+
+  if (motionEnabled && !motionState.loaderExitPlayed) {
+    motionState.loaderExitPlayed = true;
+
+    const loaderLabelTargets = [ldTrack, ldPct].filter(Boolean);
+    const timeline = gsapLib.timeline({
+      defaults: { ease: 'power3.out' },
+      onStart: playHomepageIntro,
+      onComplete: () => {
+        loaderEl.style.display = 'none';
+        markPageLoaded();
+        scrollTriggerLib && scrollTriggerLib.refresh();
+      },
+    });
+
+    timeline
+      .to(loaderLabelTargets, {
+        y: -14,
+        autoAlpha: 0,
+        duration: 0.32,
+        stagger: 0.06,
+      }, 0)
+      .to(motionState.loaderChars, {
+        yPercent: -118,
+        autoAlpha: 0,
+        rotate: -5,
+        duration: 0.5,
+        stagger: 0.018,
+        ease: 'power4.in',
+      }, 0)
+      .to(loaderEl, {
+        autoAlpha: 0,
+        duration: 0.58,
+        ease: 'power2.out',
+      }, 0.22);
+
+    return;
+  }
+
+  markPageLoaded();
   loaderEl.classList.add('out');
   window.setTimeout(() => {
     loaderEl.style.display = 'none';
@@ -38,27 +569,48 @@ const hideLoader = (message) => {
 };
 
 window.addEventListener('load', () => {
-  window.setTimeout(markPageLoaded, 600);
+  if (!loaderEl) {
+    window.setTimeout(markPageLoaded, 240);
+    return;
+  }
+
+  window.setTimeout(() => {
+    if (!root.classList.contains('page-loaded')) {
+      hideLoader('Welkom');
+    }
+  }, motionEnabled ? 7000 : 5200);
 }, { once: true });
 
-window.setTimeout(markPageLoaded, 4200);
+window.setTimeout(() => {
+  if (!root.classList.contains('page-loaded')) {
+    if (loaderEl) {
+      hideLoader('Welkom');
+      return;
+    }
+
+    markPageLoaded();
+  }
+}, motionEnabled ? 7600 : 5600);
+
+initGsapMotion();
 
 const revealElements = document.querySelectorAll('.reveal');
-if (revealElements.length && 'IntersectionObserver' in window) {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+if (!setupGsapRevealAnimations()) {
+  if (revealElements.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
 
-  revealElements.forEach((element) => io.observe(element));
-} else {
-  revealElements.forEach((element) => element.classList.add('in'));
+    revealElements.forEach((element) => io.observe(element));
+  } else {
+    revealElements.forEach((element) => element.classList.add('in'));
+  }
 }
-
 if (marqueePlaySections.length && 'IntersectionObserver' in window) {
   const marqueeObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

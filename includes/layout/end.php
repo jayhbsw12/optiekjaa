@@ -1,5 +1,7 @@
 <script>
 (() => {
+  const isHomePage = document.body.classList.contains('page-home');
+
   const markPageLoaded = () => {
     document.documentElement.classList.add('page-loaded');
 
@@ -9,13 +11,22 @@
     }
   };
 
-  window.addEventListener('load', () => {
-    window.setTimeout(markPageLoaded, 600);
-  }, { once: true });
+  if (!isHomePage) {
+    window.addEventListener('load', () => {
+      window.setTimeout(markPageLoaded, 240);
+    }, { once: true });
 
-  window.setTimeout(markPageLoaded, 5200);
+    window.setTimeout(markPageLoaded, 2400);
+    return;
+  }
+
+  window.setTimeout(markPageLoaded, 9000);
 })();
 </script>
+<?php if (strpos((string) ($page['body_class'] ?? ''), 'page-home') !== false): ?>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<?php endif; ?>
 <script type="importmap">
 {
   "imports": {

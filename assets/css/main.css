@@ -192,6 +192,7 @@ h6{
   transition:opacity .7s ease;
   animation:loaderFailsafe .7s ease 4.5s forwards;
 }
+html.gsap-enhanced #loader{animation:none}
 #loader.out,
 html.page-loaded #loader{opacity:0;pointer-events:none}
 .ld-wordmark{
@@ -222,6 +223,21 @@ html.page-loaded #loader{opacity:0;pointer-events:none}
   letter-spacing:.2em;
   text-transform:uppercase;
   color:var(--mid);
+}
+.gsap-line-mask{
+  display:block;
+  overflow:hidden;
+  padding-block:.08em;
+  margin-block:-.08em;
+}
+.heading-clip-line{
+  display:block;
+}
+.gsap-char,
+.gsap-word{
+  display:inline-block;
+  will-change:transform,opacity;
+  backface-visibility:hidden;
 }
 
 #gl{
@@ -648,6 +664,17 @@ html.page-loaded #loader{opacity:0;pointer-events:none}
 .h-anim{opacity:0;transform:translateY(22px);animation:fadeUp .9s ease both}
 .h-anim-1{animation-delay:.3s}
 .h-anim-2{animation-delay:.5s}
+html.gsap-enhanced .h-anim,
+html.gsap-enhanced .hero-scroll{
+  animation:none;
+}
+html.gsap-enhanced .h-anim{
+  opacity:1;
+  transform:none;
+}
+html.gsap-enhanced .hero-scroll{
+  opacity:1;
+}
 
 #s-feature{
   min-height:100vh;
@@ -1474,6 +1501,9 @@ html.page-loaded #loader{opacity:0;pointer-events:none}
 .footer-giant-link{
   display:block;
   width:max-content;
+  overflow:hidden;
+  padding-right:.12em;
+  margin-right:-.12em;
   font-family:var(--heading);
   font-size:clamp(3.8rem,8vw,6.8rem);
   line-height:.82;

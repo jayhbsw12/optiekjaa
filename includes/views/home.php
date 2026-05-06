@@ -32,9 +32,9 @@
   <section id="s-feature">
     <div class="feat-copy" id="feat-copy">
       <div class="tag">Onze expertise</div>
-      <h2 class="feat-h2">
-        Uw perfecte bril,<br>
-        <em>vakkundig gemaakt</em>
+      <h2 class="feat-h2 heading-clip">
+        <span class="heading-clip-line">Uw perfecte bril,</span>
+        <span class="heading-clip-line"><em>vakkundig gemaakt</em></span>
       </h2>
       <p class="feat-p">
         Met jarenlange ervaring in de optiekbranche bieden wij een persoonlijke benadering die verder gaat dan een standaard oogmeting. Van montuuradvies tot op maat geslepen glazen &mdash; wij begeleiden u bij elke stap.
@@ -50,7 +50,9 @@
     <div class="collection-scroll" id="collection-scroll">
       <div class="collection-sticky">
         <div class="collection-copy">
-          <h2 class="collection-title">Onze <em>collectie</em></h2>
+          <h2 class="collection-title heading-clip">
+            <span class="heading-clip-line">Onze <em>collectie</em></span>
+          </h2>
           <p class="collection-text">
             Scroll door drie zorgvuldig geselecteerde briloplossingen en ontdek welke stijl, sterkte en draagervaring het beste bij uw dagelijks leven past.
           </p>
@@ -170,8 +172,9 @@
     <div class="editorial-inner">
       <div class="editorial-copy">
         <div class="editorial-eyebrow">Vakmanschap &amp; stijl</div>
-        <p class="editorial-quote">
-          &quot;De bril die u draagt vertelt het<br class="editorial-quote-break">verhaal van wie u bent.&quot;
+        <p class="editorial-quote heading-clip">
+          <span class="heading-clip-line">&quot;De bril die u draagt vertelt het</span>
+          <span class="heading-clip-line">verhaal van wie u bent.&quot;</span>
         </p>
       </div>
     </div>
