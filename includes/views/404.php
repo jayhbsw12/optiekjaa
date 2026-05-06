@@ -11,7 +11,7 @@
           <span class="btn-liquid-shell"></span>
           <span class="btn-liquid-label">Terug naar home</span>
         </a>
-        <a href="<?= esc(url('/#contact')); ?>" class="btn-line">Neem contact op</a>
+        <a href="<?= esc(url('contact')); ?>" class="btn-line">Neem contact op</a>
       </div>
     </div>
   </section>

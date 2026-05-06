@@ -25,7 +25,7 @@
         <li><a href="<?= esc(url('glazen')); ?>">Glazen</a></li>
         <li><a href="<?= esc(url('carriere')); ?>">Carri&egrave;re</a></li>
       </ul>
-      <a href="<?= esc(url('/#contact')); ?>" class="btn-liquid nav-cta">
+      <a href="<?= esc(url('contact')); ?>" class="btn-liquid nav-cta">
         <span class="btn-liquid-shell"></span>
         <span class="btn-liquid-label">Contact</span>
       </a>

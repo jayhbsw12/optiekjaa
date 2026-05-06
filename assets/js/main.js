@@ -9,8 +9,13 @@ const navShell = document.querySelector('.nav-shell');
 const loaderEl = document.getElementById('loader');
 const ldFill = document.getElementById('ld-fill');
 const ldPct = document.getElementById('ld-pct');
-const modelUrl = new URL('../../ray_ban_glasses/scene.gltf', import.meta.url).href;
+const marqueePlaySections = [...document.querySelectorAll('[data-marquee-play]')];
+const brandRibbon = document.querySelector('.brand-ribbon');
+const brandRibbonTrack = brandRibbon?.querySelector('[data-brand-ribbon-track]');
+const brandRibbonGroups = brandRibbonTrack ? [...brandRibbonTrack.querySelectorAll('.brand-ribbon-group')] : [];
+const modelUrl = new URL('../../glasses_06/scene.gltf', import.meta.url).href;
 const root = document.documentElement;
+const themeAccent = getComputedStyle(root).getPropertyValue('--brand-accent').trim() || '#f7b704';
 const markPageLoaded = () => root.classList.add('page-loaded');
 const setModelFallback = () => root.classList.add('model-fallback');
 const clearModelFallback = () => root.classList.remove('model-fallback');
@@ -52,6 +57,80 @@ if (revealElements.length && 'IntersectionObserver' in window) {
   revealElements.forEach((element) => io.observe(element));
 } else {
   revealElements.forEach((element) => element.classList.add('in'));
+}
+
+if (marqueePlaySections.length && 'IntersectionObserver' in window) {
+  const marqueeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle('is-inview', entry.isIntersecting);
+    });
+  }, { threshold: 0.15 });
+
+  marqueePlaySections.forEach((section) => marqueeObserver.observe(section));
+} else {
+  marqueePlaySections.forEach((section) => section.classList.add('is-inview'));
+}
+
+if (brandRibbon && brandRibbonTrack && brandRibbonGroups.length) {
+  let ribbonOffset = 0;
+  let ribbonLoopDistance = 0;
+  let ribbonDirection = -1;
+  let ribbonLastTick = 0;
+  let ribbonLastScrollY = window.scrollY;
+
+  const syncBrandRibbon = () => {
+    if (!ribbonLoopDistance) {
+      return;
+    }
+
+    const wrappedOffset = ((ribbonOffset % ribbonLoopDistance) + ribbonLoopDistance) % ribbonLoopDistance;
+    ribbonOffset = wrappedOffset;
+    brandRibbonTrack.style.transform = `translate3d(${-wrappedOffset}px, 0, 0)`;
+  };
+
+  const measureBrandRibbon = () => {
+    const firstGroup = brandRibbonGroups[0];
+    const trackStyles = window.getComputedStyle(brandRibbonTrack);
+    const trackGap = parseFloat(trackStyles.columnGap || trackStyles.gap || '0') || 0;
+
+    ribbonLoopDistance = firstGroup.getBoundingClientRect().width + trackGap;
+    syncBrandRibbon();
+  };
+
+  const updateBrandRibbonDirection = () => {
+    const currentScrollY = window.scrollY;
+    const scrollDelta = currentScrollY - ribbonLastScrollY;
+
+    if (Math.abs(scrollDelta) > 1) {
+      ribbonDirection = scrollDelta > 0 ? -1 : 1;
+    }
+
+    ribbonLastScrollY = currentScrollY;
+  };
+
+  const tickBrandRibbon = (time) => {
+    if (!ribbonLastTick) {
+      ribbonLastTick = time;
+    }
+
+    const delta = Math.min(64, time - ribbonLastTick);
+    ribbonLastTick = time;
+
+    if (brandRibbon.classList.contains('is-inview') && ribbonLoopDistance > 0) {
+      const speed = window.innerWidth <= 720 ? 0.04 : 0.055;
+      ribbonOffset += ribbonDirection * speed * delta;
+      syncBrandRibbon();
+    }
+
+    window.requestAnimationFrame(tickBrandRibbon);
+  };
+
+  measureBrandRibbon();
+  updateBrandRibbonDirection();
+  window.addEventListener('load', measureBrandRibbon, { once: true });
+  window.addEventListener('resize', measureBrandRibbon);
+  window.addEventListener('scroll', updateBrandRibbonDirection, { passive: true });
+  window.requestAnimationFrame(tickBrandRibbon);
 }
 
 const updateHeaderState = () => {
@@ -216,6 +295,28 @@ const bootThreeScene = async () => {
 
   const grp = new THREE.Group();
   scene.add(grp);
+  let modelRoot = null;
+  let modelBaseSize = 1;
+
+  const getModelScaleTarget = () => {
+    if (window.innerWidth <= 560) {
+      return 1.18;
+    }
+
+    if (window.innerWidth <= 900) {
+      return 1.48;
+    }
+
+    return 1.9;
+  };
+
+  const applyModelScale = () => {
+    if (!modelRoot) {
+      return;
+    }
+
+    modelRoot.scale.setScalar(getModelScaleTarget() / Math.max(modelBaseSize, 0.001));
+  };
 
   new GLTFLoader().load(
     modelUrl,
@@ -223,9 +324,11 @@ const bootThreeScene = async () => {
       const model = gltf.scene;
       const box = new THREE.Box3().setFromObject(model);
       const size = box.getSize(new THREE.Vector3());
-      model.scale.setScalar(1.9 / Math.max(size.x, size.y, size.z));
+      modelBaseSize = Math.max(size.x, size.y, size.z);
       const center = new THREE.Box3().setFromObject(model).getCenter(new THREE.Vector3());
       model.position.sub(center);
+      modelRoot = model;
+      applyModelScale();
 
       model.traverse((child) => {
         if (!child.isMesh) {
@@ -234,20 +337,27 @@ const bootThreeScene = async () => {
 
         child.castShadow = true;
         child.receiveShadow = true;
-        const material = child.material;
+        const materials = Array.isArray(child.material) ? child.material : [child.material];
 
-        if (!material) {
-          return;
-        }
+        materials.forEach((material) => {
+          if (!material) {
+            return;
+          }
 
-        if (material.transparent) {
-          material.envMapIntensity = 2.8;
-          material.roughness = Math.min(material.roughness ?? 0.1, 0.05);
-        } else {
-          material.envMapIntensity = 2.0;
-        }
+          if (material.name?.toLowerCase() === 'glass') {
+            material.color.set(themeAccent);
+            material.opacity = Math.min(material.opacity ?? 0.65, 0.58);
+          }
 
-        material.needsUpdate = true;
+          if (material.transparent) {
+            material.envMapIntensity = 2.8;
+            material.roughness = Math.min(material.roughness ?? 0.1, 0.05);
+          } else {
+            material.envMapIntensity = 2.0;
+          }
+
+          material.needsUpdate = true;
+        });
       });
 
       grp.add(model);
@@ -319,7 +429,14 @@ const bootThreeScene = async () => {
 
   const targetX = (progress) => {
     const halfWidth = Math.tan(camera.fov * Math.PI / 360) * camera.position.z * camera.aspect;
-    return halfWidth * -0.46 * progress;
+    const baseX = halfWidth * -0.46 * progress;
+    const heroOffset = halfWidth * (
+      window.innerWidth <= 560 ? 0.08 :
+      window.innerWidth <= 900 ? 0.16 :
+      0.34
+    );
+    const heroBlend = Math.max(0, 1 - progress / 0.28);
+    return baseX + heroOffset * heroBlend * heroBlend;
   };
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -329,6 +446,7 @@ const bootThreeScene = async () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    applyModelScale();
   });
 
   const tick = () => {
