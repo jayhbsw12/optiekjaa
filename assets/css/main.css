@@ -1163,10 +1163,9 @@ html.gsap-enhanced .hero-scroll{
   height:100%;
   object-fit:cover;
   display:block;
-  opacity:0;
-  transform:scale(1.08);
-  filter:grayscale(100%) contrast(1.04);
-  transition:opacity .48s ease, transform .85s cubic-bezier(.22,1,.36,1), filter .48s ease;
+  opacity:1;
+  transform:translateY(100%);
+  transition:none;
 }
 .lens-upgrade-card-copy{
   position:relative;
@@ -1176,7 +1175,7 @@ html.gsap-enhanced .hero-scroll{
   flex-direction:column;
   justify-content:space-between;
   gap:2rem;
-  padding:1.8rem 1.4rem 1.4rem;
+  padding:1.8rem 1.4rem 3rem;
 }
 .lens-upgrade-card-num{
   font-family:var(--heading);
@@ -1198,12 +1197,6 @@ html.gsap-enhanced .hero-scroll{
   transition:transform .42s cubic-bezier(.22,1,.36,1), letter-spacing .32s ease;
 }
 @media (hover:hover){
-  .lens-upgrade-card:hover .lens-upgrade-card-img,
-  .lens-upgrade-card:focus-within .lens-upgrade-card-img{
-    opacity:.6;
-    transform:scale(1);
-    filter:grayscale(100%) contrast(1.08);
-  }
   .lens-upgrade-card:hover::before,
   .lens-upgrade-card:focus-within::before{
     background:
@@ -1223,8 +1216,9 @@ html.gsap-enhanced .hero-scroll{
 }
 @media (hover:none){
   .lens-upgrade-card-img{
-    opacity:.34;
-    transform:scale(1.02);
+    transform:translateY(0);
+    opacity:.5;
+    transition:none;
   }
   .lens-upgrade-card::before{
     background:

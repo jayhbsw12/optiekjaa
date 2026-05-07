@@ -1027,3 +1027,37 @@ const bootThreeScene = async () => {
 };
 
 bootThreeScene();
+
+(function initLensCardSlide() {
+  const EASE = 'cubic-bezier(.22,1,.36,1)';
+  const DUR  = '1.1s';
+
+  document.querySelectorAll('.lens-upgrade-card').forEach(card => {
+    const img = card.querySelector('.lens-upgrade-card-img');
+    if (!img) return;
+
+    let leaveHandler = null;
+
+    card.addEventListener('mouseenter', () => {
+      if (leaveHandler) {
+        img.removeEventListener('transitionend', leaveHandler);
+        leaveHandler = null;
+      }
+      img.style.transition = `transform ${DUR} ${EASE}`;
+      img.style.transform   = 'translateY(0)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      img.style.transition = `transform ${DUR} ${EASE}`;
+      img.style.transform   = 'translateY(-100%)';
+
+      leaveHandler = function onLeaveEnd() {
+        img.removeEventListener('transitionend', leaveHandler);
+        leaveHandler = null;
+        img.style.transition = 'none';
+        img.style.transform   = 'translateY(100%)';
+      };
+      img.addEventListener('transitionend', leaveHandler);
+    });
+  });
+}());
