@@ -34,6 +34,32 @@ if (!function_exists('url')) {
     }
 }
 
+if (!function_exists('is_local_request')) {
+    function is_local_request(): bool
+    {
+        $host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? 'localhost'));
+        $host = preg_replace('/:\d+$/', '', $host) ?? $host;
+
+        return in_array($host, ['localhost', '127.0.0.1', '::1'], true);
+    }
+}
+
+if (!function_exists('request_cache_buster')) {
+    function request_cache_buster(): string
+    {
+        static $cacheBuster;
+
+        if ($cacheBuster !== null) {
+            return $cacheBuster;
+        }
+
+        $requestTime = (string) ($_SERVER['REQUEST_TIME_FLOAT'] ?? microtime(true));
+        $cacheBuster = preg_replace('/[^0-9]/', '', $requestTime) ?: (string) time();
+
+        return $cacheBuster;
+    }
+}
+
 if (!function_exists('asset_url')) {
     function asset_url(string $path): string
     {
@@ -51,7 +77,13 @@ if (!function_exists('asset_url')) {
 
         $separator = strpos($url, '?') === false ? '?' : '&';
 
-        return $url . $separator . 'v=' . rawurlencode((string) $version);
+        $query = 'v=' . rawurlencode((string) $version);
+
+        if (is_local_request()) {
+            $query .= '&dev=' . rawurlencode(request_cache_buster());
+        }
+
+        return $url . $separator . $query;
     }
 }
 
@@ -87,3 +119,9 @@ $page = array_merge([
     'canonical' => absolute_url($page['path'] ?? ''),
     'scripts' => [],
 ], $page ?? []);
+
+if (is_local_request() && !headers_sent()) {
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+}

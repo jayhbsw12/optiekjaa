@@ -516,6 +516,19 @@ html.page-loaded #loader{
     opacity:0;
     transform:translateX(-8px);
   }
+
+  #s-hero .hero-frame{
+    align-items:center;
+  }
+
+  #s-hero .hero-grid{
+    align-items:center;
+    padding-bottom:0;
+  }
+
+  #s-hero .hero-copy{
+    align-self:center;
+  }
 }
 
 #s-hero{
