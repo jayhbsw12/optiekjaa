@@ -10,7 +10,7 @@
           </h1>
 
           <p class="hero-desc">
-            Bij Optiekjaa combineren wij vakmanschap met de nieuwste optische technologie&euml;n &mdash; voor de perfecte bril die past bij uw leven en stijl.
+            Onge&euml;venaarde kwaliteit, gecertificeerde veiligheidsbrillen en contactlenzen van topmerken &mdash; zorgvuldig geselecteerd voor duurzaam comfort, helder zicht en vertrouwen bij elke draagervaring.
           </p>
           <div class="hero-actions">
             <a href="<?= esc(url('#brillen')); ?>" class="btn-liquid">
@@ -33,11 +33,11 @@
     <div class="feat-copy" id="feat-copy">
       <div class="tag">Onze expertise</div>
       <h2 class="feat-h2 heading-clip">
-        <span class="heading-clip-line">Uw perfecte bril,</span>
-        <span class="heading-clip-line"><em>vakkundig gemaakt</em></span>
+        <span class="heading-clip-line">Kwaliteit, veiligheid</span>
+        <span class="heading-clip-line"><em>en topmerken</em></span>
       </h2>
       <p class="feat-p">
-        Met jarenlange ervaring in de optiekbranche bieden wij een persoonlijke benadering die verder gaat dan een standaard oogmeting. Van montuuradvies tot op maat geslepen glazen &mdash; wij begeleiden u bij elke stap.
+        Onze brillen zijn speciaal uitgekozen om te voldoen aan de hoogste kwaliteits- en duurzaamheidsnormen, met tot 1 jaar fabrieksgarantie om uw tevredenheid te garanderen. Als exclusieve partner in Caricom bieden wij gecertificeerde veiligheidsbrillen aan volgens internationale veiligheidsnormen, verkrijgbaar met glazen op sterkte, getint of meekleurend. Daarnaast verkopen wij contactlenzen van alle topmerken, of het nu gaat om dag-, maand- of jaarlenzen.
       </p>
       <a href="<?= esc(url('#brillen')); ?>" class="btn-liquid">
         <span class="btn-liquid-shell"></span>
@@ -54,7 +54,7 @@
             <span class="heading-clip-line">Onze <em>collectie</em></span>
           </h2>
           <p class="collection-text">
-            Scroll door drie zorgvuldig geselecteerde briloplossingen en ontdek welke stijl, sterkte en draagervaring het beste bij uw dagelijks leven past.
+            Ontdek onze oplossingen voor enkelvoudige, bifocale en multifocale brillen en kies de briloplossing die het beste aansluit op uw zichtbehoefte en dagelijks gebruik.
           </p>
           <div class="collection-actions">
             <a href="<?= esc(url('contact')); ?>" class="btn-liquid">
@@ -87,7 +87,7 @@
               <div class="collection-card-step">01</div>
               <div class="collection-card-tag">Enkelvoudige sterkte</div>
               <h3 class="collection-card-title">Enkelvoudige Bril</h3>
-              <p class="collection-card-desc">Geschikt voor mensen die een bril voor alleen veraf of alleen voor lezen nodig hebben. Alle glasopties beschikbaar voor maximaal comfort en heldere visie.</p>
+              <p class="collection-card-desc">Enkele sterkte voor mensen die een bril voor alleen veraf of alleen voor lezen nodig hebben. Alle glasopties beschikbaar.</p>
               <ul class="collection-card-list">
                 <li>Enkele sterkte</li>
                 <li>Geschikt voor mensen die een bril voor alleen veraf of alleen voor lezen nodig hebben</li>
@@ -113,7 +113,7 @@
               <div class="collection-card-step">02</div>
               <div class="collection-card-tag">Nieuwste generatie</div>
               <h3 class="collection-card-title">Bifocale Bril</h3>
-              <p class="collection-card-desc">De nieuwste generatie bifocale glazen. Gepersonaliseerd glas met perfect zicht en ingebouwde boostzone &mdash; voor comfortabel zien op iedere afstand.</p>
+              <p class="collection-card-desc">De nieuwste generatie bifocale glazen met gepersonaliseerd glas, perfect zicht en boostzone. Alle glasopties beschikbaar.</p>
               <ul class="collection-card-list">
                 <li>De nieuwste generatie bifocale glazen</li>
                 <li>Gepersonaliseerd glas met perfect zicht en boostzone</li>
@@ -139,7 +139,7 @@
               <div class="collection-card-step">03</div>
               <div class="collection-card-tag">Meerdere sterkten</div>
               <h3 class="collection-card-title">Multifocale Bril</h3>
-              <p class="collection-card-desc">Glazen met meerdere sterkten. Geschikt voor mensen die een bril voor zowel veraf als dichtbij nodig hebben &mdash; zonder zichtbare overgang.</p>
+              <p class="collection-card-desc">Glazen met meerdere sterkten voor mensen die een bril voor zowel veraf als dichtbij nodig hebben. Alle glasopties beschikbaar.</p>
               <ul class="collection-card-list">
                 <li>Glazen met meerdere sterkten</li>
                 <li>Geschikt voor mensen die een bril voor zowel veraf als dichtbij nodig hebben</li>
@@ -218,18 +218,18 @@
       <div class="marquee-item">Vuilafstotende Laag<span class="m-dot"></span></div>
       <div class="marquee-item">Superontspiegeling UV<span class="m-dot"></span></div>
       <div class="marquee-item">Kraswerende Glazen<span class="m-dot"></span></div>
-      <div class="marquee-item">6 Maanden Garantie<span class="m-dot"></span></div>
-      <div class="marquee-item">Tropisch Bestendig<span class="m-dot"></span></div>
+      <div class="marquee-item">1 Jaar Fabrieksgarantie<span class="m-dot"></span></div>
+      <div class="marquee-item">Veiligheidsbrillen op Sterkte<span class="m-dot"></span></div>
       <div class="marquee-item">Caricom Partner<span class="m-dot"></span></div>
-      <div class="marquee-item">UV400 Bescherming<span class="m-dot"></span></div>
+      <div class="marquee-item">Topmerken Contactlenzen<span class="m-dot"></span></div>
       <div class="marquee-item">Dunnere Glazen<span class="m-dot"></span></div>
       <div class="marquee-item">Vuilafstotende Laag<span class="m-dot"></span></div>
       <div class="marquee-item">Superontspiegeling UV<span class="m-dot"></span></div>
       <div class="marquee-item">Kraswerende Glazen<span class="m-dot"></span></div>
-      <div class="marquee-item">6 Maanden Garantie<span class="m-dot"></span></div>
-      <div class="marquee-item">Tropisch Bestendig<span class="m-dot"></span></div>
+      <div class="marquee-item">1 Jaar Fabrieksgarantie<span class="m-dot"></span></div>
+      <div class="marquee-item">Veiligheidsbrillen op Sterkte<span class="m-dot"></span></div>
       <div class="marquee-item">Caricom Partner<span class="m-dot"></span></div>
-      <div class="marquee-item">UV400 Bescherming<span class="m-dot"></span></div>
+      <div class="marquee-item">Topmerken Contactlenzen<span class="m-dot"></span></div>
     </div>
   </div>
 
@@ -256,24 +256,24 @@
   <div class="stats-dark">
     <div class="stats-row">
       <div class="stat-cell reveal">
-        <div class="stat-val">6 <span class="stat-val-sub">mnd</span></div>
-        <div class="stat-sub">Fabrieks - garantie</div>
-        <p class="stat-note">Op alle monturen en glazen, standaard inbegrepen bij elke aankoop.</p>
+        <div class="stat-val">1 <span class="stat-val-sub">jaar</span></div>
+        <div class="stat-sub">Fabrieksgarantie</div>
+        <p class="stat-note">Tot 1 jaar fabrieksgarantie op monturen en glazen om uw tevredenheid extra zekerheid te geven.</p>
       </div>
       <div class="stat-cell reveal d1">
-        <div class="stat-val">100<span class="stat-val-percent">%</span></div>
-        <div class="stat-sub">Tropisch bestendig</div>
-        <p class="stat-note">Speciaal geselecteerde materialen voor het Surinaamse klimaat.</p>
+        <div class="stat-val stat-val-word">Top</div>
+        <div class="stat-sub">Kwaliteit</div>
+        <p class="stat-note">Onze brillen zijn speciaal uitgekozen om te voldoen aan de hoogste kwaliteits- en duurzaamheidsnormen.</p>
       </div>
       <div class="stat-cell reveal d2">
         <div class="stat-val stat-val-word">Caricom</div>
         <div class="stat-sub">Exclusief partner</div>
-        <p class="stat-note">Gecertificeerde veiligheidsbrillen van de hoogste industriestandaard.</p>
+        <p class="stat-note">Gecertificeerde veiligheidsbrillen volgens internationale veiligheidsnormen, ook met sterkte, getint of meekleurend.</p>
       </div>
       <div class="stat-cell reveal d3">
-        <div class="stat-val">3&times;</div>
-        <div class="stat-sub">Lenzen - keuze</div>
-        <p class="stat-note">Dagelijks, maandelijks of jaarlijks &mdash; top merk contactlenzen.</p>
+        <div class="stat-val stat-val-word">Top</div>
+        <div class="stat-sub">Contactlenzen</div>
+        <p class="stat-note">Contactlenzen van alle topmerken, verkrijgbaar als dag-, maand- of jaarlenzen.</p>
       </div>
     </div>
   </div>

@@ -1,4 +1,10 @@
 <footer class="site-footer">
+  <canvas
+    class="footer-coin-canvas"
+    aria-hidden="true"
+    data-coin-image="<?= esc(asset_url('assets/img/frame-model-1.png')); ?>"
+  ></canvas>
+
   <div class="footer-shell">
     <div class="footer-brand">
       <p class="footer-kicker">Premium optiek, Suriname</p>

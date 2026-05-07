@@ -38,5 +38,6 @@
 <?php foreach ($page['scripts'] as $script): ?>
 <script type="module" src="<?= esc(asset_url($script)); ?>"></script>
 <?php endforeach; ?>
+<script type="module" src="<?= esc(asset_url('assets/js/footer-coins.js')); ?>"></script>
 </body>
 </html>
