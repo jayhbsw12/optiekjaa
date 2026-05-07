@@ -10,10 +10,63 @@
   </defs>
 </svg>
 
-<div id="loader">
-  <div class="ld-wordmark"><?= esc($site['name']); ?></div>
-  <div class="ld-track"><div class="ld-fill" id="ld-fill"></div></div>
-  <div class="ld-label" id="ld-pct">Laden...</div>
+<?php
+$loaderFrameImages = [];
+$disablePreloader = true;
+for ($index = 1; $index <= 13; $index++) {
+    $loaderFrameImages[] = asset_url(sprintf('assets/img/Optiekjaa footer frames/optiekjaa-footer-frame-%02d.png', $index));
+}
+?>
+
+<div
+  id="loader"
+  <?php if ($disablePreloader): ?>
+    data-disabled="true"
+    hidden
+    aria-hidden="true"
+  <?php endif; ?>
+>
+  <div class="ld-stage">
+    <div
+      class="ld-frame-strip"
+      id="ld-frame-strip"
+      data-frame-images="<?= esc(implode('|', $loaderFrameImages)); ?>"
+      aria-hidden="true"
+    >
+      <div class="ld-frame-slot ld-frame-slot--buffer-left">
+        <img class="ld-frame-image" id="ld-frame-left" src="<?= esc($loaderFrameImages[0]); ?>" alt="">
+      </div>
+      <div class="ld-frame-slot ld-frame-slot--left">
+        <img class="ld-frame-image" id="ld-frame-center" src="<?= esc($loaderFrameImages[1]); ?>" alt="">
+      </div>
+      <div class="ld-frame-slot ld-frame-slot--center">
+        <img class="ld-frame-image" id="ld-frame-right" src="<?= esc($loaderFrameImages[2]); ?>" alt="">
+      </div>
+      <div class="ld-frame-slot ld-frame-slot--right">
+        <img class="ld-frame-image" src="<?= esc($loaderFrameImages[3]); ?>" alt="">
+      </div>
+      <div class="ld-frame-slot ld-frame-slot--buffer-right">
+        <img class="ld-frame-image" src="<?= esc($loaderFrameImages[4]); ?>" alt="">
+      </div>
+    </div>
+
+    <div class="ld-brand">
+      <img
+        class="ld-logo"
+        src="<?= esc(asset_url('assets/img/OPTIEK-LOGO-main.svg')); ?>"
+        alt="<?= esc($site['name']); ?>"
+      >
+    </div>
+  </div>
+
+  <div class="ld-progress">
+    <div class="ld-progress-copy">
+      <span class="ld-status" id="ld-status">LOADING</span>
+    </div>
+    <div class="ld-track">
+      <div class="ld-fill" id="ld-fill"></div>
+    </div>
+  </div>
 </div>
 
 <canvas id="gl" aria-hidden="true"></canvas>

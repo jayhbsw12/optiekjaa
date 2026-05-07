@@ -12,10 +12,14 @@ const navSubtitle = document.querySelector('.nav-subtitle');
 const navLinks = [...document.querySelectorAll('.nav-links li')];
 const navCta = document.querySelector('.nav-cta');
 const loaderEl = document.getElementById('loader');
-const ldTrack = document.querySelector('.ld-track');
+const loaderDisabled = loaderEl?.dataset.disabled === 'true';
+const ldFrameStrip = document.getElementById('ld-frame-strip');
+const ldFrameSlots = ldFrameStrip ? [...ldFrameStrip.querySelectorAll('.ld-frame-slot')] : [];
+const ldFrameImages = ldFrameStrip
+  ? [...ldFrameStrip.querySelectorAll('.ld-frame-image')]
+  : [];
 const ldFill = document.getElementById('ld-fill');
-const ldPct = document.getElementById('ld-pct');
-const ldWordmark = document.querySelector('.ld-wordmark');
+const ldStatus = document.getElementById('ld-status');
 const heroEyebrow = document.querySelector('.hero-eyebrow');
 const heroLines = [...document.querySelectorAll('.hero-line')];
 const clippedHeadingBlocks = [...document.querySelectorAll('.heading-clip')];
@@ -54,7 +58,13 @@ const motionState = {
   introPlayed: false,
   loaderEnterPlayed: false,
   loaderExitPlayed: false,
-  loaderChars: [],
+  loaderFrameIndex: 0,
+  loaderFrameLoop: null,
+  loaderFrameCycleTimeout: null,
+  loaderProgressValue: 0,
+  loaderExitQueued: false,
+  loaderStatusLoop: null,
+  loaderStatusScrambleTimeout: null,
   navSubtitleWords: [],
   footerLinkSets: [],
 };
@@ -120,6 +130,242 @@ const splitTextUnits = (element, mode = 'chars') => {
 
   element.appendChild(fragment);
   return [...element.querySelectorAll(selector)];
+};
+
+const loaderFrameUrls = ldFrameStrip?.dataset.frameImages
+  ? ldFrameStrip.dataset.frameImages.split('|').filter(Boolean)
+  : [];
+
+const preloadLoaderFrames = () => {
+  loaderFrameUrls.forEach((frameUrl) => {
+    const frameImage = new Image();
+    frameImage.decoding = 'async';
+    frameImage.src = frameUrl;
+  });
+};
+
+const getNextLoaderFrame = () => {
+  if (!loaderFrameUrls.length) {
+    return '';
+  }
+
+  const frameUrl = loaderFrameUrls[motionState.loaderFrameIndex % loaderFrameUrls.length];
+  motionState.loaderFrameIndex = (motionState.loaderFrameIndex + 1) % loaderFrameUrls.length;
+  return frameUrl;
+};
+
+const getLoaderSlotState = (position) => {
+  const compact = window.innerWidth < 720;
+  const positions = compact
+    ? {
+      'buffer-left': { x: -236, y: 2, scale: 0.56, opacity: 0, zIndex: 0 },
+      left: { x: -114, y: 4, scale: 0.8, opacity: 0.88, zIndex: 1 },
+      center: { x: 0, y: -6, scale: 1, opacity: 1, zIndex: 3 },
+      right: { x: 114, y: 4, scale: 0.8, opacity: 0.88, zIndex: 2 },
+      'buffer-right': { x: 236, y: 2, scale: 0.56, opacity: 0, zIndex: 0 },
+    }
+    : {
+      'buffer-left': { x: -324, y: 3, scale: 0.58, opacity: 0, zIndex: 0 },
+      left: { x: -164, y: 6, scale: 0.82, opacity: 0.9, zIndex: 1 },
+      center: { x: 0, y: -8, scale: 1.02, opacity: 1, zIndex: 3 },
+      right: { x: 164, y: 6, scale: 0.82, opacity: 0.9, zIndex: 2 },
+      'buffer-right': { x: 324, y: 3, scale: 0.58, opacity: 0, zIndex: 0 },
+    };
+
+  return positions[position] || positions.center;
+};
+
+const applyLoaderSlotState = (slot, position) => {
+  if (!slot) {
+    return;
+  }
+
+  const state = getLoaderSlotState(position);
+  slot.dataset.position = position;
+  slot.style.setProperty('--ld-slot-x', `${state.x}px`);
+  slot.style.setProperty('--ld-slot-y', `${state.y}px`);
+  slot.style.setProperty('--ld-slot-scale', `${state.scale}`);
+  slot.style.setProperty('--ld-slot-opacity', `${state.opacity}`);
+  slot.style.setProperty('--ld-slot-z', `${state.zIndex}`);
+};
+
+const syncLoaderSlotStates = () => {
+  const states = ['buffer-left', 'left', 'center', 'right', 'buffer-right'];
+  const orderedSlots = ldFrameStrip ? [...ldFrameStrip.querySelectorAll('.ld-frame-slot')] : ldFrameSlots;
+
+  orderedSlots.forEach((slot, index) => {
+    applyLoaderSlotState(slot, states[index] || 'buffer-right');
+  });
+};
+
+const setLoaderProgress = (value) => {
+  const nextValue = Math.max(0, Math.min(100, Math.round(value)));
+  motionState.loaderProgressValue = Math.max(motionState.loaderProgressValue, nextValue);
+
+  if (ldFill) {
+    ldFill.style.width = `${motionState.loaderProgressValue}%`;
+  }
+};
+
+const loaderScrambleGlyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+const clearLoaderStatusScramble = () => {
+  if (!motionState.loaderStatusScrambleTimeout) {
+    return;
+  }
+
+  window.clearTimeout(motionState.loaderStatusScrambleTimeout);
+  motionState.loaderStatusScrambleTimeout = null;
+};
+
+const scrambleLoaderStatus = (targetText, duration = 420) => new Promise((resolve) => {
+  if (!ldStatus) {
+    resolve();
+    return;
+  }
+
+  clearLoaderStatusScramble();
+
+  const sourceText = ldStatus.textContent || '';
+  const target = targetText;
+  const maxLength = Math.max(sourceText.length, target.length);
+  const startTime = performance.now();
+
+  const tick = () => {
+    const elapsed = performance.now() - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const revealCount = Math.floor(progress * target.length);
+    let nextText = '';
+
+    for (let index = 0; index < maxLength; index += 1) {
+      const targetChar = target[index] || '';
+
+      if (!targetChar && progress > 0.82) {
+        continue;
+      }
+
+      if (targetChar === ' ') {
+        nextText += ' ';
+        continue;
+      }
+
+      nextText += progress === 1 || index < revealCount
+        ? targetChar
+        : loaderScrambleGlyphs[Math.floor(Math.random() * loaderScrambleGlyphs.length)];
+    }
+
+    ldStatus.textContent = progress === 1 ? target : nextText;
+
+    if (progress < 1) {
+      motionState.loaderStatusScrambleTimeout = window.setTimeout(tick, 34);
+      return;
+    }
+
+    motionState.loaderStatusScrambleTimeout = null;
+    resolve();
+  };
+
+  tick();
+});
+
+const startLoaderStatusLoop = () => {
+  if (!ldStatus || motionState.loaderStatusLoop) {
+    return;
+  }
+
+  scrambleLoaderStatus('LOADING', 420);
+  motionState.loaderStatusLoop = window.setInterval(() => {
+    if (motionState.loaderExitPlayed) {
+      return;
+    }
+
+    scrambleLoaderStatus('LOADING', 280);
+  }, 620);
+};
+
+const stopLoaderStatusLoop = () => {
+  if (motionState.loaderStatusLoop) {
+    window.clearInterval(motionState.loaderStatusLoop);
+    motionState.loaderStatusLoop = null;
+  }
+
+  clearLoaderStatusScramble();
+};
+
+const cycleLoaderFrames = () => {
+  if (motionState.loaderExitPlayed || motionState.loaderExitQueued || ldFrameSlots.length < 5) {
+    return;
+  }
+
+  const orderedSlots = ldFrameStrip ? [...ldFrameStrip.querySelectorAll('.ld-frame-slot')] : ldFrameSlots;
+  const [bufferLeftSlot, leftSlot, centerSlot, rightSlot, bufferRightSlot] = orderedSlots;
+  const nextFrame = getNextLoaderFrame();
+
+  if (!nextFrame) {
+    return;
+  }
+
+  applyLoaderSlotState(leftSlot, 'buffer-left');
+  applyLoaderSlotState(centerSlot, 'left');
+  applyLoaderSlotState(rightSlot, 'center');
+  applyLoaderSlotState(bufferRightSlot, 'right');
+
+  motionState.loaderFrameCycleTimeout = window.setTimeout(() => {
+    if (motionState.loaderExitPlayed || motionState.loaderExitQueued) {
+      motionState.loaderFrameCycleTimeout = null;
+      return;
+    }
+
+    ldFrameStrip?.appendChild(bufferLeftSlot);
+    bufferLeftSlot.querySelector('.ld-frame-image')?.setAttribute('src', nextFrame);
+    applyLoaderSlotState(bufferLeftSlot, 'buffer-right');
+
+    motionState.loaderFrameCycleTimeout = null;
+    motionState.loaderFrameLoop = window.setTimeout(cycleLoaderFrames, 18);
+  }, 180);
+};
+
+const startLoaderFrameLoop = () => {
+  if (!ldFrameSlots.length || motionState.loaderFrameLoop || motionState.loaderFrameCycleTimeout) {
+    return;
+  }
+
+  motionState.loaderFrameLoop = window.setTimeout(cycleLoaderFrames, 120);
+};
+
+const stopLoaderFrameLoop = () => {
+  if (motionState.loaderFrameLoop) {
+    window.clearTimeout(motionState.loaderFrameLoop);
+    motionState.loaderFrameLoop = null;
+  }
+
+  if (motionState.loaderFrameCycleTimeout) {
+    window.clearTimeout(motionState.loaderFrameCycleTimeout);
+    motionState.loaderFrameCycleTimeout = null;
+  }
+};
+
+const settleLoaderFrames = () => {
+  if (!ldFrameStrip || !ldFrameSlots.length) {
+    return;
+  }
+
+  syncLoaderSlotStates();
+};
+
+const setupLoaderFrames = () => {
+  if (!ldFrameSlots.length || !loaderFrameUrls.length) {
+    return;
+  }
+
+  motionState.loaderFrameIndex = 0;
+
+  ldFrameImages.forEach((image, index) => {
+    const source = getNextLoaderFrame() || loaderFrameUrls[index % loaderFrameUrls.length];
+    image.setAttribute('src', source);
+  });
+
+  syncLoaderSlotStates();
 };
 
 const getClippedHeadingLines = (element) => [...(element?.children || [])]
@@ -204,46 +450,26 @@ const playHomepageIntro = () => {
 };
 
 const playLoaderEntrance = () => {
-  if (!motionEnabled || motionState.loaderEnterPlayed || !loaderEl) {
+  if (motionState.loaderEnterPlayed || !loaderEl) {
     return;
   }
 
   motionState.loaderEnterPlayed = true;
 
-  const loaderLabelTargets = [ldTrack, ldPct].filter(Boolean);
-  gsapLib.set(motionState.loaderChars, {
-    yPercent: 112,
-    autoAlpha: 0,
-    rotate: 6,
-    transformOrigin: '50% 100%',
-  });
-  gsapLib.set(loaderLabelTargets, {
-    y: 12,
-    autoAlpha: 0,
-  });
-  gsapLib.set(ldTrack, {
-    scaleX: 0.72,
-    transformOrigin: '50% 50%',
-  });
+  if (loaderDisabled) {
+    loaderEl.classList.add('out');
+    loaderEl.style.display = 'none';
+    markPageLoaded();
+    playHomepageIntro();
+    return;
+  }
 
-  gsapLib.timeline({ defaults: { ease: 'expo.out' } })
-    .to(motionState.loaderChars, {
-      yPercent: 0,
-      autoAlpha: 1,
-      rotate: 0,
-      duration: 0.9,
-      stagger: 0.03,
-    })
-    .to(loaderLabelTargets, {
-      y: 0,
-      autoAlpha: 1,
-      duration: 0.7,
-      stagger: 0.08,
-    }, 0.18)
-    .to(ldTrack, {
-      scaleX: 1,
-      duration: 0.8,
-    }, 0.16);
+  preloadLoaderFrames();
+  setupLoaderFrames();
+  setLoaderProgress(0);
+  loaderEl.classList.add('is-ready');
+  startLoaderStatusLoop();
+  startLoaderFrameLoop();
 };
 
 const setupFooterTimeline = () => {
@@ -440,6 +666,8 @@ const setupGsapRevealAnimations = () => {
 };
 
 const initGsapMotion = () => {
+  playLoaderEntrance();
+
   if (!motionEnabled) {
     return;
   }
@@ -450,7 +678,6 @@ const initGsapMotion = () => {
   heroLines.forEach((line) => wrapLineMask(line));
   setupClippedHeadingTimelines();
 
-  motionState.loaderChars = splitTextUnits(ldWordmark, 'chars');
   motionState.navSubtitleWords = splitTextUnits(navSubtitle, 'words');
   motionState.footerLinkSets = footerGiantLinks.map((link) => ({
     link,
@@ -508,69 +735,52 @@ const initGsapMotion = () => {
     autoAlpha: 0,
   });
 
-  playLoaderEntrance();
   setupFooterTimeline();
   setupEditorialTimeline();
   scrollTriggerLib && window.requestAnimationFrame(() => scrollTriggerLib.refresh());
 };
 
-const hideLoader = (message) => {
-  if (ldFill) {
-    ldFill.style.width = '100%';
-  }
-
-  if (ldPct) {
-    ldPct.textContent = message || '100%';
-  }
-
-  if (!loaderEl) {
+const hideLoader = () => {
+  if (!loaderEl || loaderDisabled) {
     markPageLoaded();
     return;
   }
 
-  if (motionEnabled && !motionState.loaderExitPlayed) {
-    motionState.loaderExitPlayed = true;
+  stopLoaderFrameLoop();
+  settleLoaderFrames();
+  stopLoaderStatusLoop();
+  setLoaderProgress(100);
 
-    const loaderLabelTargets = [ldTrack, ldPct].filter(Boolean);
-    const timeline = gsapLib.timeline({
-      defaults: { ease: 'power3.out' },
-      onStart: playHomepageIntro,
-      onComplete: () => {
-        loaderEl.style.display = 'none';
-        markPageLoaded();
-        scrollTriggerLib && scrollTriggerLib.refresh();
-      },
-    });
+  if (ldStatus) {
+    ldStatus.textContent = 'LOADING';
+  }
 
-    timeline
-      .to(loaderLabelTargets, {
-        y: -14,
-        autoAlpha: 0,
-        duration: 0.32,
-        stagger: 0.06,
-      }, 0)
-      .to(motionState.loaderChars, {
-        yPercent: -118,
-        autoAlpha: 0,
-        rotate: -5,
-        duration: 0.5,
-        stagger: 0.018,
-        ease: 'power4.in',
-      }, 0)
-      .to(loaderEl, {
-        autoAlpha: 0,
-        duration: 0.58,
-        ease: 'power2.out',
-      }, 0.22);
-
+  if (motionState.loaderExitQueued || motionState.loaderExitPlayed) {
     return;
   }
 
-  markPageLoaded();
-  loaderEl.classList.add('out');
+  motionState.loaderExitQueued = true;
+
   window.setTimeout(() => {
-    loaderEl.style.display = 'none';
-  }, 750);
+    motionState.loaderExitPlayed = true;
+    loaderEl.classList.add('is-complete');
+    scrambleLoaderStatus('100%', 460);
+  }, 240);
+
+  window.setTimeout(() => {
+    loaderEl.classList.add('is-ending');
+  }, 720);
+
+  window.setTimeout(() => {
+    playHomepageIntro();
+    loaderEl.classList.add('out');
+    markPageLoaded();
+
+    window.setTimeout(() => {
+      loaderEl.style.display = 'none';
+      scrollTriggerLib && scrollTriggerLib.refresh();
+    }, 1080);
+  }, 1140);
 };
 
 window.addEventListener('load', () => {
@@ -581,7 +791,7 @@ window.addEventListener('load', () => {
 
   window.setTimeout(() => {
     if (!root.classList.contains('page-loaded')) {
-      hideLoader('Welkom');
+      hideLoader();
     }
   }, motionEnabled ? 7000 : 5200);
 }, { once: true });
@@ -589,7 +799,7 @@ window.addEventListener('load', () => {
 window.setTimeout(() => {
   if (!root.classList.contains('page-loaded')) {
     if (loaderEl) {
-      hideLoader('Welkom');
+      hideLoader();
       return;
     }
 
@@ -598,6 +808,17 @@ window.setTimeout(() => {
 }, motionEnabled ? 7600 : 5600);
 
 initGsapMotion();
+
+window.addEventListener('resize', () => {
+  if (!loaderEl || motionState.loaderExitPlayed) {
+    return;
+  }
+
+  const orderedSlots = ldFrameStrip ? [...ldFrameStrip.querySelectorAll('.ld-frame-slot')] : ldFrameSlots;
+  orderedSlots.forEach((slot) => {
+    applyLoaderSlotState(slot, slot.dataset.position || 'center');
+  });
+});
 
 const revealElements = document.querySelectorAll('.reveal');
 if (!setupGsapRevealAnimations()) {
@@ -756,7 +977,7 @@ updateHeaderState();
 updateCollectionShowcase();
 
 const bootThreeScene = async () => {
-  if (!canvas || !heroEl || !featEl || !featCpy || !loaderEl || !ldFill || !ldPct || !('WebGLRenderingContext' in window)) {
+  if (!canvas || !heroEl || !featEl || !featCpy || !loaderEl || !ldFill || !ldStatus || !('WebGLRenderingContext' in window)) {
     setModelFallback();
     hideLoader();
     updateFeatureCopy();
@@ -780,7 +1001,7 @@ const bootThreeScene = async () => {
   } catch (error) {
     console.error('Unable to load 3D libraries.', error);
     setModelFallback();
-    hideLoader('3D preview unavailable');
+    hideLoader();
     updateFeatureCopy();
     return;
   }
@@ -792,7 +1013,7 @@ const bootThreeScene = async () => {
   } catch (error) {
     console.error('Unable to initialize WebGL.', error);
     setModelFallback();
-    hideLoader('3D preview unavailable');
+    hideLoader();
     updateFeatureCopy();
     return;
   }
@@ -926,16 +1147,14 @@ const bootThreeScene = async () => {
     },
     (xhr) => {
       if (xhr.total) {
-        const progress = Math.round(xhr.loaded / xhr.total * 100);
-        ldFill.style.width = `${progress}%`;
-        ldPct.textContent = `${progress}%`;
+        setLoaderProgress(xhr.loaded / xhr.total * 100);
       }
     },
     (error) => {
       console.error(error);
       setModelFallback();
       canvas.style.opacity = '0';
-      hideLoader('3D preview unavailable');
+      hideLoader();
       updateFeatureCopy();
     }
   );
