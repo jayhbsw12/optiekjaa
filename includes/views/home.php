@@ -69,8 +69,12 @@
             <img
               class="collection-model-img"
               loading="lazy"
+              decoding="async"
+              fetchpriority="low"
               src="<?= esc(asset_url('assets/img/Model-homepage.png')); ?>"
               alt="Model met zonnebrillen uit de collectie"
+              width="1448"
+              height="1086"
             >
           </div>
 
@@ -79,6 +83,8 @@
               <img
                 class="collection-card-img"
                 loading="lazy"
+                decoding="async"
+                fetchpriority="low"
                 src="https://images.unsplash.com/photo-1516714819001-8ee7a13b71d7?w=900&amp;auto=format&amp;q=80"
                 alt="Enkelvoudige bril aanpassing"
               >
@@ -105,6 +111,8 @@
               <img
                 class="collection-card-img"
                 loading="lazy"
+                decoding="async"
+                fetchpriority="low"
                 src="https://images.pexels.com/photos/17930561/pexels-photo-17930561.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"
                 alt="Bifocale bril"
               >
@@ -131,6 +139,8 @@
               <img
                 class="collection-card-img"
                 loading="lazy"
+                decoding="async"
+                fetchpriority="low"
                 src="https://images.pexels.com/photos/28041894/pexels-photo-28041894.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=900"
                 alt="Multifocale bril premium"
               >
@@ -162,14 +172,22 @@
         <img
           class="lens-upgrade-card-img"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           src="<?= esc(asset_url('assets/img/Kraswerende glazen-1.webp')); ?>"
           alt="Kraswerende glazen"
+          width="475"
+          height="760"
         >
         <img
           class="lens-upgrade-card-img-hover"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           src="<?= esc(asset_url('assets/img/Kraswerende glazen-2.webp')); ?>"
           alt=""
+          width="475"
+          height="760"
         >
         <div class="lens-upgrade-card-copy reveal">
           <div class="lens-upgrade-card-num">01</div>
@@ -181,14 +199,22 @@
         <img
           class="lens-upgrade-card-img"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           src="<?= esc(asset_url('assets/img/Superontspiegeling-UV-1.webp')); ?>"
           alt="Superontspiegeling UV"
+          width="475"
+          height="760"
         >
         <img
           class="lens-upgrade-card-img-hover"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           src="<?= esc(asset_url('assets/img/Superontspiegeling-UV-2.webp')); ?>"
           alt=""
+          width="475"
+          height="760"
         >
         <div class="lens-upgrade-card-copy reveal d1">
           <div class="lens-upgrade-card-num">02</div>
@@ -200,14 +226,22 @@
         <img
           class="lens-upgrade-card-img"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           src="<?= esc(asset_url('assets/img/Dunnere glazen-1.webp')); ?>"
           alt="Dunnere glazen"
+          width="475"
+          height="760"
         >
         <img
           class="lens-upgrade-card-img-hover"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           src="<?= esc(asset_url('assets/img/Dunnere glazen-2.webp')); ?>"
           alt=""
+          width="475"
+          height="760"
         >
         <div class="lens-upgrade-card-copy reveal d2">
           <div class="lens-upgrade-card-num">03</div>
@@ -219,14 +253,22 @@
         <img
           class="lens-upgrade-card-img"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           src="<?= esc(asset_url('assets/img/Vuilafstotende laag-1.webp')); ?>"
           alt="Vuilafstotende laag"
+          width="475"
+          height="760"
         >
         <img
           class="lens-upgrade-card-img-hover"
           loading="lazy"
+          decoding="async"
+          fetchpriority="low"
           src="<?= esc(asset_url('assets/img/Vuilafstotende laag-2.webp')); ?>"
           alt=""
+          width="475"
+          height="760"
         >
         <div class="lens-upgrade-card-copy reveal d3">
           <div class="lens-upgrade-card-num">04</div>
@@ -263,6 +305,10 @@
       src="<?= esc(asset_url('assets/img/Model-homepage-Quote.png')); ?>"
       alt="Modellen met brillen uit de collectie van Optiekjaa"
       loading="lazy"
+      decoding="async"
+      fetchpriority="low"
+      width="1897"
+      height="616"
     >
     <div class="editorial-inner">
       <div class="editorial-copy">

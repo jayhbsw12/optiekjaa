@@ -38,6 +38,53 @@
 <?php foreach ($page['scripts'] as $script): ?>
 <script type="module" src="<?= esc(asset_url($script)); ?>"></script>
 <?php endforeach; ?>
-<script type="module" src="<?= esc(asset_url('assets/js/footer-coins.js')); ?>"></script>
+<script type="module">
+(() => {
+  const footer = document.querySelector('.site-footer');
+  if (!footer) {
+    return;
+  }
+
+  const moduleUrl = '<?= esc(asset_url('assets/js/footer-coins.js')); ?>';
+  let loaded = false;
+  let observer = null;
+
+  const loadFooterCoins = () => {
+    if (loaded) {
+      return;
+    }
+
+    loaded = true;
+    observer?.disconnect();
+    import(moduleUrl);
+  };
+
+  if ('IntersectionObserver' in window) {
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === footer && entry.isIntersecting) {
+          loadFooterCoins();
+        }
+      });
+    }, { rootMargin: '320px 0px' });
+
+    observer.observe(footer);
+  } else {
+    window.addEventListener('load', loadFooterCoins, { once: true });
+    return;
+  }
+
+  const scheduleFallbackLoad = () => {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(loadFooterCoins, { timeout: 4000 });
+      return;
+    }
+
+    window.setTimeout(loadFooterCoins, 2600);
+  };
+
+  window.addEventListener('load', scheduleFallbackLoad, { once: true });
+})();
+</script>
 </body>
 </html>

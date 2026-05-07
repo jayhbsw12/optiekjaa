@@ -51,7 +51,7 @@
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
   const randomBetween = (min, max) => min + Math.random() * (max - min);
-  const floorY = () => state.height - 8;
+  const floorY = () => state.height - Math.max(14, state.coinRadius * 0.16);
   const wallPadding = () => Math.max(12, Math.min(22, state.width * 0.02));
   const hasMotion = () => state.coins.some((coin) => (
     Math.abs(coin.vx) > 8 ||
@@ -61,7 +61,7 @@
   const clampSpin = (spin) => clamp(spin, -1.2, 1.2);
 
   const setCanvasSize = () => {
-    const rect = footer.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
 
     state.width = Math.max(1, Math.round(rect.width));
     state.height = Math.max(1, Math.round(rect.height));
@@ -79,7 +79,7 @@
 
   const createCoin = (overrides = {}) => {
     const radius = overrides.radius ?? state.coinRadius;
-    const spawnBaseY = Math.max(state.height * 0.36, state.coinRadius * 2.6);
+    const spawnDepth = Math.max(radius * 3.4, state.height * 0.22);
 
     return {
       imageIndex: overrides.imageIndex ?? 0,
@@ -89,9 +89,9 @@
       spin: overrides.spin ?? randomBetween(-0.65, 0.65),
       symbol: '$',
       vx: overrides.vx ?? randomBetween(-72, 72),
-      vy: overrides.vy ?? randomBetween(24, 92),
+      vy: overrides.vy ?? randomBetween(80, 150),
       x: overrides.x ?? randomBetween(radius + wallPadding(), state.width - radius - wallPadding()),
-      y: overrides.y ?? (spawnBaseY - randomBetween(radius * 3.2, radius * 6.1)),
+      y: overrides.y ?? (-randomBetween(radius * 1.2, spawnDepth)),
     };
   };
 

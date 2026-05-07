@@ -179,6 +179,22 @@ h6{
 
 .site-main{display:block}
 
+@supports (content-visibility:auto){
+  .lens-upgrade-strip,
+  .marquee-wrap,
+  .editorial-band,
+  .stats-dark,
+  .brand-ribbon{
+    content-visibility:auto;
+  }
+
+  .lens-upgrade-strip{contain-intrinsic-size:920px}
+  .marquee-wrap{contain-intrinsic-size:88px}
+  .editorial-band{contain-intrinsic-size:620px}
+  .stats-dark{contain-intrinsic-size:560px}
+  .brand-ribbon{contain-intrinsic-size:220px}
+}
+
 #loader{
   position:fixed;
   inset:0;
@@ -1715,7 +1731,7 @@ html.gsap-enhanced .hero-scroll{
 .site-footer {
     background: radial-gradient(circle at top right, rgba(var(--brand-accent-rgb), .14), transparent 28%), linear-gradient(180deg, #4e565a 0%, #4e565a 100%);
     color: var(--white);
-    padding: clamp(72px,8vw,104px) 5% calc(clamp(96px,11vw,148px) + 20px);
+    padding: clamp(72px,8vw,104px) 5% clamp(132px,16vw,210px);
     position: relative;
     z-index: 20;
     overflow: hidden;

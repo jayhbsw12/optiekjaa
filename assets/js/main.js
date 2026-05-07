@@ -68,6 +68,8 @@ const motionState = {
   navSubtitleWords: [],
   footerLinkSets: [],
 };
+let viewportUpdateFrame = 0;
+let threeSceneBootStarted = false;
 const markPageLoaded = () => root.classList.add('page-loaded');
 const setModelFallback = () => root.classList.add('model-fallback');
 const clearModelFallback = () => root.classList.remove('model-fallback');
@@ -858,6 +860,8 @@ if (brandRibbon && brandRibbonTrack && brandRibbonGroups.length) {
   let ribbonDirection = -1;
   let ribbonLastTick = 0;
   let ribbonLastScrollY = window.scrollY;
+  let ribbonFrame = 0;
+  let ribbonVisible = !('IntersectionObserver' in window);
 
   const syncBrandRibbon = () => {
     if (!ribbonLoopDistance) {
@@ -878,6 +882,21 @@ if (brandRibbon && brandRibbonTrack && brandRibbonGroups.length) {
     syncBrandRibbon();
   };
 
+  const stopBrandRibbon = () => {
+    if (!ribbonFrame) {
+      return;
+    }
+
+    window.cancelAnimationFrame(ribbonFrame);
+    ribbonFrame = 0;
+  };
+
+  const shouldRunBrandRibbon = () => (
+    ribbonVisible &&
+    document.visibilityState === 'visible' &&
+    ribbonLoopDistance > 0
+  );
+
   const updateBrandRibbonDirection = () => {
     const currentScrollY = window.scrollY;
     const scrollDelta = currentScrollY - ribbonLastScrollY;
@@ -890,6 +909,8 @@ if (brandRibbon && brandRibbonTrack && brandRibbonGroups.length) {
   };
 
   const tickBrandRibbon = (time) => {
+    ribbonFrame = 0;
+
     if (!ribbonLastTick) {
       ribbonLastTick = time;
     }
@@ -897,21 +918,57 @@ if (brandRibbon && brandRibbonTrack && brandRibbonGroups.length) {
     const delta = Math.min(64, time - ribbonLastTick);
     ribbonLastTick = time;
 
-    if (brandRibbon.classList.contains('is-inview') && ribbonLoopDistance > 0) {
+    if (shouldRunBrandRibbon()) {
       const speed = window.innerWidth <= 720 ? 0.04 : 0.055;
       ribbonOffset += ribbonDirection * speed * delta;
       syncBrandRibbon();
     }
 
-    window.requestAnimationFrame(tickBrandRibbon);
+    if (shouldRunBrandRibbon()) {
+      ribbonFrame = window.requestAnimationFrame(tickBrandRibbon);
+    }
+  };
+
+  const startBrandRibbon = () => {
+    if (ribbonFrame || !shouldRunBrandRibbon()) {
+      return;
+    }
+
+    ribbonLastTick = 0;
+    ribbonFrame = window.requestAnimationFrame(tickBrandRibbon);
+  };
+
+  const syncBrandRibbonPlayback = () => {
+    if (shouldRunBrandRibbon()) {
+      startBrandRibbon();
+      return;
+    }
+
+    stopBrandRibbon();
   };
 
   measureBrandRibbon();
   updateBrandRibbonDirection();
   window.addEventListener('load', measureBrandRibbon, { once: true });
-  window.addEventListener('resize', measureBrandRibbon);
+  window.addEventListener('resize', () => {
+    measureBrandRibbon();
+    syncBrandRibbonPlayback();
+  });
   window.addEventListener('scroll', updateBrandRibbonDirection, { passive: true });
-  window.requestAnimationFrame(tickBrandRibbon);
+  document.addEventListener('visibilitychange', syncBrandRibbonPlayback);
+
+  if ('IntersectionObserver' in window) {
+    const ribbonObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        ribbonVisible = entry.isIntersecting;
+        syncBrandRibbonPlayback();
+      });
+    }, { rootMargin: '180px 0px' });
+
+    ribbonObserver.observe(brandRibbon);
+  }
+
+  syncBrandRibbonPlayback();
 }
 
 const updateHeaderState = () => {
@@ -969,21 +1026,30 @@ const updateCollectionShowcase = () => {
   });
 };
 
-window.addEventListener('scroll', updateFeatureCopy, { passive: true });
-window.addEventListener('resize', updateFeatureCopy);
-window.addEventListener('scroll', updateHeaderState, { passive: true });
-window.addEventListener('resize', updateHeaderState);
-window.addEventListener('scroll', updateCollectionShowcase, { passive: true });
-window.addEventListener('resize', updateCollectionShowcase);
-updateFeatureCopy();
-updateHeaderState();
-updateCollectionShowcase();
+const runViewportUpdates = () => {
+  viewportUpdateFrame = 0;
+  updateFeatureCopy();
+  updateHeaderState();
+  updateCollectionShowcase();
+};
+
+const scheduleViewportUpdates = () => {
+  if (viewportUpdateFrame) {
+    return;
+  }
+
+  viewportUpdateFrame = window.requestAnimationFrame(runViewportUpdates);
+};
+
+window.addEventListener('scroll', scheduleViewportUpdates, { passive: true });
+window.addEventListener('resize', scheduleViewportUpdates);
+runViewportUpdates();
 
 const bootThreeScene = async () => {
   if (!canvas || !heroEl || !featEl || !featCpy || !loaderEl || !ldFill || !ldStatus || !('WebGLRenderingContext' in window)) {
     setModelFallback();
     hideLoader();
-    updateFeatureCopy();
+    scheduleViewportUpdates();
     return;
   }
 
@@ -1005,7 +1071,7 @@ const bootThreeScene = async () => {
     console.error('Unable to load 3D libraries.', error);
     setModelFallback();
     hideLoader();
-    updateFeatureCopy();
+    scheduleViewportUpdates();
     return;
   }
 
@@ -1017,10 +1083,10 @@ const bootThreeScene = async () => {
     console.error('Unable to initialize WebGL.', error);
     setModelFallback();
     hideLoader();
-    updateFeatureCopy();
+    scheduleViewportUpdates();
     return;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -1146,7 +1212,7 @@ const bootThreeScene = async () => {
 
       clearModelFallback();
       hideLoader();
-      updateFeatureCopy();
+      scheduleViewportUpdates();
     },
     (xhr) => {
       if (xhr.total) {
@@ -1158,7 +1224,7 @@ const bootThreeScene = async () => {
       setModelFallback();
       canvas.style.opacity = '0';
       hideLoader();
-      updateFeatureCopy();
+      scheduleViewportUpdates();
     }
   );
 
@@ -1169,6 +1235,8 @@ const bootThreeScene = async () => {
   let targetScroll = 0;
   let currentScroll = 0;
   let frameTime = 0;
+  let sceneFrame = 0;
+  let sceneScrollFrame = 0;
 
   window.addEventListener('mousemove', (event) => {
     const normalizedX = (event.clientX / window.innerWidth - 0.5) * 2;
@@ -1183,7 +1251,8 @@ const bootThreeScene = async () => {
     targetRotateY = 0;
   });
 
-  const onScroll = () => {
+  const syncSceneScrollState = () => {
+    sceneScrollFrame = 0;
     const scrollY = window.scrollY;
     targetScroll = Math.max(0, Math.min(1, scrollY / heroEl.offsetHeight));
 
@@ -1203,7 +1272,15 @@ const bootThreeScene = async () => {
       canvas.style.pointerEvents = 'none';
     }
 
-    updateFeatureCopy();
+    scheduleViewportUpdates();
+  };
+
+  const onScroll = () => {
+    if (sceneScrollFrame) {
+      return;
+    }
+
+    sceneScrollFrame = window.requestAnimationFrame(syncSceneScrollState);
   };
 
   const targetX = (progress) => {
@@ -1226,9 +1303,12 @@ const bootThreeScene = async () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     applyModelScale();
+    scheduleViewportUpdates();
   });
 
   const tick = () => {
+    sceneFrame = 0;
+
     if (root.classList.contains('model-fallback')) {
       return;
     }
@@ -1247,13 +1327,64 @@ const bootThreeScene = async () => {
     grp.rotation.y = sectionTurn + currentRotateY;
 
     renderer.render(scene, camera);
-    window.requestAnimationFrame(tick);
+    if (document.visibilityState === 'visible') {
+      sceneFrame = window.requestAnimationFrame(tick);
+    }
   };
 
-  tick();
+  const startSceneLoop = () => {
+    if (sceneFrame || document.visibilityState !== 'visible') {
+      return;
+    }
+
+    sceneFrame = window.requestAnimationFrame(tick);
+  };
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      startSceneLoop();
+      return;
+    }
+
+    if (!sceneFrame) {
+      return;
+    }
+
+    window.cancelAnimationFrame(sceneFrame);
+    sceneFrame = 0;
+  });
+
+  startSceneLoop();
 };
 
-bootThreeScene();
+const scheduleThreeSceneBoot = () => {
+  const startThreeScene = () => {
+    if (threeSceneBootStarted) {
+      return;
+    }
+
+    threeSceneBootStarted = true;
+    bootThreeScene();
+  };
+
+  const queueThreeScene = () => {
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(startThreeScene, { timeout: 1200 });
+      return;
+    }
+
+    window.setTimeout(startThreeScene, 180);
+  };
+
+  if (document.readyState === 'complete') {
+    queueThreeScene();
+    return;
+  }
+
+  window.addEventListener('load', queueThreeScene, { once: true });
+};
+
+scheduleThreeSceneBoot();
 
 (function initLensCardHover() {
   const EASE = 'cubic-bezier(.22,1,.36,1)';
