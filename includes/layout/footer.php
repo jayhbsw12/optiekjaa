@@ -3,6 +3,11 @@ $footerCoinImages = [];
 for ($index = 1; $index <= 13; $index += 1) {
     $footerCoinImages[] = asset_url(sprintf('assets/img/Optiekjaa footer frames/optiekjaa-footer-frame-%02d.png', $index));
 }
+
+$whatsAppMessage = 'Hallo Optiekjaa, ik wil graag meer informatie.';
+$whatsAppChatUrl = 'https://wa.me/597521166?text=' . rawurlencode($whatsAppMessage);
+$whatsAppDesktopUrl = 'https://web.whatsapp.com/send?phone=597521166&text=' . rawurlencode($whatsAppMessage);
+$whatsAppQrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=0&data=' . rawurlencode($whatsAppChatUrl);
 ?>
 <footer class="site-footer">
   <canvas
@@ -125,3 +130,63 @@ for ($index = 1; $index <= 13; $index += 1) {
   </div>
 
 </footer>
+
+<div class="wa-float" aria-live="polite">
+  <button
+    type="button"
+    class="btn-liquid wa-float-btn"
+    data-wa-open
+    aria-controls="wa-modal"
+    aria-expanded="false"
+  >
+    <span class="btn-liquid-shell"></span>
+    <span class="btn-liquid-label">
+      <span
+        class="wa-float-icon"
+        aria-hidden="true"
+        style="--wa-icon:url('<?= esc(asset_url('assets/icons/whatsapp-web.svg')); ?>')"
+      ></span>
+      <span class="wa-float-text">WhatsApp Us</span>
+    </span>
+  </button>
+</div>
+
+<div class="wa-modal" id="wa-modal" hidden aria-hidden="true">
+  <div class="wa-modal-backdrop" data-wa-close></div>
+  <div
+    class="wa-modal-card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="wa-modal-title"
+    aria-describedby="wa-modal-copy"
+  >
+    <button type="button" class="wa-modal-close" data-wa-close aria-label="Close WhatsApp popup">×</button>
+    <div class="wa-modal-qr-wrap">
+      <img
+        class="wa-modal-qr"
+        data-wa-qr
+        data-src="<?= esc($whatsAppQrUrl); ?>"
+        alt="QR-code om Optiekjaa via WhatsApp te openen"
+        width="220"
+        height="220"
+        decoding="async"
+      >
+    </div>
+    <h3 class="wa-modal-title" id="wa-modal-title">WHATSAPP US</h3>
+    <p class="wa-modal-copy" id="wa-modal-copy">
+      Scan the QR Code to chat with one of our specialists.
+    </p>
+    <a
+      href="<?= esc($whatsAppDesktopUrl); ?>"
+      class="btn-liquid wa-modal-action"
+      target="_blank"
+      rel="noopener"
+    >
+      <span class="btn-liquid-shell"></span>
+      <span class="btn-liquid-label">
+        <span class="wa-modal-action-text">OR CHAT VIA DESKTOP</span>
+        <!-- <span class="wa-modal-action-arrow" aria-hidden="true">›</span> -->
+      </span>
+    </a>
+  </div>
+</div>
