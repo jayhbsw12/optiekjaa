@@ -460,7 +460,6 @@ const playLoaderEntrance = () => {
     loaderEl.classList.add('out');
     loaderEl.style.display = 'none';
     markPageLoaded();
-    playHomepageIntro();
     return;
   }
 
@@ -734,6 +733,10 @@ const initGsapMotion = () => {
     y: 18,
     autoAlpha: 0,
   });
+
+  if (loaderDisabled) {
+    playHomepageIntro();
+  }
 
   setupFooterTimeline();
   setupEditorialTimeline();
