@@ -65,7 +65,7 @@
     state.height = Math.max(1, Math.round(rect.height));
     state.dpr = Math.min(window.devicePixelRatio || 1, 2);
     state.coinRadius = clamp(state.width * 0.0495, 54, 72);
-    state.targetCoins = 15;
+    state.targetCoins = 13;
 
     canvas.width = Math.round(state.width * state.dpr);
     canvas.height = Math.round(state.height * state.dpr);

@@ -7,6 +7,7 @@
 <meta name="description" content="<?= esc($page['description']); ?>">
 <meta name="robots" content="<?= esc($page['robots']); ?>">
 <meta name="theme-color" content="#4e565a">
+<link rel="icon" type="image/svg+xml" href="<?= esc(asset_url('assets/img/Optiekjaa-Favicon.svg')); ?>">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nl_NL">
 <meta property="og:site_name" content="<?= esc($site['name']); ?>">
