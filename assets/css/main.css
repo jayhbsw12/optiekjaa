@@ -1838,8 +1838,10 @@ html.gsap-enhanced .hero-scroll{
   justify-content:space-between;
   gap:1rem;
   margin-top:clamp(52px,7vw,88px);
-  padding-top:1.6rem;
+  padding:1.1rem 1.4rem;
   border-top:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,.52) 100%);
   position:relative;
   z-index:2;
 }

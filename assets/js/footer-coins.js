@@ -56,6 +56,7 @@
     Math.abs(coin.vy) > 8 ||
     Math.abs(coin.spin) > 0.15
   ));
+  const clampSpin = (spin) => clamp(spin, -1.2, 1.2);
 
   const setCanvasSize = () => {
     const rect = footer.getBoundingClientRect();
@@ -64,7 +65,7 @@
     state.height = Math.max(1, Math.round(rect.height));
     state.dpr = Math.min(window.devicePixelRatio || 1, 2);
     state.coinRadius = clamp(state.width * 0.0495, 54, 72);
-    state.targetCoins = clamp(Math.round(state.width / (state.coinRadius * 2.25)), 8, 15);
+    state.targetCoins = 15;
 
     canvas.width = Math.round(state.width * state.dpr);
     canvas.height = Math.round(state.height * state.dpr);
@@ -82,10 +83,10 @@
       mass: radius * radius,
       radius,
       rotation: overrides.rotation ?? randomBetween(-Math.PI, Math.PI),
-      spin: overrides.spin ?? randomBetween(-3.6, 3.6),
+      spin: overrides.spin ?? randomBetween(-0.65, 0.65),
       symbol: '$',
-      vx: overrides.vx ?? randomBetween(-110, 110),
-      vy: overrides.vy ?? randomBetween(20, 110),
+      vx: overrides.vx ?? randomBetween(-72, 72),
+      vy: overrides.vy ?? randomBetween(24, 92),
       x: overrides.x ?? randomBetween(radius + wallPadding(), state.width - radius - wallPadding()),
       y: overrides.y ?? (spawnBaseY - randomBetween(radius * 3.2, radius * 6.1)),
     };
@@ -149,36 +150,42 @@
 
     if (coin.x - coin.radius < left) {
       coin.x = left + coin.radius;
-      coin.vx *= -0.78;
-      coin.spin *= 0.92;
+      coin.vx *= -0.62;
+      coin.spin *= 0.58;
     } else if (coin.x + coin.radius > right) {
       coin.x = right - coin.radius;
-      coin.vx *= -0.78;
-      coin.spin *= 0.92;
+      coin.vx *= -0.62;
+      coin.spin *= 0.58;
     }
 
     if (coin.y + coin.radius > floor) {
       coin.y = floor - coin.radius;
 
       if (coin.vy > 0) {
-        coin.vy *= -0.44;
+        coin.vy *= -0.24;
       }
 
-      coin.vx *= 0.985;
-      coin.spin *= 0.985;
+      coin.vx *= 0.9;
+      coin.spin *= 0.78;
 
-      if (Math.abs(coin.vy) < 18) {
+      if (Math.abs(coin.vy) < 24) {
         coin.vy = 0;
       }
 
-      if (Math.abs(coin.vx) < 4) {
+      if (Math.abs(coin.vx) < 10) {
         coin.vx = 0;
       }
 
-      if (Math.abs(coin.spin) < 0.12) {
+      if (Math.abs(coin.spin) < 0.045) {
         coin.spin = 0;
       }
+
+      if (coin.vy === 0 && Math.abs(coin.vx) < 16) {
+        coin.spin *= 0.4;
+      }
     }
+
+    coin.spin = clampSpin(coin.spin);
   };
 
   const resolveCoinCollision = (first, second) => {
@@ -211,7 +218,7 @@
       return;
     }
 
-    const restitution = 0.58;
+    const restitution = 0.34;
     const impulse = (-(1 + restitution) * velocityAlongNormal) / inverseMassTotal;
     const impulseX = impulse * normalX;
     const impulseY = impulse * normalY;
@@ -224,15 +231,15 @@
     const tangentX = -normalY;
     const tangentY = normalX;
     const tangentVelocity = relativeVelocityX * tangentX + relativeVelocityY * tangentY;
-    const tangentImpulse = clamp(-tangentVelocity * 0.18, -32, 32);
+    const tangentImpulse = clamp(-tangentVelocity * 0.06, -8, 8);
 
     first.vx -= tangentImpulse * tangentX / first.mass;
     first.vy -= tangentImpulse * tangentY / first.mass;
     second.vx += tangentImpulse * tangentX / second.mass;
     second.vy += tangentImpulse * tangentY / second.mass;
 
-    first.spin -= tangentImpulse * 0.02;
-    second.spin += tangentImpulse * 0.02;
+    first.spin = clampSpin(first.spin - tangentImpulse * 0.004);
+    second.spin = clampSpin(second.spin + tangentImpulse * 0.004);
   };
 
   const simulateStep = (deltaTime) => {
@@ -255,10 +262,18 @@
         coin.x += coin.vx * stepTime;
         coin.y += coin.vy * stepTime;
         coin.rotation += coin.spin * stepTime;
-        coin.vx *= 0.9985;
-        coin.spin *= 0.999;
+        coin.vx *= 0.996;
+        coin.spin *= 0.96;
 
         resolveBoundaryCollision(coin);
+
+        if (coin.vy === 0 && Math.abs(coin.vx) < 8) {
+          coin.spin *= 0.55;
+        }
+
+        if (Math.abs(coin.spin) < 0.03) {
+          coin.spin = 0;
+        }
       });
 
       for (let index = 0; index < state.coins.length; index += 1) {
