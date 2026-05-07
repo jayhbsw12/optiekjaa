@@ -13,7 +13,7 @@ for ($index = 1; $index <= 13; $index += 1) {
 
   <div class="footer-shell">
     <div class="footer-brand">
-      <p class="footer-bar-copy footer-brand-copy"><?= strtoupper(esc($site['name'])); ?>&reg;</p>
+      <p class="footer-bar-copy footer-brand-copy"><?= strtoupper(esc($site['name'])); ?>&reg; <?= esc(date('Y')); ?></p>
       <div class="footer-giants">
         <a href="<?= esc(url('over')); ?>" class="footer-giant-link">OVER</a>
         <a href="<?= esc(url('brillen')); ?>" class="footer-giant-link">BRILLEN</a>
