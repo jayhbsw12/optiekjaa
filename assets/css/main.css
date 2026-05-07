@@ -765,13 +765,14 @@ html.page-loaded #loader{
   bottom:clamp(16px,2vw,28px);
   z-index:650;
 }
-.wa-float-btn{
-  min-height:58px;
+.wa-float-btn {
+    min-height: 58px;
+    padding: 0px 10px 0px 10px !important;
 }
 .wa-float-btn .btn-liquid-label{
   min-height:58px;
-  padding:0 1.3rem 0 1.05rem;
-  gap:.72rem;
+  padding:0 .98rem 0 .82rem;
+  gap:.56rem;
   white-space:nowrap;
 }
 .wa-float-icon{
