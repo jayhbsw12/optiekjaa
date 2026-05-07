@@ -47,6 +47,10 @@ const footerBarItems = footerEl
   ? [footerEl.querySelector('.footer-bar-copy'), ...footerEl.querySelectorAll('.footer-bar-links a')].filter(Boolean)
   : [];
 const modelUrl = new URL('../../glasses_06/scene.gltf', import.meta.url).href;
+const localDevHosts = new Set(['localhost', '127.0.0.1', '::1']);
+const localModelCacheKey = localDevHosts.has(window.location.hostname)
+  ? `dev=${Date.now()}`
+  : '';
 const body = document.body;
 const root = document.documentElement;
 const themeAccent = getComputedStyle(root).getPropertyValue('--brand-accent').trim() || '#f7b704';
@@ -73,6 +77,15 @@ let threeSceneBootStarted = false;
 const markPageLoaded = () => root.classList.add('page-loaded');
 const setModelFallback = () => root.classList.add('model-fallback');
 const clearModelFallback = () => root.classList.remove('model-fallback');
+
+const withLocalModelCacheBust = (url) => {
+  if (!localModelCacheKey || !url || url.startsWith('data:') || url.startsWith('blob:')) {
+    return url;
+  }
+
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}${localModelCacheKey}`;
+};
 
 const wrapLineMask = (element) => {
   if (!element) {
@@ -1076,6 +1089,11 @@ const bootThreeScene = async () => {
   }
 
   let renderer;
+  const loadingManager = new THREE.LoadingManager();
+
+  if (localModelCacheKey) {
+    loadingManager.setURLModifier((url) => withLocalModelCacheBust(url));
+  }
 
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -1165,7 +1183,7 @@ const bootThreeScene = async () => {
     modelRoot.scale.setScalar(getModelScaleTarget() / Math.max(modelBaseSize, 0.001));
   };
 
-  new GLTFLoader().load(
+  new GLTFLoader(loadingManager).load(
     modelUrl,
     (gltf) => {
       const model = gltf.scene;

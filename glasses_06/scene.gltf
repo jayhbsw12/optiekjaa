@@ -624,6 +624,11 @@
       "uri": "scene.bin"
     }
   ],
+  "images": [
+    {
+      "uri": "textures/waku03_normal.png"
+    }
+  ],
   "materials": [
     {
       "alphaMode": "BLEND",
@@ -684,6 +689,9 @@
     {
       "doubleSided": true,
       "name": "waku03",
+      "normalTexture": {
+        "index": 0
+      },
       "pbrMetallicRoughness": {
         "baseColorFactor": [
           0.8103699510436352,
@@ -929,6 +937,14 @@
       "name": "Object_11"
     }
   ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
   "scene": 0,
   "scenes": [
     {
@@ -936,6 +952,12 @@
       "nodes": [
         0
       ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
     }
   ]
 }
