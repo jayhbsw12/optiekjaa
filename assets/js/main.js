@@ -270,19 +270,24 @@ const setupFooterTimeline = () => {
     transformOrigin: '50% 100%',
   });
 
-  gsapLib.timeline({
+  const footerTimeline = gsapLib.timeline({
     defaults: { ease: 'power3.out' },
     scrollTrigger: {
       trigger: footerEl,
       start: 'top 82%',
       once: true,
     },
-  })
-    .to(footerKicker, {
+  });
+
+  if (footerKicker) {
+    footerTimeline.to(footerKicker, {
       y: 0,
       autoAlpha: 1,
       duration: 0.68,
-    })
+    });
+  }
+
+  footerTimeline
     .to(giantChars, {
       yPercent: 0,
       autoAlpha: 1,

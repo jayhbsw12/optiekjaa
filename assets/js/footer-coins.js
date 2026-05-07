@@ -1,7 +1,7 @@
 (() => {
   const footer = document.querySelector('.site-footer');
   const canvas = footer?.querySelector('.footer-coin-canvas');
-  const coinImageSrc = canvas?.dataset.coinImage || '';
+  const coinImageSources = (canvas?.dataset.coinImages || '').split('|').filter(Boolean);
 
   if (!footer || !canvas) {
     return;
@@ -12,17 +12,19 @@
     return;
   }
 
-  const coinImage = new Image();
-  let coinImageReady = false;
+  const coinImages = coinImageSources.map((source) => {
+    const image = new Image();
+    const entry = { image, ready: false, source };
 
-  if (coinImageSrc) {
-    coinImage.decoding = 'async';
-    coinImage.onload = () => {
-      coinImageReady = true;
+    image.decoding = 'async';
+    image.onload = () => {
+      entry.ready = true;
       render();
     };
-    coinImage.src = coinImageSrc;
-  }
+    image.src = source;
+
+    return entry;
+  });
 
   const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const coinStyle = {
@@ -80,6 +82,7 @@
     const spawnBaseY = Math.max(state.height * 0.36, state.coinRadius * 2.6);
 
     return {
+      imageIndex: overrides.imageIndex ?? 0,
       mass: radius * radius,
       radius,
       rotation: overrides.rotation ?? randomBetween(-Math.PI, Math.PI),
@@ -113,6 +116,7 @@
       }
 
       state.coins.push(createCoin({
+        imageIndex: coinImages.length ? (index % coinImages.length) : 0,
         radius,
         rotation: randomBetween(-0.5, 0.5),
         spin: 0,
@@ -139,7 +143,9 @@
   };
 
   const spawnCoin = () => {
-    state.coins.push(createCoin());
+    state.coins.push(createCoin({
+      imageIndex: coinImages.length ? (state.spawned % coinImages.length) : 0,
+    }));
     state.spawned += 1;
   };
 
@@ -326,7 +332,9 @@
     context.arc(0, 0, coin.radius, 0, Math.PI * 2);
     context.fill();
 
-    if (coinImageReady) {
+    const coinImage = coinImages[coin.imageIndex];
+
+    if (coinImage?.ready) {
       const imageSize = innerRadius * 1.82;
 
       context.save();
@@ -334,7 +342,7 @@
       context.arc(0, 0, innerRadius, 0, Math.PI * 2);
       context.clip();
       context.drawImage(
-        coinImage,
+        coinImage.image,
         -imageSize / 2,
         -imageSize / 2,
         imageSize,

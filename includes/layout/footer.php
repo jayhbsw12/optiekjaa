@@ -1,13 +1,19 @@
+<?php
+$footerCoinImages = [];
+for ($index = 1; $index <= 13; $index += 1) {
+    $footerCoinImages[] = asset_url(sprintf('assets/img/Optiekjaa footer frames/optiekjaa-footer-frame-%02d.png', $index));
+}
+?>
 <footer class="site-footer">
   <canvas
     class="footer-coin-canvas"
     aria-hidden="true"
-    data-coin-image="<?= esc(asset_url('assets/img/frame-model-1.png')); ?>"
+    data-coin-images="<?= esc(implode('|', $footerCoinImages)); ?>"
   ></canvas>
 
   <div class="footer-shell">
     <div class="footer-brand">
-      <p class="footer-kicker">Premium optiek, Suriname</p>
+      <p class="footer-bar-copy footer-brand-copy"><?= strtoupper(esc($site['name'])); ?>&reg;</p>
       <div class="footer-giants">
         <a href="<?= esc(url('over')); ?>" class="footer-giant-link">OVER</a>
         <a href="<?= esc(url('brillen')); ?>" class="footer-giant-link">BRILLEN</a>
@@ -35,7 +41,7 @@
         >
         <button class="btn-liquid footer-news-btn" type="submit">
           <span class="btn-liquid-shell"></span>
-          <span class="btn-liquid-label">Aanmelden</span>
+          <span class="btn-liquid-label">Opt in</span>
         </button>
       </form>
 
@@ -64,9 +70,9 @@
           </a>
         </div>
         <div class="footer-contact-lines">
-          <a href="mailto:bril@optiekjaa.com">bril@optiekjaa.com</a>
-          <a href="tel:+597521166">+597 521 166</a>
-          <span>Paramaribo, Suriname</span>
+          <a href="<?= esc(url('contact')); ?>">Privacybeleid</a>
+          <a href="<?= esc(url('contact')); ?>">Algemene voorwaarden</a>
+          <a href="<?= esc(url('contact')); ?>">Afspraak maken</a>
         </div>
       </div>
 
@@ -118,12 +124,4 @@
     </div>
   </div>
 
-  <div class="footer-bar">
-    <p class="footer-bar-copy"><?= strtoupper(esc($site['name'])); ?>&reg;</p>
-    <div class="footer-bar-links">
-      <a href="<?= esc(url('contact')); ?>">Privacybeleid</a>
-      <a href="<?= esc(url('contact')); ?>">Algemene voorwaarden</a>
-      <a href="<?= esc(url('contact')); ?>">Afspraak maken</a>
-    </div>
-  </div>
 </footer>
