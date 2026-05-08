@@ -15,7 +15,7 @@
       <div class="over-banner-inner">
 
         <div class="over-banner-left">
-          <p class="over-banner-eyebrow">Uw optiekspecialist in Suriname</p>
+          <!-- <p class="over-banner-eyebrow">Uw optiekspecialist in Suriname</p> -->
           <h1 class="over-banner-h1">Over<br><em>ons.</em></h1>
         </div>
 
@@ -57,10 +57,58 @@
     <div class="fc-split-right">
       <img
         loading="lazy"
-        src="<?= esc(asset_url('assets/img/over-ons.webp')); ?>"
+        src="<?= esc(asset_url('assets/img/over-ons-option.webp')); ?>"
         alt="Optiekjaa vakkundige service"
       >
     </div>
 
   </section>
+
+  <!-- ── Steps section ───────────────────────────────────── -->
+  <section class="sticky-steps-section">
+
+    <div class="sticky-steps-header">
+      <h2 class="steps-heading">Uw stappen naar beter zicht</h2>
+    </div>
+
+    <div class="sticky-steps-track">
+
+      <div class="sticky-wrap">
+        <div class="sticky-card sc-1">
+          <p class="sc-num">01</p>
+          <div class="sc-body">
+            <p class="sc-label">Stap 1</p>
+            <p class="sc-desc">Laat uw ogen meten door onze deskundigen.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sticky-wrap">
+        <div class="sticky-card sc-2">
+          <p class="sc-num">02</p>
+          <div class="sc-body">
+            <p class="sc-label">Stap 2</p>
+            <p class="sc-desc">Kies uw montuur of lenzen onder begeleiding van ons team.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sticky-wrap sc-last">
+        <div class="sticky-card sc-3">
+          <p class="sc-num">03</p>
+          <div class="sc-body">
+            <p class="sc-label">Stap 3</p>
+            <p class="sc-desc">Ontvang uw glazen of lenzen en geniet van een beter zicht.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="steps-cta">
+      <a href="/contact.php" class="steps-btn">U ZIET BETER BIJ OPTIEK JAA</a>
+    </div>
+
+  </section>
+
 </main>

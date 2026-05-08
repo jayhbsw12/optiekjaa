@@ -7,7 +7,13 @@
       "WebFetch(domain:gatzara.studio)",
       "WebFetch(domain:www.eathungrytiger.com)",
       "WebFetch(domain:superpower.com)",
-      "WebFetch(domain:studiobonded.com)"
+      "WebFetch(domain:studiobonded.com)",
+      "WebFetch(domain:www.pieterkoopt.nl)",
+      "Bash(curl -s https://www.pieterkoopt.nl/)",
+      "Bash(curl -s 'https://www.pieterkoopt.nl/')",
+      "Bash(perl -ne 'print if /section_stacking-cards/../<\\\\/section>/')",
+      "Bash(perl -ne 'if\\(/section_stacking-cards/../<\\\\/section>/\\) { print; }')",
+      "Bash(curl -s https://cdn.prod.website-files.com/67890d3b1a9365a1173c954e/css/pieter-koopt-demo.shared.cda55fe7c.min.css)"
     ]
   }
 }

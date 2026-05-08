@@ -23,9 +23,35 @@
   window.setTimeout(markPageLoaded, 9000);
 })();
 </script>
-<?php if (strpos((string) ($page['body_class'] ?? ''), 'page-home') !== false): ?>
+<?php $body = (string)($page['body_class'] ?? ''); ?>
+<?php if (str_contains($body, 'page-home') || str_contains($body, 'page-over')): ?>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<?php endif; ?>
+<?php if (str_contains($body, 'page-over')): ?>
+<script>
+window.addEventListener('load', function () {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cards = gsap.utils.toArray('.sticky-card');
+  const wraps = gsap.utils.toArray('.sticky-wrap');
+
+  cards.slice(0, -1).forEach(function (card, i) {
+    gsap.to(card, {
+      scale: 0.88,
+      yPercent: -4,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: wraps[i + 1],
+        start: 'top bottom',
+        end: 'top top+=90px',
+        scrub: true,
+      },
+    });
+  });
+});
+</script>
 <?php endif; ?>
 <script type="importmap">
 {
