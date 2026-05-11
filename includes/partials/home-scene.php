@@ -13,6 +13,10 @@
 <?php
 $loaderFrameImages = [];
 $disablePreloader = true;
+$modelAssetVersions = [
+    'scene.bin' => asset_url('glasses_06/scene.bin'),
+    'textures/waku03_normal.png' => asset_url('glasses_06/textures/waku03_normal.png'),
+];
 for ($index = 1; $index <= 13; $index++) {
     $loaderFrameImages[] = asset_url(sprintf('assets/img/Optiekjaa footer frames/optiekjaa-footer-frame-%02d.png', $index));
 }
@@ -69,4 +73,9 @@ for ($index = 1; $index <= 13; $index++) {
   </div>
 </div>
 
-<canvas id="gl" aria-hidden="true"></canvas>
+<canvas
+  id="gl"
+  aria-hidden="true"
+  data-model-url="<?= esc(asset_url('glasses_06/scene.gltf')); ?>"
+  data-model-assets="<?= esc(json_encode($modelAssetVersions, JSON_UNESCAPED_SLASHES)); ?>"
+></canvas>

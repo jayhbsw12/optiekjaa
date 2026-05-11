@@ -46,7 +46,20 @@ const footerContactLines = footerEl ? [...footerEl.querySelectorAll('.footer-con
 const footerBarItems = footerEl
   ? [footerEl.querySelector('.footer-bar-copy'), ...footerEl.querySelectorAll('.footer-bar-links a')].filter(Boolean)
   : [];
-const modelUrl = new URL('../../glasses_06/scene.gltf', import.meta.url).href;
+const fallbackModelUrl = new URL('../../glasses_06/scene.gltf', import.meta.url).href;
+const modelUrl = canvas?.dataset.modelUrl || fallbackModelUrl;
+const modelAssetMap = (() => {
+  if (!canvas?.dataset.modelAssets) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(canvas.dataset.modelAssets);
+  } catch (error) {
+    console.warn('Unable to parse model asset map.', error);
+    return {};
+  }
+})();
 const localDevHosts = new Set(['localhost', '127.0.0.1', '::1']);
 const localModelCacheKey = localDevHosts.has(window.location.hostname)
   ? `dev=${Date.now()}`
@@ -85,6 +98,28 @@ const withLocalModelCacheBust = (url) => {
 
   const separator = url.includes('?') ? '&' : '?';
   return `${url}${separator}${localModelCacheKey}`;
+};
+
+const withVersionedModelAssetUrl = (url) => {
+  if (!url || url.startsWith('data:') || url.startsWith('blob:')) {
+    return url;
+  }
+
+  const normalizedUrl = String(url).replace(/\\/g, '/');
+
+  for (const [assetPath, versionedUrl] of Object.entries(modelAssetMap)) {
+    const normalizedAssetPath = assetPath.replace(/\\/g, '/').replace(/^\/+/, '');
+
+    if (
+      normalizedUrl === normalizedAssetPath ||
+      normalizedUrl.endsWith(`/${normalizedAssetPath}`) ||
+      normalizedUrl.endsWith(normalizedAssetPath)
+    ) {
+      return versionedUrl;
+    }
+  }
+
+  return withLocalModelCacheBust(url);
 };
 
 const wrapLineMask = (element) => {
@@ -1091,8 +1126,8 @@ const bootThreeScene = async () => {
   let renderer;
   const loadingManager = new THREE.LoadingManager();
 
-  if (localModelCacheKey) {
-    loadingManager.setURLModifier((url) => withLocalModelCacheBust(url));
+  if (localModelCacheKey || Object.keys(modelAssetMap).length) {
+    loadingManager.setURLModifier((url) => withVersionedModelAssetUrl(url));
   }
 
   try {
