@@ -134,20 +134,27 @@ $whatsAppQrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&margi
 <div class="wa-float" aria-live="polite">
   <button
     type="button"
-    class="btn-liquid wa-float-btn"
+    class="wa-float-btn"
     data-wa-open
     aria-controls="wa-modal"
     aria-expanded="false"
   >
-    <span class="btn-liquid-shell"></span>
-    <span class="btn-liquid-label">
-      <span
-        class="wa-float-icon"
-        aria-hidden="true"
-        style="--wa-icon:url('<?= esc(asset_url('assets/icons/whatsapp-web.svg')); ?>')"
-      ></span>
-      <span class="wa-float-text">WhatsApp Us</span>
+    <span class="wa-float-shell" aria-hidden="true">
+      <span class="wa-float-tile wa-float-tile--preview">
+        <img
+          class="wa-float-preview"
+          src="<?= esc(asset_url('assets/img/Model-homepage-option.png')); ?>"
+          alt=""
+        >
+      </span>
+      <span class="wa-float-tile wa-float-tile--action">
+        <span
+          class="wa-float-icon"
+          style="--wa-icon:url('<?= esc(asset_url('assets/icons/whatsapp-web.svg')); ?>')"
+        ></span>
+      </span>
     </span>
+    <span class="footer-sr-only">WhatsApp Us</span>
   </button>
 </div>
 
