@@ -35,9 +35,10 @@
         </div>
         <div class="bf-card-body">
           <h3 class="bf-card-title">Enkelvoudige brillen</h3>
-          <p class="bf-card-desc">Enkelvoudige brillen hebben glazen met een enkele sterkte. Ze worden ook wel &lsquo;unifocale brillen&rsquo; genoemd. Deze glazen zijn bedoeld voor mensen die een bril voor alleen veraf of alleen voor lezen nodig hebben.</p>
-          <p class="bf-card-desc">De meeste Enkelvoudige glazen hebben we in onze winkel op voorraad liggen. Hierdoor kunnen we in veel gevallen een bril met Enkelvoudige glazen binnen een dag nog af hebben!</p>
-          <p class="bf-card-desc">Beschikbaar met alle mogelijke gewenste glasopties.</p>
+          <p class="bf-card-desc">
+          Enkelvoudige brillen, ook wel unifocale brillen genoemd, hebben glazen met één sterkte. Ze zijn geschikt voor veraf óf lezen.
+          <br>Veel enkelvoudige glazen hebben we op voorraad, waardoor uw bril vaak binnen één dag klaar kan zijn. <br>Beschikbaar met alle gewenste glasopties.
+</p>
         </div>
       </article>
 
@@ -50,9 +51,7 @@
         </div>
         <div class="bf-card-body">
           <h3 class="bf-card-title">Bifocale brillen</h3>
-          <p class="bf-card-desc">Zijn glazen met een lees gedeelte. Net als de enkelvoudige glazen kunt u hiermee of ver of dichtbij zien. Voor de kleine letters zit er een leesgedeelte in het glas.</p>
-          <p class="bf-card-desc">Bifocale brillen worden steeds minder ingezet voor ouderdomsverziendheid (presbyopie). Wellicht dat een multifocale bril de betere oplossing is.</p>
-          <p class="bf-card-desc">Beschikbaar met alle mogelijke gewenste glasopties.</p>
+          <p class="bf-card-desc">Bifocale brillen hebben glazen met een apart leesgedeelte. Hiermee kunt u ver én dichtbij zien, waarbij het leesdeel helpt bij kleine letters.<br>Ze worden tegenwoordig minder vaak gebruikt bij presbyopie; een multifocale bril kan vaak een betere oplossing zijn. <br>Beschikbaar met alle gewenste glasopties.</p>
         </div>
       </article>
 
@@ -65,9 +64,11 @@
         </div>
         <div class="bf-card-body">
           <h3 class="bf-card-title">Multifocale brillen</h3>
-          <p class="bf-card-desc">Multifocale brillen hebben glazen met meerdere sterkten. Ze worden ook wel &lsquo;varifocale, varilux of varifocus brillen&rsquo; genoemd. Deze glazen zijn bedoeld voor mensen die een bril voor zowel veraf als dichtbij nodig hebben. In de meeste gevallen zijn multifocale glazen dan de meest praktische en esthetische oplossing.</p>
-          <p class="bf-card-desc">Bij ons krijgt u altijd de beste multifocale glazen. Dat wil zeggen een zeer breed kijk- en leesdeel en zo min mogelijk vervormingen aan de randen van de glazen. Bent u al drager van multifocale glazen? Dan hoeft u zich dus geen zorgen te maken, u krijgt altijd een gelijkwaardig of beter multifocaal glas dan u gewend bent.</p>
-          <p class="bf-card-desc">Beschikbaar met alle mogelijke gewenste glasopties.</p>
+          <p class="bf-card-desc">Multifocale brillen hebben glazen met meerdere sterkten en zijn geschikt voor veraf én dichtbij. Ze worden ook varifocale, varilux of varifocus brillen genoemd.
+<br>
+Bij ons krijgt u hoogwaardige multifocale glazen met een breed kijk- en leesdeel en minimale vervorming aan de randen.
+<br>
+Beschikbaar met alle gewenste glasopties.</p>
         </div>
       </article>
 
@@ -79,8 +80,11 @@
         </div>
         <div class="bf-card-body">
           <h3 class="bf-card-title">Kinderbrillen</h3>
-          <p class="bf-card-desc">Onze kinderbrillen zijn niet alleen stevig, maar ook nog eens heel leuk om te dragen. Waarom? Omdat wij de leukste merken in huis hebben met keuze uit meer dan 100 verschillende monturen, voor de allerkleinsten tot de basisschoolleeftijd. Wij bieden o.a. brillen aan van Tom Tailor, Masao en Betty Barclay. Merken met eigenzinnige brilmonturen die weten dat kinderbrillen tegen een stootje moeten kunnen. Kortom een kleurrijke collectie met keuze uit allerlei stijlen, want wat is er nou leuker dan je eigen stijl te kunnen bepalen!</p>
-          <p class="bf-card-desc">U bent van harte welkom om samen met uw kind een passend montuur uit te kiezen.</p>
+          <p class="bf-card-desc">Onze kinderbrillen zijn stevig, comfortabel en leuk om te dragen.
+<br>
+Met meer dan 100 monturen voor jonge kinderen tot basisschoolleeftijd is er volop keuze uit kleurrijke stijlen en merken zoals Tom Tailor, Masao en Betty Barclay.
+<br>
+U bent van harte welkom om samen met uw kind een passend montuur uit te kiezen.</p>
         </div>
       </article>
 
@@ -93,8 +97,14 @@
         </div>
         <div class="bf-card-body">
           <h3 class="bf-card-title">Computerbrillen</h3>
-          <p class="bf-card-desc">Computerbrillen hebben ook meerdere sterkten, net zoals multifocale glazen. Het grootste verschil is dat ze volledig zijn ingericht om comfortabel op uw beeldscherm te kijken. Waar bij multifocale glazen het &lsquo;beeldscherm gedeelte&rsquo; halverwege in het glas zit, is dit bij computerglazen bovenin geplaatst. De gehele bovenkant van het brillenglas biedt excellent zicht op uw scherm. Onderin zit een extra breed gedeelte om te kunnen lezen. Werkt u meer dan 2 uur per dag achter een beeldscherm? Dan raden wij u aan dit glas te proberen, de kans is groot dat u nooit meer anders wilt!</p>
-          <p class="bf-card-desc">Beschikbaar met alle mogelijke gewenste glasopties.</p>
+          <p class="bf-card-desc">Computerbrillen hebben meerdere sterkten en zijn speciaal ontwikkeld voor comfortabel beeldschermwerk.
+<br>
+Het schermgedeelte zit bovenin het glas voor helder zicht op uw monitor, met onderin een breed leesgedeelte.
+<br>
+Werkt u meer dan 2 uur per dag achter een scherm? Dan is een computerbril zeker het proberen waard.
+<br>
+Beschikbaar met alle gewenste glasopties.</p>
+          
         </div>
       </article>
 
@@ -107,7 +117,9 @@
         </div>
         <div class="bf-card-body">
           <h3 class="bf-card-title">Veiligheidsbrillen</h3>
-          <p class="bf-card-desc">Onze veiligheidsbrillen voldoen aan diverse internationale veiligheidsnormen zoals ANSI Z87.1, EN 166 en AS/NZS 1337. Wij werken met gerenommeerde fabrikanten die voldoen aan bestaande normen en deze ook verbeteren. Dat zie je terug in de verschillende certificaten zoals ISO 9001 voor kwaliteitsmanagement en ISO 14001 voor milieubeheer. Een van deze fabrikanten is Eyres uit Australi&euml;.</p>
+          <p class="bf-card-desc">Onze veiligheidsbrillen voldoen aan internationale normen zoals ANSI Z87.1, EN 166 en AS/NZS 1337.
+<br>
+Wij werken met gerenommeerde fabrikanten, waaronder Eyres uit Australië, die gecertificeerd zijn volgens onder andere ISO 9001 en ISO 14001.</p>
           <a href="/contact.php" class="bf-card-link">Lees verder</a>
         </div>
       </article>
