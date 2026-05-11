@@ -24,9 +24,47 @@
 })();
 </script>
 <?php $body = (string)($page['body_class'] ?? ''); ?>
-<?php if (str_contains($body, 'page-home') || str_contains($body, 'page-over')): ?>
+<?php if (str_contains($body, 'page-home') || str_contains($body, 'page-over') || str_contains($body, 'page-brillen')): ?>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<?php endif; ?>
+<?php if (str_contains($body, 'page-brillen')): ?>
+<script>
+window.addEventListener('load', function () {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Hero parallax */
+  gsap.to('.bh-bg', {
+    yPercent: 28,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.bh',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    },
+  });
+
+  /* Cards reveal as they scroll into the sticky grey box area */
+  var bfCards = gsap.utils.toArray('.bf-card');
+  gsap.set(bfCards, { y: 60, opacity: 0 });
+  bfCards.forEach(function (card) {
+    gsap.to(card, {
+      y: 0,
+      opacity: 1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: card,
+        start: 'top bottom-=60',
+        end: 'top center+=60',
+        scrub: 0.8,
+      },
+    });
+  });
+
+});
+</script>
 <?php endif; ?>
 <?php if (str_contains($body, 'page-over')): ?>
 <script>
