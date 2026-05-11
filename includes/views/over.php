@@ -149,15 +149,6 @@
       </div>
     </article>
 
-    <div class="visibility-journey-outro">
-      <div class="visibility-journey-outro-inner">
-        <p class="visibility-journey-outro-copy">
-          Klaar voor persoonlijke begeleiding en zicht dat bij uw leven past?
-        </p>
-        <a href="/contact.php" class="visibility-journey-btn">Plan uw bezoek</a>
-      </div>
-    </div>
-
   </section>
 
 </main>
