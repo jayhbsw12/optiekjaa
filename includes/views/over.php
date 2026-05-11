@@ -39,7 +39,7 @@
     <div class="fc-split-left">
       <!-- <p class="fc-eyebrow">Kwaliteit &amp; Service</p> -->
       <h2 class="fc-heading">
-        Over Optiek Jaa 
+        Over Optiek Jaa
       </h2>
       <p class="fc-tagline">
         Optiek Jaa: Jouw keuze voor de <strong>#BesteService #BesteKwaliteit #BestePrijs</strong>
@@ -64,64 +64,98 @@
 
   </section>
 
-  <!-- ── Steps section ───────────────────────────────────── -->
-  <section class="sticky-steps-section">
-
-    <div class="sticky-steps-header">
-      <h2 class="steps-heading">Uw stappen naar beter zicht</h2>
+  <section class="visibility-journey-header" aria-labelledby="visibility-journey-title">
+    <div class="visibility-journey-header-inner">
+      <p class="visibility-journey-kicker">
+        Van de eerste oogmeting tot de laatste passing begeleiden we u met aandacht, precisie en een ervaring die even verfijnd aanvoelt als het resultaat.
+      </p>
+      <h2 id="visibility-journey-title" class="visibility-journey-title">Uw stappen naar beter zicht</h2>
+      <p class="visibility-journey-lead">
+        Elke stap is afgestemd op comfort, uitstraling en helder zicht, zodat u met vertrouwen de juiste keuze maakt.
+      </p>
     </div>
+  </section>
 
-    <div class="sticky-steps-track">
-
-      <div class="sticky-wrap">
-        <div class="sticky-card sc-1">
-          <div class="sc-content">
-            <p class="sc-num">01</p>
-            <div class="sc-body">
-              <p class="sc-label">Stap 1</p>
-              <p class="sc-desc">Laat uw ogen meten door onze deskundigen.</p>
+  <section class="visibility-journey-steps" aria-label="Uw stappen naar beter zicht">
+    <article class="journey-step" aria-label="Stap 1">
+      <div class="journey-step-stage">
+        <div class="journey-step-media">
+          <img
+            src="<?= esc(asset_url('assets/img/Have-your-eyes-measured-by-our-experts.webp')); ?>"
+            alt="Deskundige oogmeting bij Optiek Jaa"
+          >
+        </div>
+        <div class="journey-step-wash" aria-hidden="true"></div>
+        <div class="journey-step-shell">
+          <div class="journey-step-copy-wrap">
+            <p class="journey-step-index">01</p>
+            <div class="journey-step-copy-cluster">
+              <p class="journey-step-label">Persoonlijke oogmeting</p>
+              <h3 class="journey-step-title">We brengen uw zicht eerst nauwkeurig in kaart.</h3>
+              <p class="journey-step-copy">
+                Laat uw ogen meten door onze deskundigen, zodat we scherpte, comfort en uw dagelijkse behoeften exact op elkaar kunnen afstemmen.
+              </p>
             </div>
-          </div>
-          <div class="sc-img-wrap">
-            <img src="assets/img/Have-your-eyes-measured-by-our-experts.webp" alt="Stap 1 – oogmeting" class="sc-img">
           </div>
         </div>
       </div>
+    </article>
 
-      <div class="sticky-wrap">
-        <div class="sticky-card sc-2">
-          <div class="sc-content">
-            <p class="sc-num">02</p>
-            <div class="sc-body">
-              <p class="sc-label">Stap 2</p>
-              <p class="sc-desc">Kies uw montuur of lenzen onder begeleiding van ons team.</p>
+    <article class="journey-step is-right" aria-label="Stap 2">
+      <div class="journey-step-stage">
+        <div class="journey-step-media">
+          <img
+            src="<?= esc(asset_url('assets/img/Choose-your-frames-or-lenses-with-the-guidance-of-our-team.webp')); ?>"
+            alt="Monturen en lenzen kiezen met begeleiding van het team"
+          >
+        </div>
+        <div class="journey-step-wash" aria-hidden="true"></div>
+        <div class="journey-step-shell">
+          <div class="journey-step-copy-wrap">
+            <p class="journey-step-index">02</p>
+            <div class="journey-step-copy-cluster">
+              <p class="journey-step-label">Stijlvol advies</p>
+              <h3 class="journey-step-title">Samen kiezen we wat het beste bij u past.</h3>
+              <p class="journey-step-copy">
+                Van elegante monturen tot comfortabele lenzen: ons team begeleidt u met advies dat techniek, draagcomfort en uitstraling in balans brengt.
+              </p>
             </div>
-          </div>
-          <div class="sc-img-wrap">
-            <img src="assets/img/Choose-your-frames-or-lenses-with-the-guidance-of-our-team.webp" alt="Stap 2 – montuur kiezen" class="sc-img">
           </div>
         </div>
       </div>
+    </article>
 
-      <div class="sticky-wrap sc-last">
-        <div class="sticky-card sc-3">
-          <div class="sc-content">
-            <p class="sc-num">03</p>
-            <div class="sc-body">
-              <p class="sc-label">Stap 3</p>
-              <p class="sc-desc">Ontvang uw glazen of lenzen en geniet van een beter zicht.</p>
+    <article class="journey-step" aria-label="Stap 3">
+      <div class="journey-step-stage">
+        <div class="journey-step-media">
+          <img
+            src="<?= esc(asset_url('assets/img/Get-your-glasses-or-lenses-and-enjoy-better-vision.webp')); ?>"
+            alt="Uw bril of lenzen ontvangen voor een helderder zicht"
+          >
+        </div>
+        <div class="journey-step-wash" aria-hidden="true"></div>
+        <div class="journey-step-shell">
+          <div class="journey-step-copy-wrap">
+            <p class="journey-step-index">03</p>
+            <div class="journey-step-copy-cluster">
+              <p class="journey-step-label">Afwerking en resultaat</p>
+              <h3 class="journey-step-title">U vertrekt met vertrouwen en helder zicht.</h3>
+              <p class="journey-step-copy">
+                Ontvang uw glazen of lenzen, zorgvuldig afgewerkt en perfect afgestemd, zodat u meteen geniet van een beter en comfortabeler zicht.
+              </p>
             </div>
-          </div>
-          <div class="sc-img-wrap">
-            <img src="assets/img/Get-your-glasses-or-lenses-and-enjoy-better-vision.webp" alt="Stap 3 – betere visie" class="sc-img">
           </div>
         </div>
       </div>
+    </article>
 
-    </div>
-
-    <div class="steps-cta">
-      <a href="/contact.php" class="steps-btn">U ZIET BETER BIJ OPTIEK JAA</a>
+    <div class="visibility-journey-outro">
+      <div class="visibility-journey-outro-inner">
+        <p class="visibility-journey-outro-copy">
+          Klaar voor persoonlijke begeleiding en zicht dat bij uw leven past?
+        </p>
+        <a href="/contact.php" class="visibility-journey-btn">Plan uw bezoek</a>
+      </div>
     </div>
 
   </section>

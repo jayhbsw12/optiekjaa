@@ -2975,126 +2975,256 @@ html.gsap-enhanced .hero-scroll{
 }
 
 /* ── Sticky steps section ────────────────────────────────────── */
-.sticky-steps-section{
-  background:#50585c;
-  padding-top:clamp(56px,7vw,90px);
-  padding-bottom:clamp(56px,7vw,90px);
+.visibility-journey-header{
+  position:relative;
+  padding:clamp(76px,9vw,122px) 5vw;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(var(--brand-accent-rgb),.36), transparent 22%),
+    linear-gradient(135deg, #f6f1e6 0%, #ece4d3 48%, #f7f3ec 100%);
+  overflow:clip;
 }
-.sticky-steps-header{
-  text-align:center;
-  padding:0 5vw clamp(3rem,5vw,4rem);
+.visibility-journey-header::before{
+  content:"";
+  position:absolute;
+  inset:auto auto -18% -8%;
+  width:clamp(220px,30vw,420px);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.66) 0%, rgba(255,255,255,0) 70%);
+  pointer-events:none;
 }
-.sticky-steps-header .steps-heading{
-  font-family:var(--heading);
-  font-size:clamp(1.6rem,3vw,2.4rem);
-  font-weight:700;
-  color:#fff;
+.visibility-journey-header-inner{
+  position:relative;
+  width:min(100%,1160px);
+  margin:0 auto;
+  display:grid;
+  gap:1rem;
+}
+.visibility-journey-kicker{
+  max-width:38rem;
+  font-family:var(--sans);
+  font-size:1rem;
+  line-height:1.72;
+  color:rgba(33,33,33,.72);
   margin:0;
-  letter-spacing:-.01em;
 }
-.sticky-steps-track{
+.visibility-journey-title{
+  max-width:11ch;
+  color:var(--ink);
+  font-family:var(--heading);
+  font-size:clamp(2.7rem,5vw,4.7rem);
+  line-height:.98;
+  letter-spacing:-.04em;
+  margin:0;
+}
+.visibility-journey-lead{
+  max-width:40rem;
+  font-family:var(--sans);
+  font-size:clamp(1rem,1.35vw,1.16rem);
+  line-height:1.82;
+  color:rgba(33,33,33,.76);
+  margin:0;
+}
+.visibility-journey-steps{
   position:relative;
+  background:#0d1419;
+  color:var(--white);
 }
-.sticky-wrap{
-  height:100vh;
+.journey-step{
   position:relative;
+  height:clamp(980px,176vh,1480px);
 }
-.sticky-wrap.sc-last{
-  height:auto;
-  padding-bottom:clamp(3rem,5vw,5rem);
-}
-.sticky-card{
+.journey-step-stage{
   position:sticky;
-  top:90px;
-  margin:0 5%;
-  background:#fac637;
-  border-radius:16px;
-  border:1.5px solid rgba(0,0,0,.22);
-  height:clamp(360px,46vh,520px);
-  padding:0;
-  display:flex;
-  flex-direction:row;
+  top:0;
+  height:100vh;
+  height:100svh;
+  display:grid;
   overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,.55);
-  transform-origin:top center;
-  will-change:transform;
 }
-.sc-content{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  padding:clamp(2rem,4vw,3.5rem);
+.journey-step-media,
+.journey-step-wash,
+.journey-step-shell{
+  grid-area:1/1;
 }
-.sc-img-wrap{
-  flex:0 0 45%;
-  overflow:hidden;
-  border-radius:0 14px 14px 0;
+.journey-step-media{
+  position:relative;
+  background:#0d1419;
 }
-.sc-img{
+.journey-step-media img{
   width:100%;
-  height:100%;
+  height:132%;
+  min-height:132%;
   object-fit:cover;
   display:block;
+  transform:translate3d(0,-12%,0) scale(1.18);
+  transform-origin:50% 50%;
+  will-change:transform;
+  backface-visibility:hidden;
+  filter:saturate(.92) contrast(.98) brightness(.82);
 }
-.sc-1{z-index:1}
-.sc-2{z-index:2}
-.sc-3{z-index:3}
-.sc-num{
+.journey-step-wash{
+  --journey-overlay-angle:110deg;
+  position:relative;
+  background:
+    linear-gradient(var(--journey-overlay-angle), rgba(7,11,15,.84) 10%, rgba(7,11,15,.46) 44%, rgba(7,11,15,.16) 100%),
+    linear-gradient(180deg, rgba(7,11,15,.08) 0%, rgba(7,11,15,.26) 58%, rgba(7,11,15,.52) 100%);
+}
+.journey-step.is-right .journey-step-wash{
+  --journey-overlay-angle:250deg;
+}
+.journey-step-shell{
+  position:relative;
+  z-index:2;
+  height:100vh;
+  height:100svh;
+  display:grid;
+  align-items:center;
+  padding:clamp(34px,6vw,84px);
+}
+.journey-step.is-right .journey-step-shell{
+  justify-items:end;
+}
+.journey-step-copy-wrap{
+  width:min(100%,38rem);
+  display:grid;
+  gap:1.1rem;
+  will-change:transform,opacity;
+  backface-visibility:hidden;
+  text-shadow:0 12px 30px rgba(0,0,0,.22);
+}
+.journey-step-copy-cluster{
+  display:grid;
+  gap:.85rem;
+}
+.journey-step-index{
   font-family:var(--heading);
-  font-size:clamp(4rem,10vw,8rem);
-  font-weight:700;
-  color:rgba(0,0,0,.13);
-  line-height:1;
+  font-size:clamp(4.6rem,11vw,8rem);
+  font-weight:500;
+  line-height:.86;
+  color:rgba(255,255,255,.2);
   margin:0;
 }
-.sc-body{
-  display:flex;
-  flex-direction:column;
-  gap:.8rem;
-  max-width:560px;
-}
-.sc-label{
-  font-family:var(--heading);
-  font-size:clamp(1.4rem,2.5vw,2rem);
-  font-weight:700;
-  color:#111;
-  margin:0;
-}
-.sc-desc{
+.journey-step-label{
   font-family:var(--sans);
-  font-size:clamp(.95rem,1.2vw,1.1rem);
-  line-height:1.72;
-  color:rgba(0,0,0,.72);
+  font-size:1rem;
+  line-height:1.45;
+  color:rgba(255,255,255,.84);
   margin:0;
 }
-.steps-cta{
-  display:flex;
-  justify-content:center;
-  padding-top:clamp(3rem,5vw,4rem);
+.journey-step-title{
+  color:var(--white);
+  font-size:clamp(2.3rem,4vw,4.4rem);
+  line-height:.96;
+  letter-spacing:-.045em;
+  margin:0;
+  max-width:10ch;
 }
-.steps-btn{
+.journey-step-copy{
+  max-width:30rem;
+  font-family:var(--sans);
+  font-size:clamp(1rem,1.2vw,1.16rem);
+  line-height:1.84;
+  color:rgba(255,255,255,.9);
+  margin:0;
+}
+.visibility-journey-outro{
+  position:relative;
+  z-index:2;
+  padding:clamp(42px,5vw,64px) 5vw clamp(74px,8vw,98px);
+  background:#0d1419;
+}
+.visibility-journey-outro-inner{
+  width:min(100%,1160px);
+  margin:0 auto;
+  padding-top:clamp(24px,3vw,34px);
+  border-top:1px solid rgba(255,255,255,.14);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem 2rem;
+  flex-wrap:wrap;
+}
+.visibility-journey-outro-copy{
+  max-width:34rem;
+  font-family:var(--sans);
+  font-size:clamp(1rem,1.2vw,1.1rem);
+  line-height:1.75;
+  color:rgba(255,255,255,.72);
+  margin:0;
+}
+.visibility-journey-btn{
   display:inline-flex;
   align-items:center;
-  padding:.9rem 2.6rem;
-  border-radius:100px;
+  justify-content:center;
+  min-height:56px;
+  padding:0 1.6rem;
+  border-radius:999px;
+  border:1px solid rgba(var(--brand-accent-rgb),.28);
+  background:var(--accent);
+  color:#10171c;
   font-family:var(--sans);
-  font-size:.82rem;
-  letter-spacing:.14em;
-  font-weight:700;
-  background:#fff;
-  color:#111;
+  font-size:1rem;
+  font-weight:500;
+  line-height:1;
   text-decoration:none;
-  transition:background .2s,color .2s;
+  box-shadow:0 16px 36px rgba(var(--brand-accent-rgb),.24);
+  transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
 }
-.steps-btn:hover{
-  background:#fac637;
-  color:#111;
+.visibility-journey-btn:hover{
+  transform:translateY(-2px);
+  background:var(--accent-strong);
+  box-shadow:0 18px 42px rgba(var(--brand-accent-rgb),.3);
 }
-@media(max-width:720px){
-  .sticky-card{margin:0 4%;top:70px;height:auto;flex-direction:column}
-  .sc-num{font-size:clamp(3rem,12vw,5rem)}
-  .sc-img-wrap{flex:0 0 220px;border-radius:0 0 14px 14px}
+@media(max-width:900px){
+  .visibility-journey-header{
+    padding-inline:1.25rem;
+  }
+  .journey-step{
+    height:clamp(900px,152vh,1300px);
+  }
+  .journey-step-shell{
+    padding:1.25rem;
+  }
+  .journey-step.is-right .journey-step-shell{
+    justify-items:start;
+  }
+  .journey-step-copy-wrap{
+    width:min(100%,31rem);
+  }
+  .journey-step-title{
+    max-width:11ch;
+  }
+  .visibility-journey-outro{
+    padding-inline:1.25rem;
+  }
+}
+@media(max-width:640px){
+  .visibility-journey-title{
+    max-width:10ch;
+  }
+  .journey-step{
+    height:clamp(820px,138vh,1180px);
+  }
+  .journey-step-media img{
+    height:126%;
+    min-height:126%;
+    transform:translate3d(0,-10%,0) scale(1.12);
+  }
+  .journey-step-copy-wrap{
+    gap:.9rem;
+  }
+  .journey-step-title{
+    max-width:none;
+    font-size:clamp(2rem,11vw,3.2rem);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .journey-step-media img,
+  .visibility-journey-btn{
+    transform:none !important;
+    transition:none;
+  }
 }
 
 /* ─── Brillen Features ──────────────────────────────────────── */
