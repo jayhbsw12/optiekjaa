@@ -72,6 +72,19 @@ window.addEventListener('load', function () {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
 
+  /* Hero parallax */
+  gsap.to('.over-banner-bg', {
+    yPercent: 40,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.over-banner',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1,
+    },
+  });
+
+  /* Sticky step cards */
   const cards = gsap.utils.toArray('.sticky-card');
   const wraps = gsap.utils.toArray('.sticky-wrap');
 

@@ -71,7 +71,7 @@
               loading="lazy"
               decoding="async"
               fetchpriority="low"
-              src="<?= esc(asset_url('assets/img/Model-homepage.png')); ?>"
+              src="<?= esc(asset_url('assets/img/Model-homepage-option.png')); ?>"
               alt="Model met zonnebrillen uit de collectie"
               width="1448"
               height="1086"
@@ -302,7 +302,7 @@
   <div class="editorial-band">
     <img
       class="editorial-band-img"
-      src="<?= esc(asset_url('assets/img/Model-homepage-Quote.png')); ?>"
+      src="<?= esc(asset_url('assets/img/Model-homepage-Quote-option.webp')); ?>"
       alt="Modellen met brillen uit de collectie van Optiekjaa"
       loading="lazy"
       decoding="async"
