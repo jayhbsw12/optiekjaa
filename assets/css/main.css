@@ -3008,13 +3008,31 @@ html.gsap-enhanced .hero-scroll{
   border-radius:16px;
   border:1.5px solid rgba(0,0,0,.22);
   height:clamp(360px,46vh,520px);
-  padding:clamp(2rem,4vw,3.5rem) clamp(2rem,4vw,3.5rem);
+  padding:0;
   display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+  flex-direction:row;
+  overflow:hidden;
   box-shadow:0 20px 60px rgba(0,0,0,.55);
   transform-origin:top center;
   will-change:transform;
+}
+.sc-content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:clamp(2rem,4vw,3.5rem);
+}
+.sc-img-wrap{
+  flex:0 0 45%;
+  overflow:hidden;
+  border-radius:0 14px 14px 0;
+}
+.sc-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 .sc-1{z-index:1}
 .sc-2{z-index:2}
@@ -3071,12 +3089,9 @@ html.gsap-enhanced .hero-scroll{
   color:#111;
 }
 @media(max-width:720px){
-  .sticky-card{margin:0 4%;top:70px;height:clamp(340px,52vh,480px)}
+  .sticky-card{margin:0 4%;top:70px;height:auto;flex-direction:column}
   .sc-num{font-size:clamp(3rem,12vw,5rem)}
-}
-@media(max-width:720px){
-  .sticky-card{flex-direction:column;gap:1rem}
-  .sc-num{font-size:clamp(2.5rem,10vw,4rem)}
+  .sc-img-wrap{flex:0 0 220px;border-radius:0 0 14px 14px}
 }
 
 @keyframes loaderFailsafe{

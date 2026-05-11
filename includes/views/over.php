@@ -75,30 +75,45 @@
 
       <div class="sticky-wrap">
         <div class="sticky-card sc-1">
-          <p class="sc-num">01</p>
-          <div class="sc-body">
-            <p class="sc-label">Stap 1</p>
-            <p class="sc-desc">Laat uw ogen meten door onze deskundigen.</p>
+          <div class="sc-content">
+            <p class="sc-num">01</p>
+            <div class="sc-body">
+              <p class="sc-label">Stap 1</p>
+              <p class="sc-desc">Laat uw ogen meten door onze deskundigen.</p>
+            </div>
+          </div>
+          <div class="sc-img-wrap">
+            <img src="assets/img/Have-your-eyes-measured-by-our-experts.webp" alt="Stap 1 – oogmeting" class="sc-img">
           </div>
         </div>
       </div>
 
       <div class="sticky-wrap">
         <div class="sticky-card sc-2">
-          <p class="sc-num">02</p>
-          <div class="sc-body">
-            <p class="sc-label">Stap 2</p>
-            <p class="sc-desc">Kies uw montuur of lenzen onder begeleiding van ons team.</p>
+          <div class="sc-content">
+            <p class="sc-num">02</p>
+            <div class="sc-body">
+              <p class="sc-label">Stap 2</p>
+              <p class="sc-desc">Kies uw montuur of lenzen onder begeleiding van ons team.</p>
+            </div>
+          </div>
+          <div class="sc-img-wrap">
+            <img src="assets/img/Choose-your-frames-or-lenses-with-the-guidance-of-our-team.webp" alt="Stap 2 – montuur kiezen" class="sc-img">
           </div>
         </div>
       </div>
 
       <div class="sticky-wrap sc-last">
         <div class="sticky-card sc-3">
-          <p class="sc-num">03</p>
-          <div class="sc-body">
-            <p class="sc-label">Stap 3</p>
-            <p class="sc-desc">Ontvang uw glazen of lenzen en geniet van een beter zicht.</p>
+          <div class="sc-content">
+            <p class="sc-num">03</p>
+            <div class="sc-body">
+              <p class="sc-label">Stap 3</p>
+              <p class="sc-desc">Ontvang uw glazen of lenzen en geniet van een beter zicht.</p>
+            </div>
+          </div>
+          <div class="sc-img-wrap">
+            <img src="assets/img/Get-your-glasses-or-lenses-and-enjoy-better-vision.webp" alt="Stap 3 – betere visie" class="sc-img">
           </div>
         </div>
       </div>

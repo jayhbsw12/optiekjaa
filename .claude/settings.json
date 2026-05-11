@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Rename-Item \"c:\\\\xampp\\\\htdocs\\\\optiekjaa\\\\assets\\\\img\\\\Have your eyes measured by our experts.webp\" \"Have-your-eyes-measured-by-our-experts.webp\")",
+      "PowerShell(Rename-Item \"c:\\\\xampp\\\\htdocs\\\\optiekjaa\\\\assets\\\\img\\\\Choose your frames or lenses with the guidance of our team..webp\" \"Choose-your-frames-or-lenses-with-the-guidance-of-our-team.webp\")",
+      "PowerShell(Rename-Item \"c:\\\\xampp\\\\htdocs\\\\optiekjaa\\\\assets\\\\img\\\\Get your glasses or lenses and enjoy better vision..webp\" \"Get-your-glasses-or-lenses-and-enjoy-better-vision.webp\")"
+    ]
+  }
+}
