@@ -4029,56 +4029,56 @@ html.gsap-enhanced .hero-scroll {
   }
 }
 
-/* ─── Brillen Features ──────────────────────────────────────── */
+/* Brillen Features Refresh */
 .bf {
   position: relative;
-  overflow: visible;
-  padding: clamp(84px, 9vw, 132px) 0;
+  overflow: clip;
+  padding: clamp(84px, 9vw, 136px) 0 clamp(64px, 7vw, 112px);
+  color: #f4efe8;
   background:
-    radial-gradient(circle at top left, rgba(var(--brand-accent-rgb), .16), transparent 22%),
-    linear-gradient(180deg, #f5f2ec 0%, #efebe4 48%, #f7f5f1 100%);
+    radial-gradient(circle at top left, rgba(var(--brand-accent-rgb), .18), transparent 24%),
+    linear-gradient(180deg, #181615 0%, #22201e 52%, #171514 100%);
 }
 
 .bf::before,
 .bf::after {
   content: '';
   position: absolute;
-  border-radius: 50%;
+  border-radius: 999px;
   pointer-events: none;
-  filter: blur(10px);
+  filter: blur(12px);
 }
 
 .bf::before {
-  top: -120px;
-  right: -140px;
-  width: clamp(260px, 30vw, 420px);
-  aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(var(--brand-accent-rgb), .16) 0%, rgba(var(--brand-accent-rgb), 0) 72%);
+  top: 8%;
+  right: -12%;
+  width: clamp(220px, 24vw, 360px);
+  height: clamp(220px, 24vw, 360px);
+  background: radial-gradient(circle, rgba(var(--brand-accent-rgb), .18) 0%, rgba(var(--brand-accent-rgb), 0) 72%);
 }
 
 .bf::after {
-  left: -120px;
-  bottom: -150px;
-  width: clamp(280px, 34vw, 460px);
-  aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(78, 86, 90, .12) 0%, rgba(78, 86, 90, 0) 72%);
+  left: -10%;
+  bottom: 8%;
+  width: clamp(240px, 28vw, 420px);
+  height: clamp(240px, 28vw, 420px);
+  background: radial-gradient(circle, rgba(255, 255, 255, .08) 0%, rgba(255, 255, 255, 0) 72%);
 }
 
 .bf-shell {
   position: relative;
   z-index: 1;
-  width: min(100%, 1440px);
+  width: min(100%, 1320px);
   margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 56px);
-  display: grid;
-  gap: clamp(2rem, 4vw, 3rem);
+  padding: 0 clamp(18px, 4vw, 48px);
 }
 
 .bf-head {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .82fr);
   gap: 1.5rem 3rem;
   align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
 .bf-head-copy {
@@ -4089,19 +4089,19 @@ html.gsap-enhanced .hero-scroll {
 .bf-kicker {
   margin: 0;
   font-family: var(--sans);
-  font-size: .8rem;
-  font-weight: 600;
-  letter-spacing: .18em;
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .22em;
   text-transform: uppercase;
-  color: rgba(78, 86, 90, .68);
+  color: rgba(244, 239, 232, .58);
 }
 
 .bf-title {
   margin: 0;
-  max-width: 10ch;
-  color: #16191d;
-  font-size: clamp(2.4rem, 4.6vw, 4.5rem);
-  line-height: .96;
+  max-width: 11ch;
+  color: #fffaf2;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .94;
   letter-spacing: -.05em;
 }
 
@@ -4109,9 +4109,9 @@ html.gsap-enhanced .hero-scroll {
   margin: 0;
   max-width: 34rem;
   font-family: var(--sans);
-  font-size: clamp(1rem, 1.28vw, 1.14rem);
-  line-height: 1.82;
-  color: rgba(78, 86, 90, .84);
+  font-size: clamp(1rem, 1.25vw, 1.1rem);
+  line-height: 1.75;
+  color: rgba(244, 239, 232, .72);
 }
 
 .bf-scroll {
@@ -4119,125 +4119,96 @@ html.gsap-enhanced .hero-scroll {
 }
 
 .bf-gallery {
-  position: sticky;
-  top: clamp(20px, 7vh, 88px);
-  overflow: hidden;
-  padding: .25rem 0 1rem;
+  position: relative;
+  top: auto;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: clamp(12px, 2vw, 24px) 0 1rem;
+  scrollbar-width: none;
+}
+
+.bf-gallery::-webkit-scrollbar {
+  display: none;
 }
 
 .bf-track {
   display: flex;
-  gap: clamp(1rem, 1.6vw, 1.25rem);
+  align-items: center;
+  gap: clamp(16px, 1.8vw, 26px);
   width: max-content;
-  padding: .25rem 0;
+  padding: 0 clamp(18px, 4vw, 44px);
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
 
-.bf-card {
-  flex: 0 0 clamp(320px, 31vw, 400px);
-  min-height: clamp(460px, 58vh, 540px);
-  display: grid;
-  grid-template-rows: minmax(210px, 30vh) 1fr;
-  border-radius: 24px;
+.bf-slide {
+  --bf-shift: 0px;
+  position: relative;
+  flex: 0 0 clamp(280px, 28vw, 420px);
+  aspect-ratio: 4 / 5.6;
   overflow: hidden;
-  background: rgba(255, 255, 255, .94);
-  border: 1px solid rgba(78, 86, 90, .12);
-  box-shadow: 0 10px 28px rgba(46, 53, 58, .08);
-  scroll-snap-align: start;
+  border-radius: clamp(24px, 2vw, 32px);
+  transform: translate3d(0, var(--bf-shift), 0);
+  background: #302c28;
 }
 
-.bf-card-media {
-  position: relative;
+.bf-slide:nth-child(2n) {
+  --bf-shift: clamp(18px, 2.4vw, 32px);
+}
+
+.bf-slide:nth-child(3n) {
+  --bf-shift: clamp(-18px, -1vw, -10px);
+}
+
+.bf-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 10, 10, 0) 38%, rgba(11, 10, 10, .18) 58%, rgba(11, 10, 10, .72) 100%);
+}
+
+.bf-slide-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.bf-slide-meta {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  display: grid;
+  gap: .45rem;
+  padding: clamp(1.15rem, 1.8vw, 1.7rem);
+}
+
+.bf-slide-eyebrow {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255, 248, 240, .72);
+}
+
+.bf-slide-title {
+  margin: 0;
+  color: #fffaf2;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: .98;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+
+.bf.is-scroll-enhanced .bf-gallery {
+  min-height: 100svh;
   overflow: hidden;
+  padding: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: clamp(1rem, 1.6vw, 1.45rem);
-  background:
-    radial-gradient(circle at 50% 30%, var(--bf-card-glow, rgba(var(--brand-accent-rgb), .22)) 0%, rgba(255, 255, 255, 0) 44%),
-    linear-gradient(180deg, var(--bf-card-tint, #efe5d8) 0%, rgba(255, 255, 255, .94) 100%);
-}
-
-.bf-card-media::before {
-  content: '';
-  position: absolute;
-  inset: 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, .52);
-}
-
-.bf-card-media::after {
-  content: '';
-  position: absolute;
-  left: 14%;
-  right: 14%;
-  bottom: 16%;
-  height: 18px;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, 0) 72%);
-}
-
-.bf-card-index {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  z-index: 2;
-  font-family: var(--heading);
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
-  font-weight: 500;
-  letter-spacing: -.04em;
-  color: rgba(22, 25, 29, .42);
-}
-
-.bf-card-image {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 245px);
-  height: auto;
-  object-fit: contain;
-  transform: translateY(4px);
-  filter: drop-shadow(0 14px 18px rgba(17, 24, 39, .12));
-}
-
-.bf-card-body {
-  display: grid;
-  gap: .65rem;
-  align-content: start;
-  padding: clamp(1rem, 1.4vw, 1.3rem);
-}
-
-.bf-card-tag {
-  margin: 0;
-  font-family: var(--sans);
-  font-size: .7rem;
-  font-weight: 700;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: rgba(78, 86, 90, .56);
-}
-
-.bf-card-title {
-  margin: 0;
-  color: #15181c;
-  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
-  line-height: 1.04;
-}
-
-.bf-card-desc,
-.bf-card-foot {
-  margin: 0;
-  font-family: var(--sans);
-  font-size: .9rem;
-  line-height: 1.58;
-  color: rgba(78, 86, 90, .88);
-}
-
-.bf-card-foot {
-  margin-top: .25rem;
-  padding-top: .7rem;
-  border-top: 1px solid rgba(78, 86, 90, .12);
-  color: #23282d;
 }
 
 @media (max-width:1100px) {
@@ -4253,35 +4224,42 @@ html.gsap-enhanced .hero-scroll {
 
 @media (max-width:900px) {
   .bf-track {
-    padding-right: 1rem;
+    gap: 14px;
   }
 
-  .bf-card {
-    flex-basis: min(82vw, 340px);
-    min-height: clamp(420px, 58vh, 520px);
-    grid-template-rows: 200px 1fr;
+  .bf-slide {
+    flex-basis: min(74vw, 360px);
   }
 }
 
 @media (max-width:640px) {
   .bf {
-    padding-block: 72px;
+    padding-top: 72px;
   }
 
   .bf-title {
-    font-size: clamp(2rem, 10vw, 3rem);
+    font-size: clamp(2rem, 9.5vw, 3rem);
   }
 
-  .bf-card {
-    flex-basis: min(86vw, 320px);
+  .bf-gallery {
+    padding-bottom: .4rem;
   }
 
-  .bf-card-media {
-    padding: .95rem;
+  .bf-slide {
+    flex-basis: min(80vw, 320px);
+    border-radius: 24px;
   }
 
-  .bf-card-image {
-    width: min(100%, 210px);
+  .bf-slide-meta {
+    padding: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bf-slide,
+  .bf-track,
+  .bf-slide-image {
+    transform: none !important;
   }
 }
 

@@ -33,36 +33,85 @@
 window.addEventListener('load', function () {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Hero parallax */
-  gsap.to('.bh-bg', {
-    yPercent: 28,
+  if (!reduceMotion) {
+    gsap.to('.bh-bg', {
+      yPercent: 28,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.bh',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  }
+
+  /* Scroll-driven horizontal gallery */
+  var bfSection = document.querySelector('.bf');
+  var bfScroll = document.querySelector('.bf-scroll');
+  var bfGallery = document.querySelector('.bf-gallery');
+  var bfTrack = document.querySelector('.bf-track');
+
+  if (!bfSection || !bfScroll || !bfGallery || !bfTrack) return;
+
+  if (reduceMotion) {
+    bfSection.classList.remove('is-scroll-enhanced');
+    return;
+  }
+
+  var bfImages = gsap.utils.toArray('.bf-slide-image');
+  var getTrackDistance = function () {
+    return Math.max(0, bfTrack.scrollWidth - bfGallery.clientWidth);
+  };
+  var syncGalleryMode = function () {
+    bfSection.classList.toggle('is-scroll-enhanced', getTrackDistance() > 24);
+  };
+
+  syncGalleryMode();
+
+  if (getTrackDistance() <= 24) {
+    return;
+  }
+
+  gsap.to(bfTrack, {
+    x: function () {
+      return -getTrackDistance();
+    },
     ease: 'none',
     scrollTrigger: {
-      trigger: '.bh',
+      trigger: bfScroll,
       start: 'top top',
-      end: 'bottom top',
-      scrub: true,
+      end: function () {
+        return '+=' + getTrackDistance();
+      },
+      pin: bfGallery,
+      scrub: 1,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onRefreshInit: syncGalleryMode,
+      onRefresh: syncGalleryMode,
     },
   });
 
-  /* Cards reveal as they scroll into the sticky grey box area */
-  var bfCards = gsap.utils.toArray('.bf-card');
-  gsap.set(bfCards, { y: 60, opacity: 0 });
-  bfCards.forEach(function (card) {
-    gsap.to(card, {
-      y: 0,
-      opacity: 1,
-      ease: 'power2.out',
+  bfImages.forEach(function (image, index) {
+    gsap.fromTo(image, {
+      xPercent: index % 2 === 0 ? -4 : 4,
+      scale: 1.08,
+    }, {
+      xPercent: index % 2 === 0 ? 4 : -4,
+      scale: 1.02,
+      ease: 'none',
       scrollTrigger: {
-        trigger: card,
-        start: 'top bottom-=60',
-        end: 'top center+=60',
-        scrub: 0.8,
+        trigger: bfScroll,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
       },
     });
   });
-
 });
 </script>
 <?php endif; ?>
