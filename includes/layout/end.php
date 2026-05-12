@@ -24,7 +24,7 @@
 })();
 </script>
 <?php $body = (string)($page['body_class'] ?? ''); ?>
-<?php if (str_contains($body, 'page-home') || str_contains($body, 'page-over') || str_contains($body, 'page-brillen')): ?>
+<?php if (str_contains($body, 'page-home') || str_contains($body, 'page-over') || str_contains($body, 'page-brillen') || str_contains($body, 'page-glazen')): ?>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
 <?php endif; ?>
@@ -106,6 +106,105 @@ window.addEventListener('load', function () {
       ease: 'none',
       scrollTrigger: {
         trigger: bfScroll,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+      },
+    });
+  });
+});
+</script>
+<?php endif; ?>
+<?php if (str_contains($body, 'page-glazen')): ?>
+<script>
+window.addEventListener('load', function () {
+  if (typeof gsap === 'undefined') return;
+  gsap.registerPlugin(ScrollTrigger);
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion) {
+    gsap.to('.bh-bg', {
+      yPercent: 28,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.bh',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      },
+    });
+  }
+
+  if (reduceMotion) {
+    return;
+  }
+
+  var featureVisual = document.querySelector('.brx-feature-visuals');
+  if (featureVisual) {
+    gsap.fromTo(featureVisual, {
+      y: 56,
+      autoAlpha: 0,
+    }, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.9,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: featureVisual,
+        start: 'top 78%',
+        once: true,
+      },
+    });
+  }
+
+  gsap.utils.toArray('.brx-feature-item').forEach(function (item, index) {
+    gsap.fromTo(item, {
+      y: 28,
+      autoAlpha: 0,
+    }, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.7,
+      ease: 'power2.out',
+      delay: index * 0.06,
+      scrollTrigger: {
+        trigger: item,
+        start: 'top 86%',
+        once: true,
+      },
+    });
+  });
+
+  gsap.utils.toArray('.brx-story').forEach(function (story) {
+    var media = story.querySelector('.brx-story-media img');
+    var copy = story.querySelector('.brx-story-copy');
+
+    if (!media || !copy) return;
+
+    gsap.fromTo(copy, {
+      y: 64,
+      autoAlpha: 0,
+    }, {
+      y: 0,
+      autoAlpha: 1,
+      duration: 0.86,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: story,
+        start: 'top 72%',
+        once: true,
+      },
+    });
+
+    gsap.fromTo(media, {
+      scale: 1.1,
+      yPercent: -6,
+    }, {
+      scale: 1.02,
+      yPercent: 6,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: story,
         start: 'top bottom',
         end: 'bottom top',
         scrub: 1,

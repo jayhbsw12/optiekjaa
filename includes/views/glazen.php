@@ -1,82 +1,202 @@
+<?php
+$featureItems = [
+  [
+    'number' => '01',
+    'title' => 'Kraswerende glazen',
+    'label' => 'Standaard op alle glazen',
+    'description' => 'Een harde beschermlaag helpt dagelijkse gebruikssporen te beperken, zodat uw glazen langer mooi blijven en comfortabel blijven kijken.',
+  ],
+  [
+    'number' => '02',
+    'title' => 'Vuilafstotende laag',
+    'label' => 'Helderder door de dag',
+    'description' => 'Deze hydrofobe coating laat water, vet en vingerafdrukken minder snel hechten. Dat maakt uw glazen makkelijker schoon en langer fris in gebruik.',
+  ],
+  [
+    'number' => '03',
+    'title' => 'Dunnere glazen',
+    'label' => 'Lichter en verfijnder',
+    'description' => 'Bij hogere sterktes kiezen wij voor een slanker profiel dat rustiger oogt in het montuur en lichter aanvoelt bij langdurig dragen.',
+  ],
+  [
+    'number' => '04',
+    'title' => 'Superontspiegeling UV',
+    'label' => 'Minder reflectie, meer comfort',
+    'description' => 'Een geavanceerde coating vermindert hinderlijke schittering en ondersteunt een helderder zicht, aangevuld met een doeltreffende UV-bescherming.',
+  ],
+];
+
+$storySections = [
+  [
+    'id' => 'shamir',
+    'eyebrow' => '01 / Premium multifocaal',
+    'title' => 'Shamir glazen',
+    'intro' => 'Wij werken voor multifocale glazen met Shamir, een naam die bekendstaat om innovatie, nauwkeurigheid en betrouwbaar kijkcomfort.',
+    'body' => [
+      'Het glas wordt volledig afgestemd op uw kijkgedrag, montuurkeuze en dagelijkse afstanden. Zo ontstaat een oplossing die natuurlijker aanvoelt vanaf de eerste dagen.',
+      'Draagt u al multifocale glazen? Dan zorgen wij voor een gelijkwaardige of betere upgrade, met dezelfde vertrouwde service en een zorgvuldige persoonlijke meting.',
+    ],
+    'highlights' => [
+      'Persoonlijk afgestemde multifocale zones',
+      'Comfort voor veraf, tussenafstand en dichtbij',
+      'Premium keuze via zelfstandig optiekadvies',
+    ],
+    'image' => 'assets/img/Choose-your-frames-or-lenses-with-the-guidance-of-our-team.webp',
+    'alt' => 'Klanten met premium brillenglazen van Optiekjaa',
+    'reverse' => false,
+    'tone' => 'warm',
+  ],
+  [
+    'id' => 'zonnebrillen',
+    'eyebrow' => '02 / Bescherming in de zon',
+    'title' => 'Zonnebrillen',
+    'intro' => 'Bijna al onze glazen zijn ook verkrijgbaar als zonneglas, zodat u stijl, bescherming en veilig zicht buiten moeiteloos combineert.',
+    'body' => [
+      'Zonneglazen filteren hinderlijk licht van de zon en helpen uw ogen ontspannen te blijven tijdens autorijden, wandelen of dagelijks gebruik in fel daglicht.',
+      'U kiest uit verschillende tinten en sterktes, zodat uw zonnebril net zo persoonlijk aanvoelt als uw gewone bril en naadloos past bij uw levensstijl.',
+    ],
+    'highlights' => [
+      'Verkrijgbaar in meerdere tinten',
+      'Ook mogelijk op sterkte',
+      'Ideaal voor dagelijks buitengebruik',
+    ],
+    'image' => 'assets/img/Model-homepage-option.png',
+    'alt' => 'Model met zonnebril uit de collectie van Optiekjaa',
+    'reverse' => true,
+    'tone' => 'slate',
+  ],
+  [
+    'id' => 'meekleurende-glazen',
+    'eyebrow' => '03 / Flexibel daglichtcomfort',
+    'title' => 'Meekleurende glazen',
+    'intro' => 'Meekleurende glazen reageren op UV-licht en passen zich automatisch aan wanneer u van binnen naar buiten beweegt.',
+    'body' => [
+      'Buiten kleuren de glazen donkerder voor extra comfort; binnen klaren ze weer op voor een heldere, natuurlijke kijkervaring zonder telkens van bril te wisselen.',
+      'Voor wie veel onderweg is of graag actief buiten is, vormt dit een elegante alles-in-een oplossing met minder gedoe en meer draagcomfort.',
+    ],
+    'highlights' => [
+      'Automatisch donkerder in UV-licht',
+      'Snel terug helder binnenshuis',
+      'Optioneel op bijna alle glazen',
+    ],
+    'image' => 'assets/img/Get-your-glasses-or-lenses-and-enjoy-better-vision.webp',
+    'alt' => 'Vrouw met stijlvolle brillenglazen voor dagelijks comfort',
+    'reverse' => false,
+    'tone' => 'mist',
+  ],
+];
+?>
+
 <main id="content" class="site-main">
-  <section class="section section-off" id="glazen">
-    <div class="sec-header">
-      <div>
-        <div class="sec-tag">02 &mdash; Glazen</div>
-        <h2 class="sec-title">Glasopties &amp;<br><em>behandelingen</em></h2>
-      </div>
-      <div class="sec-num">02</div>
+
+  <section class="bh" aria-label="Glazen en glasopties">
+
+    <div class="bh-bg" aria-hidden="true">
+      <img class="bh-img"
+           src="<?= esc(asset_url('assets/img/Brillen-banner.webp')); ?>"
+           alt=""
+           loading="eager">
+    </div>
+    <div class="bh-overlay" aria-hidden="true"></div>
+
+    <div class="bh-foot">
+      <h1 class="bh-headline">Glazen &amp;<br><em>glasopties.</em></h1>
+      <p class="bh-tagline">Slim opgebouwd voor helder zicht, meer draagcomfort en een afwerking die elke dag rustiger aanvoelt.</p>
     </div>
 
-    <div class="lens-grid">
-      <div class="lens-card">
-        <div class="lens-img-wrap">
-          <img
-            class="lens-img"
-            loading="lazy"
-            src="https://images.pexels.com/photos/5201940/pexels-photo-5201940.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
-            alt="Dunnere brillenglazen"
-          >
+  </section>
+
+  <section class="brx-overview" id="glasopties" aria-labelledby="brx-overview-title">
+    <div class="brx-shell">
+      <div class="brx-overview-head">
+        <div class="brx-overview-copy">
+          <p class="brx-kicker">Glasopties &amp; behandelingen</p>
+          <h2 id="brx-overview-title" class="brx-title">Onze glasopties</h2>
         </div>
-        <div class="lens-body">
-          <div class="lens-n">01</div>
-          <div>
-            <h3 class="lens-name">Dunnere Glazen</h3>
-            <p class="lens-desc">Dezelfde optische kwaliteit in een slanker profiel. Ideaal voor sterkere prescripties en lichte monturen &mdash; nauwelijks zichtbaar, maximaal comfort.</p>
-          </div>
-        </div>
+        <p class="brx-lead">
+          Al onze brillenglazen worden zorgvuldig opgebouwd voor een helder, comfortabel en duurzaam resultaat. Deze vier behandelingen vormen de sterke basis van elk paar glazen dat wij adviseren.
+        </p>
       </div>
-      <div class="lens-card">
-        <div class="lens-img-wrap">
-          <img
-            class="lens-img"
-            loading="lazy"
-            src="https://images.pexels.com/photos/5201994/pexels-photo-5201994.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
-            alt="Vuilafstotende coating op brillenglazen"
-          >
-        </div>
-        <div class="lens-body">
-          <div class="lens-n">02</div>
-          <div>
-            <h3 class="lens-name">Vuilafstotende Laag</h3>
-            <p class="lens-desc">Een speciale nanocoating houdt uw glazen langer helder. Vuil, water en vet glijden eraf voor een altijd frisse blik &mdash; dag na dag.</p>
+
+      <div class="brx-feature-stage">
+        <div class="brx-feature-visuals" aria-hidden="true">
+          <figure class="brx-feature-main">
+            <img
+              src="<?= esc(asset_url('assets/img/Kraswerende glazen-1.webp')); ?>"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+          <figure class="brx-feature-inset">
+            <img
+              src="<?= esc(asset_url('assets/img/Vuilafstotende laag-2.webp')); ?>"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+          <div class="brx-feature-note">
+            <span>Elke dag beter zicht</span>
+            <strong>Vier slimme voordelen, subtiel verwerkt in een rustiger en sterker glas.</strong>
           </div>
         </div>
-      </div>
-      <div class="lens-card">
-        <div class="lens-img-wrap">
-          <img
-            class="lens-img"
-            loading="lazy"
-            src="https://images.pexels.com/photos/5201991/pexels-photo-5201991.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
-            alt="UV bescherming brillenglazen"
-          >
-        </div>
-        <div class="lens-body">
-          <div class="lens-n">03</div>
-          <div>
-            <h3 class="lens-name">Superontspiegeling UV</h3>
-            <p class="lens-desc">Geavanceerde coating vermindert verblinding en reflecties terwijl uw ogen worden beschermd tegen schadelijk UV-licht in het tropische klimaat.</p>
-          </div>
-        </div>
-      </div>
-      <div class="lens-card">
-        <div class="lens-img-wrap">
-          <img
-            class="lens-img"
-            loading="lazy"
-            src="https://images.pexels.com/photos/15063360/pexels-photo-15063360.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=700"
-            alt="Kraswerende brillenglazen opticiens"
-          >
-        </div>
-        <div class="lens-body">
-          <div class="lens-n">04</div>
-          <div>
-            <h3 class="lens-name">Kraswerende Glazen</h3>
-            <p class="lens-desc">Een harde beschermlaag houdt uw glazen langer krasvrij. Gecombineerd met andere behandelingen voor de meest duurzame optische oplossing.</p>
-          </div>
+
+        <div class="brx-feature-list">
+          <?php foreach ($featureItems as $item): ?>
+            <article class="brx-feature-item">
+              <div class="brx-feature-heading">
+                <div class="brx-feature-number"><?= esc($item['number']); ?></div>
+                <div>
+                  <p class="brx-feature-label"><?= esc($item['label']); ?></p>
+                  <h3 class="brx-feature-title"><?= esc($item['title']); ?></h3>
+                </div>
+              </div>
+              <p class="brx-feature-text"><?= esc($item['description']); ?></p>
+            </article>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
   </section>
+
+  <?php foreach ($storySections as $section): ?>
+    <section
+      class="brx-story brx-story--<?= esc($section['tone']); ?><?= $section['reverse'] ? ' is-reverse' : ''; ?>"
+      id="<?= esc($section['id']); ?>"
+      aria-labelledby="story-title-<?= esc($section['id']); ?>"
+    >
+      <div class="brx-shell">
+        <div class="brx-story-grid">
+          <figure class="brx-story-media">
+            <img
+              src="<?= esc(asset_url($section['image'])); ?>"
+              alt="<?= esc($section['alt']); ?>"
+              loading="lazy"
+              decoding="async"
+            >
+          </figure>
+
+          <div class="brx-story-copy">
+            <p class="brx-kicker"><?= esc($section['eyebrow']); ?></p>
+            <h2 id="story-title-<?= esc($section['id']); ?>" class="brx-story-title"><?= esc($section['title']); ?></h2>
+            <p class="brx-story-intro"><?= esc($section['intro']); ?></p>
+
+            <?php foreach ($section['body'] as $paragraph): ?>
+              <p class="brx-story-text"><?= esc($paragraph); ?></p>
+            <?php endforeach; ?>
+
+            <ul class="brx-story-points" aria-label="<?= esc($section['title']); ?> voordelen">
+              <?php foreach ($section['highlights'] as $highlight): ?>
+                <li><?= esc($highlight); ?></li>
+              <?php endforeach; ?>
+            </ul>
+
+            <a href="<?= esc(url('contact')); ?>" class="brx-story-link">Persoonlijk advies aanvragen</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  <?php endforeach; ?>
+
 </main>
