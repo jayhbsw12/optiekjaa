@@ -4238,7 +4238,7 @@ html.gsap-enhanced .hero-scroll {
 .op-story-img-wrap {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: clamp(-32px, -3vw, -12px);
   width: 52%;
   height: min(92svh, 840px);
   display: flex;
@@ -4254,7 +4254,7 @@ html.gsap-enhanced .hero-scroll {
   max-width: 100%;
   object-fit: contain;
   object-position: right bottom;
-  transform: translateY(2%);
+  transform: translateY(8%);
   transform-origin: center bottom;
 }
 
@@ -4329,7 +4329,7 @@ html.gsap-enhanced .hero-scroll {
     width: min(76vw, 430px);
     top: auto;
     right: 5%;
-    bottom: 0;
+    bottom: clamp(-24px, -3vw, -10px);
     height: clamp(240px, 42vw, 400px);
     justify-content: flex-end;
   }
@@ -4337,7 +4337,7 @@ html.gsap-enhanced .hero-scroll {
   .op-story-img-wrap img {
     height: 100%;
     width: auto;
-    transform: translateY(2%);
+    transform: translateY(8%);
   }
 
   .op-story-body {
@@ -4361,6 +4361,7 @@ html.gsap-enhanced .hero-scroll {
   .op-story-img-wrap {
     width: min(72vw, 300px);
     height: clamp(200px, 58vw, 280px);
+    bottom: clamp(-16px, -4vw, -8px);
   }
 
   .op-story-body {
