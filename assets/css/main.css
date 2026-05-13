@@ -3580,18 +3580,24 @@ html.gsap-enhanced .hero-scroll {
 
 /* ── Over page banner ────────────────────────────────────────── */
 .over-banner {
+  --over-banner-height: 100svh;
+  --over-banner-scroll-tail: 100svh;
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  min-height: calc(var(--over-banner-height) + var(--over-banner-scroll-tail));
   isolation: isolate;
+  background: #0d0b08;
+}
+
+.over-banner-bg,
+.over-banner-overlay {
+  position: sticky;
+  top: 0;
+  height: var(--over-banner-height);
 }
 
 .over-banner-bg {
-  position: absolute;
-  inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
 .over-banner-bg img {
@@ -3603,26 +3609,29 @@ html.gsap-enhanced .hero-scroll {
 }
 
 .over-banner-overlay {
-  position: absolute;
-  inset: 0;
+  margin-top: calc(-1 * var(--over-banner-height));
   z-index: 1;
   opacity: 0;
   background: rgba(28, 28, 28, 0.82);
+  pointer-events: none;
 }
 
 .over-banner-strip {
   position: relative;
   z-index: 2;
-  margin-top: auto;
-  margin-bottom: clamp(16rem, 30vh, 24rem);
+  margin-top: calc(-1 * var(--over-banner-height));
+  min-height: var(--over-banner-height);
+  display: flex;
+  align-items: flex-end;
 }
 
 .over-banner-inner {
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr clamp(300px, 34vw, 440px);
   gap: clamp(3rem, 6vw, 7rem);
   align-items: center;
-  padding: clamp(1.2rem, 2vw, 1.8rem) 5% clamp(1.2rem, 2vw, 1.8rem) 5%;
+  padding: clamp(1.2rem, 2vw, 1.8rem) 5% clamp(16rem, 30vh, 24rem) 5%;
 }
 
 .over-banner-left {
@@ -3711,19 +3720,21 @@ html.gsap-enhanced .hero-scroll {
 }
 
 @media(max-width:960px) {
+  .over-banner {
+    --over-banner-height: min(85svh, 800px);
+    --over-banner-scroll-tail: 82svh;
+  }
+
   .over-banner-inner {
     grid-template-columns: 1fr;
     gap: 1.8rem;
-  }
-
-  .over-banner {
-    min-height: min(85vh, 800px)
   }
 }
 
 @media(max-width:640px) {
   .over-banner {
-    min-height: min(90vh, 700px)
+    --over-banner-height: min(90svh, 700px);
+    --over-banner-scroll-tail: 72svh;
   }
 
   .over-banner-h1 {

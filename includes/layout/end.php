@@ -219,9 +219,6 @@ window.addEventListener('load', function () {
 window.addEventListener('load', function () {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-
   /* Over banner scroll-to-dark effect */
   if (document.querySelector('.over-banner-overlay')) {
     gsap.to('.over-banner-overlay', {
@@ -230,23 +227,15 @@ window.addEventListener('load', function () {
       scrollTrigger: {
         trigger: '.over-banner',
         start: 'top top',
-        end: 'bottom top',
+        end: function () {
+          return '+=' + window.innerHeight;
+        },
         scrub: 1,
       },
     });
   }
 
-  if (reduceMotion) return;
-
-  /* Sticky banner — image stays locked while overlay darkens on scroll */
-  ScrollTrigger.create({
-    trigger: '.over-banner',
-    start: 'top top',
-    end: 'bottom top',
-    pin: true,
-    pinSpacing: true,
-    anticipatePin: 1,
-  });
+  /* Sticky media is handled in CSS so the copy can scroll away normally. */
 });
 </script>
 <?php endif; ?>
