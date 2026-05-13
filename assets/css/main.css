@@ -3619,10 +3619,10 @@ html.gsap-enhanced .hero-scroll {
 
 .over-banner-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(3rem, 7vw, 9rem);
+  grid-template-columns: 1fr clamp(300px, 34vw, 440px);
+  gap: clamp(3rem, 6vw, 7rem);
   align-items: center;
-  padding: clamp(1.2rem, 2vw, 1.8rem) 4% clamp(1.2rem, 2vw, 1.8rem) 5%;
+  padding: clamp(1.2rem, 2vw, 1.8rem) 5% clamp(1.2rem, 2vw, 1.8rem) 5%;
 }
 
 .over-banner-left {
@@ -3670,14 +3670,11 @@ html.gsap-enhanced .hero-scroll {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  justify-self: end;
-  width: 100%;
-  max-width: 420px;
 }
 
 .over-banner-sub {
   font-family: var(--sans);
-  font-size: clamp(.875rem, 1.15vw, 1rem);
+  font-size: 16px;
   line-height: 1.7;
   color: rgba(255, 255, 255, .68);
   margin: 0;
