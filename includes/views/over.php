@@ -1,69 +1,68 @@
 <main id="content" class="site-main">
 
-  <section class="over-banner" aria-label="Over ons banner">
-
-    <div class="over-banner-bg" aria-hidden="true">
+  <div class="over-hero-flow">
+    <div class="over-hero-bg" aria-hidden="true">
       <img
         loading="eager"
         src="<?= esc(asset_url('assets/img/Over-banner.webp')); ?>"
         alt=""
       >
     </div>
-    <div class="over-banner-overlay" aria-hidden="true"></div>
 
-    <div class="over-banner-strip">
-      <div class="over-banner-inner">
+    <section class="over-banner" aria-label="Over ons banner">
+      <div class="over-banner-strip">
+        <div class="over-banner-inner">
 
-        <div class="over-banner-left">
-          <!-- <p class="over-banner-eyebrow">Uw optiekspecialist in Suriname</p> -->
-          <h1 class="over-banner-h1">Over<br><em>ons.</em></h1>
+          <div class="over-banner-left">
+            <!-- <p class="over-banner-eyebrow">Uw optiekspecialist in Suriname</p> -->
+            <h1 class="over-banner-h1">Over<br><em>ons.</em></h1>
+          </div>
+
+          <div class="over-banner-right">
+            <p class="over-banner-sub">
+              Vakkundige zorg, topmerken en gecertificeerde brillen&nbsp;&mdash; al jaren het vertrouwde adres voor iedereen die waarde hecht aan helder zicht en stijl.
+            </p>
+            <div class="over-banner-actions">
+              <a href="#over" class="over-btn">Onze kwaliteit</a>
+              <a href="/contact.php" class="over-btn">Contact</a>
+            </div>
+          </div>
+
         </div>
+      </div>
+    </section>
 
-        <div class="over-banner-right">
-          <p class="over-banner-sub">
-            Vakkundige zorg, topmerken en gecertificeerde brillen&nbsp;&mdash; al jaren het vertrouwde adres voor iedereen die waarde hecht aan helder zicht en stijl.
-          </p>
-          <div class="over-banner-actions">
-            <a href="#over" class="over-btn">Onze kwaliteit</a>
-            <a href="/contact.php" class="over-btn">Contact</a>
+    <section class="op-story" id="over">
+      <div class="op-story-inner">
+
+        <div class="op-story-content">
+          <div class="op-story-headline-wrap">
+            <h2 class="op-story-headline">Over Optiek Jaa<span class="op-story-dot">.</span></h2>
+          </div>
+
+          <div class="op-story-body">
+            <div class="op-story-label">Optiek Jaa: Jouw keuze voor de #BesteService #BesteKwaliteit #BestePrijs</div>
+
+            <div class="op-story-col">
+              <p>Bij Optiek Jaa zetten we ons in om jou de allerbeste service, kwaliteit en prijs te bieden. Onze brillen zijn zorgvuldig geselecteerd voor hun uitstekende kwaliteit en duurzaamheid. Wij bieden tot 1 jaar fabrieksgarantie op al onze brillen. Kies voor Optiek Jaa, de brillenkoning!</p>
+              <p>Waarom kiezen voor Optiek Jaa?</p>
+              <p>Onge&euml;venaarde kwaliteit: Onze brillen worden speciaal</p>
+              <a href="/brillen.php" class="fc-meer">Lees verder</a>
+            </div>
           </div>
         </div>
 
-      </div>
-    </div>
-
-  </section>
-
-  <section class="op-story">
-    <div class="op-story-inner">
-
-      <div class="op-story-content">
-        <div class="op-story-headline-wrap">
-          <h2 class="op-story-headline">Over Optiek Jaa<span class="op-story-dot">.</span></h2>
+        <div class="op-story-img-wrap">
+          <img
+            src="<?= esc(asset_url('assets/img/Over-about.png')); ?>"
+            alt="Over Optiek Jaa"
+            loading="lazy"
+          >
         </div>
 
-        <div class="op-story-body">
-          <div class="op-story-label">Optiek Jaa: Jouw keuze voor de #BesteService #BesteKwaliteit #BestePrijs</div>
-
-          <div class="op-story-col">
-            <p>Bij Optiek Jaa zetten we ons in om jou de allerbeste service, kwaliteit en prijs te bieden. Onze brillen zijn zorgvuldig geselecteerd voor hun uitstekende kwaliteit en duurzaamheid. Wij bieden tot 1 jaar fabrieksgarantie op al onze brillen. Kies voor Optiek Jaa, de brillenkoning!</p>
-            <p>Waarom kiezen voor Optiek Jaa?</p>
-            <p>Onge&euml;venaarde kwaliteit: Onze brillen worden speciaal</p>
-            <a href="/brillen.php" class="fc-meer">Lees verder</a>
-          </div>
-        </div>
       </div>
-
-      <div class="op-story-img-wrap">
-        <img
-          src="<?= esc(asset_url('assets/img/Over-about.png')); ?>"
-          alt="Over Optiek Jaa"
-          loading="lazy"
-        >
-      </div>
-
-    </div>
-  </section>
+    </section>
+  </div>
 
 
   <section class="op-process" aria-label="Ons proces">

@@ -3579,28 +3579,23 @@ html.gsap-enhanced .hero-scroll {
 }
 
 /* ── Over page banner ────────────────────────────────────────── */
-.over-banner {
-  --over-banner-height: 100svh;
-  --over-banner-scroll-tail: 100svh;
+.over-hero-flow {
+  --over-hero-height: 100svh;
   position: relative;
-  min-height: calc(var(--over-banner-height) + var(--over-banner-scroll-tail));
   isolation: isolate;
-  background: #0d0b08;
+  background: #1c1c1c;
 }
 
-.over-banner-bg,
-.over-banner-overlay {
+.over-hero-bg {
   position: sticky;
   top: 0;
-  height: var(--over-banner-height);
-}
-
-.over-banner-bg {
+  height: var(--over-hero-height);
   z-index: 0;
   overflow: hidden;
+  will-change: opacity;
 }
 
-.over-banner-bg img {
+.over-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -3608,19 +3603,17 @@ html.gsap-enhanced .hero-scroll {
   display: block;
 }
 
-.over-banner-overlay {
-  margin-top: calc(-1 * var(--over-banner-height));
-  z-index: 1;
-  opacity: 0;
-  background: rgba(28, 28, 28, 0.82);
-  pointer-events: none;
+.over-banner {
+  margin-top: calc(-1 * var(--over-hero-height));
+  position: relative;
+  z-index: 2;
+  min-height: var(--over-hero-height);
+  background: transparent;
 }
 
 .over-banner-strip {
   position: relative;
-  z-index: 2;
-  margin-top: calc(-1 * var(--over-banner-height));
-  min-height: var(--over-banner-height);
+  min-height: var(--over-hero-height);
   display: flex;
   align-items: flex-end;
 }
@@ -3720,21 +3713,20 @@ html.gsap-enhanced .hero-scroll {
 }
 
 @media(max-width:960px) {
-  .over-banner {
-    --over-banner-height: min(85svh, 800px);
-    --over-banner-scroll-tail: 82svh;
+  .over-hero-flow {
+    --over-hero-height: min(85svh, 800px);
   }
 
   .over-banner-inner {
     grid-template-columns: 1fr;
     gap: 1.8rem;
+    padding-bottom: clamp(8rem, 18vh, 12rem);
   }
 }
 
 @media(max-width:640px) {
-  .over-banner {
-    --over-banner-height: min(90svh, 700px);
-    --over-banner-scroll-tail: 72svh;
+  .over-hero-flow {
+    --over-hero-height: min(90svh, 700px);
   }
 
   .over-banner-h1 {
@@ -4217,16 +4209,19 @@ html.gsap-enhanced .hero-scroll {
 
 /* ── Over story / bio section ────────────────────────────────── */
 .op-story {
-  background: #f7b705;
-  color: #121212;
-  padding: 0 5%;
-  height: 830px;
   position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  padding: clamp(72px, 10vh, 120px) 5%;
+  color: #fff;
+  background: transparent;
   overflow: hidden;
 }
 
 .op-story-inner {
-  height: 100%;
+  position: relative;
+  z-index: 1;
+  min-height: calc(100svh - clamp(144px, 20vh, 240px));
   display: flex;
   align-items: center;
 }
@@ -4234,7 +4229,7 @@ html.gsap-enhanced .hero-scroll {
 .op-story-content {
   position: relative;
   z-index: 1;
-  width: 48%;
+  width: min(48%, 620px);
   display: flex;
   flex-direction: column;
   gap: clamp(28px, 4vh, 44px);
@@ -4244,20 +4239,23 @@ html.gsap-enhanced .hero-scroll {
   position: absolute;
   right: 0;
   bottom: 0;
-  top: 0;
   width: 52%;
+  height: min(92svh, 840px);
   display: flex;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-end;
+  pointer-events: none;
 }
 
 .op-story-img-wrap img {
   display: block;
-  height: 88%;
+  height: 100%;
   width: auto;
   max-width: 100%;
   object-fit: contain;
   object-position: right bottom;
+  transform: translateY(2%);
+  transform-origin: center bottom;
 }
 
 .op-story-headline {
@@ -4266,13 +4264,13 @@ html.gsap-enhanced .hero-scroll {
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -.03em;
-  color: #121212;
+  color: #fff;
   margin: 0;
   max-width: 26ch;
 }
 
 .op-story-dot {
-  color: #121212;
+  color: var(--accent, #f7b704);
 }
 
 .op-story-body {
@@ -4287,7 +4285,7 @@ html.gsap-enhanced .hero-scroll {
   font-size: 13px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(18, 18, 18, .55);
+  color: rgba(255, 255, 255, .52);
   padding-top: .2rem;
 }
 
@@ -4301,34 +4299,45 @@ html.gsap-enhanced .hero-scroll {
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.75;
-  color: rgba(18, 18, 18, .75);
+  color: rgba(255, 255, 255, .74);
   margin: 0;
+}
+
+.op-story .fc-meer {
+  color: rgba(255, 255, 255, .78);
+}
+
+.op-story .fc-meer:hover {
+  color: #fff;
 }
 
 @media (max-width: 960px) {
   .op-story {
-    height: auto;
-    padding: clamp(48px, 8vh, 80px) 5%;
+    min-height: auto;
+    padding: clamp(48px, 8vh, 80px) 5% clamp(220px, 34vh, 300px);
+  }
+
+  .op-story-inner {
+    min-height: 0;
   }
 
   .op-story-content {
-    width: 100%;
+    width: min(100%, 38rem);
   }
 
   .op-story-img-wrap {
-    position: relative;
-    width: 100%;
+    width: min(76vw, 430px);
     top: auto;
-    right: auto;
-    bottom: auto;
-    height: clamp(280px, 50vw, 480px);
-    margin-top: 2rem;
-    justify-content: center;
+    right: 5%;
+    bottom: 0;
+    height: clamp(240px, 42vw, 400px);
+    justify-content: flex-end;
   }
 
   .op-story-img-wrap img {
     height: 100%;
     width: auto;
+    transform: translateY(2%);
   }
 
   .op-story-body {
@@ -4343,6 +4352,15 @@ html.gsap-enhanced .hero-scroll {
 @media (max-width: 600px) {
   .op-story-headline {
     font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .op-story {
+    padding-bottom: clamp(180px, 30vh, 240px);
+  }
+
+  .op-story-img-wrap {
+    width: min(72vw, 300px);
+    height: clamp(200px, 58vw, 280px);
   }
 
   .op-story-body {

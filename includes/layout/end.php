@@ -219,23 +219,24 @@ window.addEventListener('load', function () {
 window.addEventListener('load', function () {
   if (typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-  /* Over banner scroll-to-dark effect */
-  if (document.querySelector('.over-banner-overlay')) {
-    gsap.to('.over-banner-overlay', {
-      opacity: 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.over-banner',
-        start: 'top top',
-        end: function () {
-          return '+=' + window.innerHeight;
-        },
-        scrub: 1,
-      },
-    });
-  }
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var overHeroBg = document.querySelector('.over-hero-bg');
+  var overStory = document.querySelector('.op-story');
 
-  /* Sticky media is handled in CSS so the copy can scroll away normally. */
+  if (!overHeroBg || !overStory || reduceMotion) return;
+
+  gsap.fromTo(overHeroBg, {
+    opacity: 1,
+  }, {
+    opacity: 0,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: overStory,
+      start: 'top 92%',
+      end: 'top 28%',
+      scrub: 1,
+    },
+  });
 });
 </script>
 <?php endif; ?>
