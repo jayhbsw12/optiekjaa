@@ -1,3 +1,22 @@
+<?php
+$pagePath = (string)($page['path'] ?? '');
+$pageLoaderTitles = [
+  'over' => 'OVER',
+  'brillen' => 'BRILLEN',
+  'glazen' => 'GLAZEN',
+  'carriere' => 'CARRIERE',
+  'contact' => 'CONTACT',
+];
+$pageLoaderTitle = $pageLoaderTitles[$pagePath] ?? null;
+?>
+<?php if ($pageLoaderTitle): ?>
+<div class="page-loader" id="page-loader" aria-hidden="true">
+  <div class="page-loader-stage">
+    <p class="page-loader-kicker">Optiek Jaa</p>
+    <div class="page-loader-title" data-final-text="<?= esc($pageLoaderTitle); ?>"><?= esc($pageLoaderTitle); ?></div>
+  </div>
+</div>
+<?php endif; ?>
 <header class="site-header">
   <nav aria-label="Hoofdnavigatie">
     <div class="nav-shell">

@@ -1,6 +1,7 @@
 <script>
 (() => {
   const isHomePage = document.body.classList.contains('page-home');
+  const hasPageLoader = !!document.getElementById('page-loader');
 
   const markPageLoaded = () => {
     document.documentElement.classList.add('page-loaded');
@@ -10,6 +11,11 @@
       loader.classList.add('out');
     }
   };
+
+  if (hasPageLoader) {
+    window.setTimeout(markPageLoaded, 1000);
+    return;
+  }
 
   if (!isHomePage) {
     window.addEventListener('load', () => {
@@ -21,6 +27,66 @@
   }
 
   window.setTimeout(markPageLoaded, 9000);
+})();
+</script>
+<script>
+(() => {
+  var pageLoader = document.getElementById('page-loader');
+  var pageLoaderTitle = document.querySelector('.page-loader-title');
+
+  if (!pageLoader || !pageLoaderTitle) return;
+
+  var finalText = (pageLoaderTitle.getAttribute('data-final-text') || pageLoaderTitle.textContent || '').trim();
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  window.requestAnimationFrame(function () {
+    pageLoader.classList.add('is-ready');
+  });
+
+  if (reduceMotion) {
+    pageLoaderTitle.textContent = finalText;
+    return;
+  }
+
+  var scrambleGlyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var scrambleDuration = 720;
+  var startTime = null;
+
+  var renderFrame = function (timestamp) {
+    if (startTime === null) {
+      startTime = timestamp;
+    }
+
+    var progress = Math.min((timestamp - startTime) / scrambleDuration, 1);
+    var output = '';
+    var finalLength = Math.max(finalText.length - 1, 1);
+
+    for (var index = 0; index < finalText.length; index++) {
+      var finalChar = finalText.charAt(index);
+
+      if (finalChar === ' ') {
+        output += ' ';
+        continue;
+      }
+
+      var revealPoint = index / finalLength;
+      var lockProgress = (progress - revealPoint) / Math.max(1 - revealPoint, 0.0001);
+
+      if (progress >= 1 || lockProgress > 0.72) {
+        output += finalChar;
+      } else {
+        output += scrambleGlyphs.charAt(Math.floor(Math.random() * scrambleGlyphs.length));
+      }
+    }
+
+    pageLoaderTitle.textContent = progress >= 1 ? finalText : output;
+
+    if (progress < 1) {
+      window.requestAnimationFrame(renderFrame);
+    }
+  };
+
+  window.requestAnimationFrame(renderFrame);
 })();
 </script>
 <?php $body = (string)($page['body_class'] ?? ''); ?>

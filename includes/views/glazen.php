@@ -1,4 +1,11 @@
 <?php
+$resolveImageSrc = static function (string $src): string {
+  return preg_match('~^https?://~i', $src) ? $src : asset_url($src);
+};
+
+$featureMainImage = 'https://unsplash.com/photos/EJx5aVKmmwQ/download?force=true&w=1400&q=80';
+$featureInsetImage = 'https://unsplash.com/photos/BngJVba_5GA/download?force=true&w=900&q=80';
+
 $featureItems = [
   [
     'number' => '01',
@@ -41,8 +48,8 @@ $storySections = [
       'Comfort voor veraf, tussenafstand en dichtbij',
       'Premium keuze via zelfstandig optiekadvies',
     ],
-    'image' => 'assets/img/Choose-your-frames-or-lenses-with-the-guidance-of-our-team.webp',
-    'alt' => 'Klanten met premium brillenglazen van Optiekjaa',
+    'image' => 'https://unsplash.com/photos/90uVYog2FKE/download?force=true&w=1600&q=80',
+    'alt' => 'Vrouw met stijlvolle bril als premium brillenglazen referentie',
     'reverse' => false,
     'tone' => 'warm',
   ],
@@ -60,8 +67,8 @@ $storySections = [
       'Ook mogelijk op sterkte',
       'Ideaal voor dagelijks buitengebruik',
     ],
-    'image' => 'assets/img/Model-homepage-option.png',
-    'alt' => 'Model met zonnebril uit de collectie van Optiekjaa',
+    'image' => 'https://unsplash.com/photos/kc2ZkUOHXJ0/download?force=true&w=1600&q=80',
+    'alt' => 'Model met zonnebril als tijdelijke stockafbeelding',
     'reverse' => true,
     'tone' => 'slate',
   ],
@@ -79,8 +86,8 @@ $storySections = [
       'Snel terug helder binnenshuis',
       'Optioneel op bijna alle glazen',
     ],
-    'image' => 'assets/img/Get-your-glasses-or-lenses-and-enjoy-better-vision.webp',
-    'alt' => 'Vrouw met stijlvolle brillenglazen voor dagelijks comfort',
+    'image' => 'https://unsplash.com/photos/cFjIrVe1O9Y/download?force=true&w=1600&q=80',
+    'alt' => 'Vrouw met bril als tijdelijke stockafbeelding voor meekleurende glazen',
     'reverse' => false,
     'tone' => 'mist',
   ],
@@ -122,7 +129,7 @@ $storySections = [
         <div class="brx-feature-visuals" aria-hidden="true">
           <figure class="brx-feature-main">
             <img
-              src="<?= esc(asset_url('assets/img/Kraswerende glazen-1.webp')); ?>"
+              src="<?= esc($featureMainImage); ?>"
               alt=""
               loading="lazy"
               decoding="async"
@@ -130,7 +137,7 @@ $storySections = [
           </figure>
           <figure class="brx-feature-inset">
             <img
-              src="<?= esc(asset_url('assets/img/Vuilafstotende laag-2.webp')); ?>"
+              src="<?= esc($featureInsetImage); ?>"
               alt=""
               loading="lazy"
               decoding="async"
@@ -170,7 +177,7 @@ $storySections = [
         <div class="brx-story-grid">
           <figure class="brx-story-media">
             <img
-              src="<?= esc(asset_url($section['image'])); ?>"
+              src="<?= esc($resolveImageSrc($section['image'])); ?>"
               alt="<?= esc($section['alt']); ?>"
               loading="lazy"
               decoding="async"
