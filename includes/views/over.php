@@ -34,35 +34,37 @@
 
   </section>
 
-  <section class="fc-split" id="over">
+  <section class="op-story">
+    <div class="op-story-inner">
 
-    <div class="fc-split-left">
-      <!-- <p class="fc-eyebrow">Kwaliteit &amp; Service</p> -->
-      <h2 class="fc-heading">
-        Over Optiek Jaa
-      </h2>
-      <p class="fc-tagline">
-        Optiek Jaa: Jouw keuze voor de <strong>#BesteService #BesteKwaliteit #BestePrijs</strong>
-      </p>
-      <p class="fc-sub">
-        Bij Optiek Jaa zetten we ons in om jou de allerbeste service, kwaliteit en prijs te bieden. Onze brillen zijn zorgvuldig geselecteerd voor hun uitstekende kwaliteit en duurzaamheid. Wij bieden tot 1 jaar fabrieksgarantie op al onze brillen. Kies voor Optiek Jaa, de brillenkoning!
-      </p>
-      <p class="fc-why"><strong>Waarom kiezen voor Optiek Jaa?</strong></p>
-      <p class="fc-quality-point">
-        <strong>Onge&euml;venaarde kwaliteit:</strong> Onze brillen worden speciaal
-      </p>
-      <a href="/brillen.php" class="fc-meer">Lees verder</a>
+      <div class="op-story-content">
+        <div class="op-story-headline-wrap">
+          <h2 class="op-story-headline">Over Optiek Jaa<span class="op-story-dot">.</span></h2>
+        </div>
+
+        <div class="op-story-body">
+          <div class="op-story-label">Optiek Jaa: Jouw keuze voor de #BesteService #BesteKwaliteit #BestePrijs</div>
+
+          <div class="op-story-col">
+            <p>Bij Optiek Jaa zetten we ons in om jou de allerbeste service, kwaliteit en prijs te bieden. Onze brillen zijn zorgvuldig geselecteerd voor hun uitstekende kwaliteit en duurzaamheid. Wij bieden tot 1 jaar fabrieksgarantie op al onze brillen. Kies voor Optiek Jaa, de brillenkoning!</p>
+            <p>Waarom kiezen voor Optiek Jaa?</p>
+            <p>Onge&euml;venaarde kwaliteit: Onze brillen worden speciaal</p>
+            <a href="/brillen.php" class="fc-meer">Lees verder</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="op-story-img-wrap">
+        <img
+          src="<?= esc(asset_url('assets/img/Over-about.png')); ?>"
+          alt="Over Optiek Jaa"
+          loading="lazy"
+        >
+      </div>
+
     </div>
-
-    <div class="fc-split-right">
-      <img
-        loading="lazy"
-        src="<?= esc(asset_url('assets/img/over-ons-option.webp')); ?>"
-        alt="Optiekjaa vakkundige service"
-      >
-    </div>
-
   </section>
+
 
   <section class="op-process" aria-label="Ons proces">
     <div class="op-process-inner">

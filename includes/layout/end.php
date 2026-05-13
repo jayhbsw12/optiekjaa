@@ -221,10 +221,11 @@ window.addEventListener('load', function () {
   gsap.registerPlugin(ScrollTrigger);
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Hero parallax */
-  if (!reduceMotion) {
-    gsap.to('.over-banner-bg', {
-      yPercent: 32,
+
+  /* Over banner scroll-to-dark effect */
+  if (document.querySelector('.over-banner-overlay')) {
+    gsap.to('.over-banner-overlay', {
+      opacity: 1,
       ease: 'none',
       scrollTrigger: {
         trigger: '.over-banner',
