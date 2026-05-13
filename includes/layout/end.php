@@ -238,63 +238,14 @@ window.addEventListener('load', function () {
 
   if (reduceMotion) return;
 
-  const steps = gsap.utils.toArray('.journey-step');
-
-  steps.forEach(function (step, index) {
-    const media = step.querySelector('.journey-step-media img');
-    const content = step.querySelector('.journey-step-copy-wrap');
-    const wash = step.querySelector('.journey-step-wash');
-
-    if (!media || !content || !wash) return;
-
-    gsap.set([media, content, wash], {
-      force3D: true,
-    });
-
-    const timeline = gsap.timeline({
-      defaults: {
-        ease: 'none',
-      },
-      scrollTrigger: {
-        trigger: step,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1.15,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    timeline
-      .fromTo(media, {
-        yPercent: -14,
-        scale: 1.16,
-      }, {
-        yPercent: 12,
-        scale: 1.02,
-      }, 0)
-      .fromTo(wash, {
-        opacity: 0.94,
-      }, {
-        opacity: index === steps.length - 1 ? 0.74 : 0.6,
-      }, 0)
-      .fromTo(content, {
-        y: 72,
-        autoAlpha: 0,
-      }, {
-        y: 0,
-        autoAlpha: 1,
-        duration: 0.24,
-      }, 0.14)
-      .to(content, {
-        y: 0,
-        autoAlpha: 1,
-        duration: 0.34,
-      }, 0.38)
-      .to(content, {
-        y: -56,
-        autoAlpha: index === steps.length - 1 ? 0.72 : 0.12,
-        duration: 0.22,
-      }, 0.78);
+  /* Sticky banner — image stays locked while overlay darkens on scroll */
+  ScrollTrigger.create({
+    trigger: '.over-banner',
+    start: 'top top',
+    end: 'bottom top',
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
   });
 });
 </script>
