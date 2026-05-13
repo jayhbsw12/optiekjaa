@@ -4029,6 +4029,188 @@ html.gsap-enhanced .hero-scroll {
   }
 }
 
+/* ── Ons Proces sticky section ──────────────────────────────── */
+.op-process {
+  background: #0e0e0e;
+  color: #fff;
+  padding: 0 5%;
+}
+
+.op-process-inner {
+  display: grid;
+  grid-template-columns: 1fr clamp(420px, 42vw, 620px);
+}
+
+.op-process-left {
+  padding: clamp(80px, 12vh, 140px) 0;
+}
+
+.op-process-sticky {
+  position: sticky;
+  top: calc(50vh - 160px);
+}
+
+.op-process-eyebrow {
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .4);
+  margin: 0 0 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.op-process-eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: rgba(255, 255, 255, .3);
+  flex-shrink: 0;
+}
+
+.op-process-heading {
+  font-family: var(--heading);
+  font-size: clamp(3.35rem, 7.2vw, 6rem);
+  font-weight: 500;
+  line-height: .96;
+  letter-spacing: -.055em;
+  margin: 0;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.op-process-dot {
+  display: inline-block;
+  width: clamp(10px, 1.1vw, 16px);
+  height: clamp(10px, 1.1vw, 16px);
+  background: var(--accent, #f7b704);
+  border-radius: 2px;
+  vertical-align: super;
+  margin-left: .25em;
+}
+
+.op-process-right {
+  padding: clamp(80px, 12vh, 140px) clamp(16px, 2.5vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.5vh, 20px);
+}
+
+.op-process-step {
+  min-height: clamp(260px, 34vh, 360px);
+  padding: clamp(36px, 5vh, 56px) clamp(28px, 3.5vw, 48px);
+  background: #1a1a1a;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(2rem, 4vh, 3.5rem);
+  transition: background .3s ease;
+}
+
+.op-process-step:hover {
+  background: #202020;
+}
+
+.op-process-step-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.op-process-step-name {
+  font-family: var(--heading);
+  font-size: clamp(2.6rem, 4.2vw, 4.4rem);
+  font-weight: 400;
+  line-height: 1;
+  color: #fff;
+}
+
+.op-process-step-num {
+  font-family: var(--heading);
+  font-size: clamp(2.6rem, 4.2vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1;
+  color: rgba(255, 255, 255, .2);
+  flex-shrink: 0;
+}
+
+.op-process-step.has-bg {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.op-process-step.has-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, .55) 0%,
+    rgba(10, 10, 10, .72) 55%,
+    rgba(10, 10, 10, .88) 100%
+  );
+  border-radius: inherit;
+}
+
+.op-process-step.has-bg .op-process-step-head,
+.op-process-step.has-bg .op-process-step-desc {
+  position: relative;
+  z-index: 1;
+}
+
+.op-process-step-desc {
+  font-family: var(--sans);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, .52);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .op-process-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .op-process-left {
+    padding-bottom: 0;
+  }
+
+  .op-process-sticky {
+    position: static;
+  }
+
+  .op-process-right {
+    padding-top: 0;
+    padding-inline: 0;
+  }
+
+  .op-process-heading {
+    font-size: clamp(4rem, 14vw, 7rem);
+  }
+
+  .op-process-step {
+    min-height: unset;
+  }
+}
+
+@media (max-width: 640px) {
+  .op-process {
+    padding: 0 1.25rem;
+  }
+
+  .op-process-step-name,
+  .op-process-step-num {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+}
+
 /* Brillen Features Refresh */
 .bf {
   position: relative;
