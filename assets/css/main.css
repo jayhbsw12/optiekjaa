@@ -4029,7 +4029,7 @@ html.gsap-enhanced .hero-scroll {
   --over-hero-height: 100svh;
   position: relative;
   isolation: isolate;
-  background: #1c1c1c;
+  background: var(--accent);
 }
 
 .over-hero-bg {
@@ -4659,7 +4659,7 @@ html.gsap-enhanced .hero-scroll {
   z-index: 2;
   min-height: 100svh;
   padding: clamp(72px, 10vh, 120px) 5%;
-  color: #fff;
+  color: var(--primary);
   background: transparent;
   overflow: hidden;
 }
@@ -4710,13 +4710,13 @@ html.gsap-enhanced .hero-scroll {
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -.03em;
-  color: #fff;
+  color: var(--primary-strong);
   margin: 0;
   max-width: 26ch;
 }
 
 .op-story-dot {
-  color: var(--accent, #f7b704);
+  color: var(--primary-strong);
 }
 
 .op-story-body {
@@ -4731,7 +4731,7 @@ html.gsap-enhanced .hero-scroll {
   font-size: 13px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, .52);
+  color: rgba(var(--brand-primary-rgb), .76);
   padding-top: .2rem;
 }
 
@@ -4745,16 +4745,16 @@ html.gsap-enhanced .hero-scroll {
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.75;
-  color: rgba(255, 255, 255, .74);
+  color: rgba(var(--brand-primary-rgb), .92);
   margin: 0;
 }
 
 .op-story .fc-meer {
-  color: rgba(255, 255, 255, .78);
+  color: var(--primary-strong);
 }
 
 .op-story .fc-meer:hover {
-  color: #fff;
+  color: var(--ink);
 }
 
 @media (max-width: 960px) {
