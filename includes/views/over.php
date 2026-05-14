@@ -71,7 +71,7 @@
       <div class="op-process-left">
         <div class="op-process-sticky">
           <!-- <p class="op-process-eyebrow">Hoe wij werken</p> -->
-          <h2 class="op-process-heading">ONS<br>PROCES<span class="op-process-dot" aria-hidden="true"></span></h2>
+          <h2 class="op-process-heading">Uw stappen naar <br>beter zicht<span class="op-process-dot" aria-hidden="true"></span></h2>
         </div>
       </div>
 
