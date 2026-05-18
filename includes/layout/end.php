@@ -101,6 +101,154 @@ window.addEventListener('load', function () {
   gsap.registerPlugin(ScrollTrigger);
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Hero: pin section so image stays, animate text boxes upward */
+  (function () {
+    var heroFlow    = document.querySelector('.brl-hero-flow');
+    var bannerLeft  = document.querySelector('.brl-banner-left');
+    var bannerRight = document.querySelector('.brl-banner-right');
+
+    if (!heroFlow || !bannerLeft || !bannerRight || reduceMotion) return;
+
+    var tl = gsap.timeline();
+    tl.to(bannerLeft,  { y: -200, autoAlpha: 0, ease: 'power2.in', duration: 0.75 }, 0);
+    tl.to(bannerRight, { y: -200, autoAlpha: 0, ease: 'power2.in', duration: 0.75 }, 0.12);
+
+    ScrollTrigger.create({
+      trigger           : heroFlow,
+      start             : 'top top',
+      end               : '+=80%',
+      pin               : true,
+      scrub             : 1.4,
+      animation         : tl,
+      invalidateOnRefresh: true,
+    });
+  }());
+
+  /* Bridge: mosaic image morphs into showcase first slide */
+  (function () {
+    var srcEl  = document.querySelector('.brl-mi--bridge');   /* brl-mi--8 */
+    var dstEl  = document.querySelector('.brl-sc-fig--dest'); /* first slide figure */
+    var mosaic = document.querySelector('.brl-mosaic');
+
+    if (!srcEl || !dstEl || !mosaic || reduceMotion) return;
+
+    /* Destination image starts invisible — bridge animation reveals it */
+    gsap.set(dstEl, { autoAlpha: 0 });
+
+    /* Fixed overlay clone that travels from mosaic → showcase */
+    var overlay = document.createElement('figure');
+    var oImg    = document.createElement('img');
+    oImg.src    = srcEl.querySelector('img').src;
+    oImg.alt    = '';
+    Object.assign(oImg.style, { width:'100%', height:'100%', objectFit:'cover', display:'block' });
+    overlay.appendChild(oImg);
+    Object.assign(overlay.style, {
+      position     : 'fixed',
+      zIndex       : '400',
+      margin       : '0',
+      padding      : '0',
+      pointerEvents: 'none',
+      overflow     : 'hidden',
+      opacity      : '0',
+      top          : '0',
+      left         : '0',
+      borderRadius : 'clamp(16px,1.6vw,26px)',
+      willChange   : 'left,top,width,height,opacity',
+    });
+    document.body.appendChild(overlay);
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+    ScrollTrigger.create({
+      trigger: mosaic,
+      start  : 'bottom 85%',
+      end    : 'bottom top',
+      scrub  : 1.2,
+      onUpdate: function (self) {
+        var p    = self.progress;
+        var from = srcEl.getBoundingClientRect();
+        var to   = dstEl.getBoundingClientRect();
+
+        overlay.style.left   = lerp(from.left,   to.left,   p) + 'px';
+        overlay.style.top    = lerp(from.top,    to.top,    p) + 'px';
+        overlay.style.width  = lerp(from.width,  to.width,  p) + 'px';
+        overlay.style.height = lerp(from.height, to.height, p) + 'px';
+
+        /* Overlay: fade in quickly, hold, fade out into destination */
+        var overlayAlpha = p < 0.1 ? p / 0.1 : (p > 0.85 ? (1 - p) / 0.15 : 1);
+        overlay.style.opacity = String(clamp01(overlayAlpha));
+
+        /* Destination image fades in as overlay fades out */
+        gsap.set(dstEl, { autoAlpha: clamp01((p - 0.80) / 0.20) });
+
+        /* Hide the original mosaic image once clone takes over */
+        srcEl.style.opacity = String(clamp01(1 - p * 7));
+      },
+      onLeaveBack: function () {
+        overlay.style.opacity = '0';
+        srcEl.style.opacity   = '1';
+        gsap.set(dstEl, { autoAlpha: 0 });
+      },
+      onLeave: function () {
+        overlay.style.opacity = '0';
+        gsap.set(dstEl, { autoAlpha: 1 }); /* ensure visible after transition */
+      },
+    });
+  }());
+
+  /* Scroll showcase — image-left / text-right slide deck */
+  (function () {
+    var sc = document.querySelector('.brl-sc');
+    var scInner = document.querySelector('.brl-sc-inner');
+    var slides = gsap.utils.toArray('.brl-sc-slide');
+
+    if (!sc || !scInner || slides.length < 2 || reduceMotion) return;
+
+    var n = slides.length;
+    var holdTime = 1;
+    var transTime = 1;
+    var dummy = { v: 0 };
+
+    /* Hide all slides except the first */
+    gsap.set(slides.slice(1), { autoAlpha: 0, y: 80 });
+
+    var tl = gsap.timeline();
+
+    slides.forEach(function (slide, i) {
+      if (i === n - 1) return;
+
+      var transStart = i * (holdTime + transTime) + holdTime;
+
+      tl.to(slide, {
+        autoAlpha: 0,
+        y: -80,
+        ease: 'none',
+        duration: transTime,
+      }, transStart);
+
+      tl.to(slides[i + 1], {
+        autoAlpha: 1,
+        y: 0,
+        ease: 'none',
+        duration: transTime,
+      }, transStart);
+    });
+
+    /* Hold the last slide so the pin doesn't release instantly */
+    tl.to(dummy, { v: 1, duration: holdTime }, (n - 1) * (holdTime + transTime));
+
+    ScrollTrigger.create({
+      trigger: sc,
+      start: 'top top',
+      end: 'bottom bottom',
+      pin: scInner,
+      scrub: 1.5,
+      animation: tl,
+      invalidateOnRefresh: true,
+    });
+  }());
+
   /* Hero parallax */
   if (!reduceMotion) {
     gsap.to('.bh-bg', {

@@ -5846,6 +5846,360 @@ html.gsap-enhanced .hero-scroll {
   }
 }
 
+/* ── Brillen page banner (sticky scroll effect) ──────────────── */
+.brl-hero-flow {
+  --brl-hero-height: 100svh;
+  position: relative;
+  isolation: isolate;
+  background: #0d0b08;
+  height: var(--brl-hero-height);
+  overflow: hidden;
+}
+
+.brl-hero-bg {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.brl-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.brl-banner {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  margin: 0;
+}
+
+.brl-banner-strip {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.brl-banner-inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr clamp(300px, 34vw, 440px);
+  gap: clamp(1.6rem, 3vw, 3.2rem);
+  padding: clamp(1.2rem, 2vw, 1.8rem) 5% clamp(16rem, 30vh, 24rem) 5%;
+}
+
+.brl-banner-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.brl-banner-h1 {
+  font-family: var(--heading);
+  font-size: clamp(3rem, 5.8vw, 5.4rem);
+  font-weight: 500;
+  line-height: .92;
+  letter-spacing: -.04em;
+  color: #fff;
+  margin: 0;
+}
+
+.brl-banner-h1 em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, .40);
+  display: block;
+}
+
+.brl-banner-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.brl-banner-sub {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, .68);
+  margin: 0;
+}
+
+.brl-banner-actions {
+  display: flex;
+  gap: .875rem;
+  flex-wrap: wrap;
+}
+
+.brl-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: .65rem 1.5rem;
+  border-radius: 100px;
+  font-family: var(--sans);
+  font-size: .78rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .30);
+  text-decoration: none;
+  transition: background .2s, border-color .2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.brl-btn:hover {
+  background: rgba(255, 255, 255, .20);
+  border-color: rgba(255, 255, 255, .52);
+}
+
+@media(max-width:960px) {
+  .brl-hero-flow {
+    --brl-hero-height: min(85svh, 800px);
+  }
+
+  .brl-banner-inner {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    padding-bottom: clamp(8rem, 18vh, 12rem);
+  }
+}
+
+@media(max-width:640px) {
+  .brl-hero-flow {
+    --brl-hero-height: min(90svh, 700px);
+  }
+
+  .brl-banner-h1 {
+    font-size: clamp(2.6rem, 10vw, 3.8rem);
+  }
+}
+
+/* ── Brillen Scroll Showcase ─────────────────────────────────── */
+.brl-sc {
+  position: relative;
+  height: 400svh;
+  background: #faf9f6;
+}
+
+.brl-sc-inner {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.brl-sc-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(24px, 6vw, 100px);
+  gap: clamp(32px, 5vw, 72px);
+}
+
+.brl-sc-fig {
+  flex: 0 0 clamp(260px, 38%, 560px);
+  aspect-ratio: 3 / 4;
+  border-radius: clamp(16px, 1.6vw, 26px);
+  overflow: hidden;
+  margin: 0;
+  background: #d8d5cf;
+}
+
+.brl-sc-fig img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.brl-sc-copy {
+  flex: 0 1 440px;
+  max-width: 440px;
+}
+
+.brl-sc-eyebrow {
+  font-family: var(--sans);
+  font-size: clamp(.68rem, .82vw, .78rem);
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #a09890;
+  margin: 0 0 1.4rem;
+}
+
+.brl-sc-heading {
+  font-family: var(--heading);
+  font-size: clamp(2.6rem, 5.4vw, 5.2rem);
+  font-weight: 500;
+  line-height: .92;
+  letter-spacing: -.04em;
+  color: #1a1714;
+  margin: 0 0 1.8rem;
+}
+
+.brl-sc-body {
+  font-family: var(--sans);
+  font-size: clamp(.92rem, 1.05vw, 1rem);
+  line-height: 1.75;
+  color: #6b6560;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .brl-sc {
+    height: 500svh;
+  }
+
+  .brl-sc-slide {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(20px, 5vw, 40px);
+    gap: clamp(20px, 4vw, 32px);
+  }
+
+  .brl-sc-fig {
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .brl-sc-heading {
+    font-size: clamp(2.2rem, 8vw, 3.2rem);
+  }
+}
+
+/* ── Brillen Mosaic Gallery ──────────────────────────────────── */
+.brl-mosaic {
+  position: relative;
+  overflow: hidden;
+  background: #f7f5f1;
+}
+
+.brl-mosaic-wrap {
+  position: relative;
+  height: clamp(700px, 100vw, 980px);
+}
+
+.brl-mi {
+  position: absolute;
+  margin: 0;
+  width: clamp(140px, 17vw, 256px);
+  height: clamp(140px, 17vw, 256px);
+  border-radius: clamp(16px, 1.6vw, 26px);
+  overflow: hidden;
+  background: #ddd9d3;
+}
+
+.brl-mi img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Top row */
+.brl-mi--1  { left: -4vw;  top: 4%; }
+.brl-mi--2  { left: 19vw;  top: 1%; }
+.brl-mi--3  { right: 15vw; top: 1%; }
+.brl-mi--4  { right: -4vw; top: 5%; }
+
+/* Middle flanks */
+.brl-mi--5  { left: -4vw;  top: 50%; transform: translateY(-50%); }
+.brl-mi--6  { right: -4vw; top: 50%; transform: translateY(-50%); }
+
+/* Bottom row */
+.brl-mi--7  { left: -4vw;  bottom: 4%; }
+.brl-mi--8  { left: 19vw;  bottom: 2%; }
+.brl-mi--9  { right: 15vw; bottom: 2%; }
+.brl-mi--10 { right: -4vw; bottom: 5%; }
+
+/* Centre feature + text */
+.brl-mosaic-focus {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.1rem;
+  width: clamp(200px, 24vw, 340px);
+}
+
+.brl-mosaic-feat {
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: clamp(16px, 1.6vw, 24px);
+  overflow: hidden;
+  background: #1a1714;
+}
+
+.brl-mosaic-feat img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.brl-mosaic-tagline {
+  margin: 0;
+  font-family: var(--heading);
+  font-size: clamp(.95rem, 1.3vw, 1.25rem);
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: #1a1714;
+}
+
+.brl-mosaic-desc {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: clamp(.78rem, .9vw, .9rem);
+  line-height: 1.72;
+  color: #7a7068;
+  max-width: 28ch;
+}
+
+@media (max-width: 900px) {
+  .brl-mosaic-wrap {
+    height: clamp(560px, 130vw, 760px);
+  }
+
+  .brl-mi {
+    width: clamp(100px, 22vw, 180px);
+    height: clamp(100px, 22vw, 180px);
+  }
+
+  .brl-mi--2  { left: 22vw; }
+  .brl-mi--3  { right: 18vw; }
+  .brl-mi--8  { left: 22vw; }
+  .brl-mi--9  { right: 18vw; }
+}
+
+@media (max-width: 600px) {
+  .brl-mi--2,
+  .brl-mi--3,
+  .brl-mi--8,
+  .brl-mi--9 { display: none; }
+
+  .brl-mosaic-wrap {
+    height: clamp(480px, 140vw, 640px);
+  }
+}
+
 @keyframes loaderFailsafe {
   to {
     opacity: 0;
